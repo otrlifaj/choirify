@@ -1,6 +1,6 @@
 using System;
 
-namespace Trlifaj.Choirify.Models
+namespace Trlifaj.Choirify.ViewModels
 {
     public class ErrorViewModel
     {

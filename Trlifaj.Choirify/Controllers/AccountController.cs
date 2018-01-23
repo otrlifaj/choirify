@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Trlifaj.Choirify.Models;
-using Trlifaj.Choirify.Models.AccountViewModels;
+using Trlifaj.Choirify.ViewModels;
+using Trlifaj.Choirify.ViewModels.AccountViewModels;
 using Trlifaj.Choirify.Services;
 
 namespace Trlifaj.Choirify.Controllers

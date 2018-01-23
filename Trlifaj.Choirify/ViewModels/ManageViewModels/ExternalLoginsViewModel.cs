@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 
-namespace Trlifaj.Choirify.Models.ManageViewModels
+namespace Trlifaj.Choirify.ViewModels.ManageViewModels
 {
     public class ExternalLoginsViewModel
     {

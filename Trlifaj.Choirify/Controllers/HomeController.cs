@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Trlifaj.Choirify.Models;
+using Trlifaj.Choirify.ViewModels;
 
 namespace Trlifaj.Choirify.Controllers
 {
