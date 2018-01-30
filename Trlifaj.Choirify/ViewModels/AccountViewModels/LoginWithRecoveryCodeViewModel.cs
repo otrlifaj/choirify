@@ -10,7 +10,7 @@ namespace Trlifaj.Choirify.ViewModels.AccountViewModels
     {
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "Recovery Code")]
+            [Display(Name = "Kód pro obnovení")]
             public string RecoveryCode { get; set; }
     }
 }

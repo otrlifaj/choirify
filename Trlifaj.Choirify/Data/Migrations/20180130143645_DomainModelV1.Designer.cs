@@ -12,9 +12,10 @@ using Trlifaj.Choirify.Models.Enums;
 namespace Trlifaj.Choirify.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180130143645_DomainModelV1")]
+    partial class DomainModelV1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

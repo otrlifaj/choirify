@@ -10,6 +10,7 @@ namespace Trlifaj.Choirify.ViewModels.AccountViewModels
     {
         [Required]
         [EmailAddress]
+        [Display(Name = "Email")]
         public string Email { get; set; }
     }
 }

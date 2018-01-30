@@ -14,10 +14,11 @@ namespace Trlifaj.Choirify.ViewModels.ManageViewModels
 
         [Required]
         [EmailAddress]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Phone]
-        [Display(Name = "Phone number")]
+        [Display(Name = "Telefon")]
         public string PhoneNumber { get; set; }
 
         public string StatusMessage { get; set; }
