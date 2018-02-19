@@ -38,11 +38,8 @@ namespace Trlifaj.Choirify.Models
         [Column(TypeName = "varchar(1000)")]
         public string Description { get; set; }
 
-        [MaxLength(1000, ErrorMessage = "Odkazy mohou mít maximálně 1000 znaků.")]
-        [DataType(DataType.MultilineText)]
         [Display(Name = "Odkazy")]
-        [Column(TypeName = "varchar(1000)")]
-        public string Links { get; set; }
+        public IEnumerable<Link> Links { get; set; }
 
         [DataType(DataType.ImageUrl)]
         [Display(Name = "Url fotky")]
@@ -59,7 +56,20 @@ namespace Trlifaj.Choirify.Models
         [Display(Name = "Konec přihlašování")]
         public DateTime EndOfRegistration { get; set; }
 
+        [Display(Name = "Pořadatel")]
+        [Column(TypeName = "varchar(255)")]
+        public string Organizer { get; set; }
+
+        [Display(Name = "Účast")]
+        public List<ApplicationUser> SingersWhoAttended { get; set; }
+
         [Display(Name = "Program")]
         public List<Song> Programme { get; set; }
+
+        public Event()
+        {
+            Programme = new List<Song>();
+            Links = new List<Link>();
+        }
     }
 }

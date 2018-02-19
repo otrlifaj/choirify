@@ -26,11 +26,8 @@ namespace Trlifaj.Choirify.Models
         [Column(TypeName = "varchar(200)")]
         public string Description { get; set; }
 
-        [MaxLength(1000, ErrorMessage = "Odkazy mohou mít maximálně 1000 znaků.")]
-        [DataType(DataType.MultilineText)]
         [Display(Name = "Odkazy")]
-        [Column(TypeName = "varchar(1000)")]
-        public string Links { get; set; }
+        public List<Link> Links { get; set; }
 
         [Display(Name = "Délka trvání")]
         [DataType(DataType.Time)]
@@ -39,5 +36,9 @@ namespace Trlifaj.Choirify.Models
         [Display(Name = "Dostupných kopií")]
         public int SheetsAvailable { get; set; }
 
+        public Song()
+        {
+            Links = new List<Link>();
+        }
     }
 }

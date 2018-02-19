@@ -27,5 +27,9 @@ namespace Trlifaj.Choirify.Models
 
         public Event Event { get; set; }
 
+        public EventRegistration()
+        {
+
+        }
     }
 }

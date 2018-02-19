@@ -20,5 +20,10 @@ namespace Trlifaj.Choirify.Models
         public Song Song { get; set; }
 
         public ApplicationUser Singer { get; set; }
+
+        public SheetsInfo()
+        {
+
+        }
     }
 }
