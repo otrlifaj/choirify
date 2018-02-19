@@ -10,7 +10,7 @@ using Trlifaj.Choirify.Data;
 
 namespace Trlifaj.Choirify.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(ChoirDbContext))]
     [Migration("20180123103929_InitialSchema")]
     partial class InitialSchema
     {

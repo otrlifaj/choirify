@@ -12,8 +12,8 @@ using Trlifaj.Choirify.Models.Enums;
 namespace Trlifaj.Choirify.Data.Migrations
 {
     [DbContext(typeof(ChoirDbContext))]
-    [Migration("20180130143645_DomainModelV1")]
-    partial class DomainModelV1
+    [Migration("20180214094908_DomainModelV2")]
+    partial class DomainModelV2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -157,6 +157,8 @@ namespace Trlifaj.Choirify.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<int?>("EventId");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("varchar(30)")
@@ -213,6 +215,8 @@ namespace Trlifaj.Choirify.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EventId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -250,6 +254,9 @@ namespace Trlifaj.Choirify.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
+
+                    b.Property<string>("Organizer")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Place")
                         .IsRequired()
@@ -442,6 +449,10 @@ namespace Trlifaj.Choirify.Data.Migrations
 
             modelBuilder.Entity("Trlifaj.Choirify.Models.ApplicationUser", b =>
                 {
+                    b.HasOne("Trlifaj.Choirify.Models.Event")
+                        .WithMany("SingersWhoAttended")
+                        .HasForeignKey("EventId");
+
                     b.HasOne("Trlifaj.Choirify.Models.Rehearsal")
                         .WithMany("SingersWhoAttended")
                         .HasForeignKey("RehearsalId");

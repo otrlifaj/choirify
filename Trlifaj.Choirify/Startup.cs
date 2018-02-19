@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Trlifaj.Choirify.Data;
 using Trlifaj.Choirify.Models;
 using Trlifaj.Choirify.Services;
+using Trlifaj.Choirify.Database.Interfaces;
+using Trlifaj.Choirify.Database.MySQL;
 
 namespace Trlifaj.Choirify
 {
@@ -26,14 +28,21 @@ namespace Trlifaj.Choirify
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<ChoirDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<ChoirDbContext>()
                 .AddDefaultTokenProviders();
 
             // Add application services.
+            services.AddScoped<IEventMapper, EventMapper>();
+            services.AddScoped<IEventRegistrationMapper, EventRegistrationMapper>();
+            services.AddScoped<INewsMapper, NewsMapper>();
+            services.AddScoped<IRehearsalMapper, RehearsalMapper>();
+            services.AddScoped<ISheetsInfoMapper, SheetsInfoMapper>();
+            services.AddScoped<ISongMapper, SongMapper>();
+
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();

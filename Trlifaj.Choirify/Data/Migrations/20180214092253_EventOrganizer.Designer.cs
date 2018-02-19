@@ -12,8 +12,8 @@ using Trlifaj.Choirify.Models.Enums;
 namespace Trlifaj.Choirify.Data.Migrations
 {
     [DbContext(typeof(ChoirDbContext))]
-    [Migration("20180130143645_DomainModelV1")]
-    partial class DomainModelV1
+    [Migration("20180214092253_EventOrganizer")]
+    partial class EventOrganizer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -250,6 +250,8 @@ namespace Trlifaj.Choirify.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
+
+                    b.Property<string>("Organizer");
 
                     b.Property<string>("Place")
                         .IsRequired()
