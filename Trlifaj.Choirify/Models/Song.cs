@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Trlifaj.Choirify.Models.Enums;
 
 namespace Trlifaj.Choirify.Models
 {
@@ -35,6 +36,9 @@ namespace Trlifaj.Choirify.Models
 
         [Display(Name = "Dostupných kopií")]
         public int SheetsAvailable { get; set; }
+
+        [Display(Name = "Typ not")]
+        public SheetType SheetType { get; set; } = SheetType.Unified;
 
         public Song()
         {
