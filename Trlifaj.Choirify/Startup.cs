@@ -28,10 +28,21 @@ namespace Trlifaj.Choirify
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+
             services.AddDbContext<ChoirDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = true;
+            })
                 .AddEntityFrameworkStores<ChoirDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -49,7 +60,7 @@ namespace Trlifaj.Choirify
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -72,6 +83,55 @@ namespace Trlifaj.Choirify
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            CreateRoles(serviceProvider).Wait();
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            string[] roleNames = { "User", "Singer", "Choirmaster", "Voice leader", "Dresscode leader", "Admin", "Chairman", "Vice chairman", "Music distributor", "Manager" };
+            IdentityResult roleResult;
+
+            // create all roles in DB
+            foreach (var roleName in roleNames)
+            {
+                var roleExists = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExists)
+                {
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
+            var adminInfo = Configuration.GetSection("Admin");
+            var admin = new ApplicationUser
+            {
+                UserName = adminInfo["Email"],
+                FirstName = adminInfo["FirstName"],
+                Surname = adminInfo["Surname"],
+                Email = adminInfo["Email"],
+                PhoneNumber = adminInfo["PhoneNumber"],
+                NumberOfIDCard = adminInfo["NumberOfIDCard"],
+                PassportNumber = null,
+                Address = adminInfo["Address"],
+                CanLogin = Boolean.Parse(adminInfo["CanLogin"]),
+                IsSinger = Boolean.Parse(adminInfo["IsSinger"]),
+                IsActive = Boolean.Parse(adminInfo["IsActive"]),
+                EmailConfirmed = true,
+                CreatedOn = DateTime.Now
+            };
+            string adminPassword = adminInfo["Password"];
+            var user = await UserManager.FindByEmailAsync(admin.Email);
+
+            if (user == null)
+            {
+                var createAdmin = await UserManager.CreateAsync(admin, adminPassword);
+                if (createAdmin.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(admin, "Admin");
+                }
+            }
         }
     }
 }

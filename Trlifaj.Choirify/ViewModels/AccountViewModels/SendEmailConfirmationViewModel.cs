@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Trlifaj.Choirify.ViewModels.AccountViewModels
 {
-    public class ExternalLoginViewModel
+    public class SendEmailConfirmationViewModel
     {
         [Required]
         [EmailAddress]

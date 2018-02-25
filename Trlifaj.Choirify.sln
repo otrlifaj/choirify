@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trlifaj.Choirify", "Trlifaj.Choirify\Trlifaj.Choirify.csproj", "{02047FE9-6EDB-44F7-A539-DD192EAD8B53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trlifaj.Choirify", "Trlifaj.Choirify\Trlifaj.Choirify.csproj", "{02047FE9-6EDB-44F7-A539-DD192EAD8B53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trlifaj.Choirify.Tests.XUnit", "Trlifaj.Choirify.Tests.XUnit\Trlifaj.Choirify.Tests.XUnit.csproj", "{8E841A13-DD0A-4DE9-BB27-04CAF9FD31A4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{02047FE9-6EDB-44F7-A539-DD192EAD8B53} = {02047FE9-6EDB-44F7-A539-DD192EAD8B53}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trlifaj.Choirify.Tests.Unit", "Trlifaj.Choirify.Tests.Unit\Trlifaj.Choirify.Tests.Unit.csproj", "{884A8675-6170-441C-83F0-A959D8EDA7C4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8E841A13-DD0A-4DE9-BB27-04CAF9FD31A4} = {8E841A13-DD0A-4DE9-BB27-04CAF9FD31A4}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +25,14 @@ Global
 		{02047FE9-6EDB-44F7-A539-DD192EAD8B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02047FE9-6EDB-44F7-A539-DD192EAD8B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02047FE9-6EDB-44F7-A539-DD192EAD8B53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E841A13-DD0A-4DE9-BB27-04CAF9FD31A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E841A13-DD0A-4DE9-BB27-04CAF9FD31A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E841A13-DD0A-4DE9-BB27-04CAF9FD31A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E841A13-DD0A-4DE9-BB27-04CAF9FD31A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{884A8675-6170-441C-83F0-A959D8EDA7C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{884A8675-6170-441C-83F0-A959D8EDA7C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{884A8675-6170-441C-83F0-A959D8EDA7C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{884A8675-6170-441C-83F0-A959D8EDA7C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

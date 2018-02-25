@@ -1,0 +1,78 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Registrace úspěšná";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <h4 class="text-success">Účet vytvořen</h4>
+        <hr />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" disabled />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="FirstName"></label>
+            <input asp-for="FirstName" class="form-control" disabled />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Surname"></label>
+            <input asp-for="Surname" class="form-control" disabled />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DateOfBirth"></label>
+            <input asp-for="DateOfBirth" class="form-control" disabled />
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" class="form-control" disabled />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NumberOfIDCard"></label>
+            <input asp-for="NumberOfIDCard" class="form-control" disabled />
+            <span asp-validation-for="NumberOfIDCard" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Street"></label>
+            <input asp-for="Street" class="form-control" disabled />
+            <span asp-validation-for="Street" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="City"></label>
+            <input asp-for="City" class="form-control" disabled />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ZipCode"></label>
+            <input asp-for="ZipCode" class="form-control" disabled />
+            <span asp-validation-for="ZipCode" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Country"></label>
+            <input asp-for="Country" disabled />
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="IsSinger"></label>
+            <input asp-for="IsSinger" class="form-control" disabled />
+            <span asp-validation-for="IsSinger" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="VoiceGroup"></label>
+            <input asp-for="VoiceGroup" class="form-control" disabled />
+            <span asp-validation-for="VoiceGroup" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

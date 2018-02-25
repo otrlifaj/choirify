@@ -1,15 +1,41 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Trlifaj.Choirify.Models.Enums;
 
 namespace Trlifaj.Choirify.ViewModels.AccountViewModels
 {
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress]
+        public readonly IEnumerable<SelectListItem> Countries = new List<SelectListItem> {
+            new SelectListItem
+            {
+                Text = "Česká republika",
+                Value = "Česká republika",
+                Selected =true
+            },
+            new SelectListItem
+            {
+                Text = "Slovensko",
+                Value = "Slovensko"
+            }
+        };
+
+        public readonly IEnumerable<SelectListItem> VoiceGroups =
+            Enum.GetValues(typeof(VoiceGroup))
+                .Cast<VoiceGroup>()
+                .Select(vg =>
+            new SelectListItem
+            {
+                Text = vg.ToString(),
+                Value = ((int)vg).ToString()
+            });
+
+        [Required(ErrorMessage = "Musíš zadat email."), MaxLength(50, ErrorMessage = "Email může mít maximálně 50 znaků.")]
+        [EmailAddress(ErrorMessage = "Emailová adresa je ve špatném formátu.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -23,5 +49,61 @@ namespace Trlifaj.Choirify.ViewModels.AccountViewModels
         [Display(Name = "Potvrdit heslo")]
         [Compare("Password", ErrorMessage = "Hesla se neshodují.")]
         public string ConfirmPassword { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Musíš zadat jméno."), MaxLength(30, ErrorMessage = "Jméno může mít maximálně 30 znaků.")]
+        [Display(Name = "Jméno")]
+        public string FirstName { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Musíš zadat příjmení."), MaxLength(40, ErrorMessage = "Příjmení může mít maximálně 40 znaků.")]
+        [Display(Name = "Příjmení")]
+        public string Surname { get; set; }
+
+        [Required(ErrorMessage = "Musíš zadat datum narození.")]
+        [DataType(DataType.Date)]
+        [Display(Name = "Datum narození")]
+        public DateTime? DateOfBirth { get; set; }
+
+        [Required(ErrorMessage = "Musíš zadat telefonní číslo."), MaxLength(20, ErrorMessage = "Telefonní číslo může mít maximálně 20 znaků.")]
+        [DataType(DataType.PhoneNumber, ErrorMessage = "Telefonní číslo je ve špatném formátu.")]
+        [Display(Name = "Telefon")]
+        public string PhoneNumber { get; set; }
+
+
+        [Required(ErrorMessage = "Musíš zadat číslo OP."), MaxLength(15, ErrorMessage = "Číslo OP může mít maximálně 20 znaků.")]
+        [Display(Name = "Číslo OP")]
+        public string NumberOfIDCard { get; set; }
+
+        public string Address
+        {
+            get
+            {
+                var value = string.Format("{0}, {1}, {2}, {3}", Street, City, ZipCode, Country);
+                return value;
+            }
+        }
+
+        [Required(ErrorMessage = "Musíš zadat ulici.")]
+        [Display(Name = "Ulice")]
+        public string Street { get; set; }
+
+        [Required(ErrorMessage = "Musíš zadat město.")]
+        [Display(Name = "Město")]
+        public string City { get; set; }
+
+        [Required(ErrorMessage = "Musíš zadat PSČ.")]
+        [Display(Name = "PSČ")]
+        public string ZipCode { get; set; }
+
+        [Required(ErrorMessage = "Musíš zadat zemi.")]
+        [Display(Name = "Země")]
+        public string Country { get; set; }
+
+        [Required]
+        [Display(Name = "Zpěvák")]
+        public Boolean IsSinger { get; set; }
+
+        [Display(Name = "Hlasová skupina")]
+        public VoiceGroup? VoiceGroup { get; set; }
+
     }
 }
