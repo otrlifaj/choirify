@@ -8,7 +8,7 @@ using Trlifaj.Choirify.Models;
 
 namespace Trlifaj.Choirify.Database.MySQL
 {
-    public class SongMapper : GenericMapper<Song>, ISongMapper
+    public class SongMapper : GenericMapper<Song, int>, ISongMapper
     {
         public SongMapper(ChoirDbContext context) : base(context)
         {

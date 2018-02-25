@@ -8,7 +8,7 @@ using Trlifaj.Choirify.Models;
 
 namespace Trlifaj.Choirify.Database.MySQL
 {
-    public class EventMapper : GenericMapper<Event>, IEventMapper
+    public class EventMapper : GenericMapper<Event, int>, IEventMapper
     {
         public EventMapper(ChoirDbContext context) : base(context)
         {

@@ -9,7 +9,7 @@ using Trlifaj.Choirify.Models.ManyToMany;
 
 namespace Trlifaj.Choirify.Database.MySQL
 {
-    public class EventRegistrationMapper : GenericMapper<EventRegistration>, IEventRegistrationMapper
+    public class EventRegistrationMapper : GenericMapper<EventRegistration, int>, IEventRegistrationMapper
     {
         public EventRegistrationMapper(ChoirDbContext context) : base(context)
         {

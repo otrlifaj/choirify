@@ -8,31 +8,8 @@ using Trlifaj.Choirify.Models.Enums;
 
 namespace Trlifaj.Choirify.ViewModels.AccountViewModels
 {
-    public class RegisterViewModel
+    public class RegisterViewModel : CountriesAndVoiceGroupsViewModel
     {
-        public readonly IEnumerable<SelectListItem> Countries = new List<SelectListItem> {
-            new SelectListItem
-            {
-                Text = "Česká republika",
-                Value = "Česká republika",
-                Selected =true
-            },
-            new SelectListItem
-            {
-                Text = "Slovensko",
-                Value = "Slovensko"
-            }
-        };
-
-        public readonly IEnumerable<SelectListItem> VoiceGroups =
-            Enum.GetValues(typeof(VoiceGroup))
-                .Cast<VoiceGroup>()
-                .Select(vg =>
-            new SelectListItem
-            {
-                Text = vg.ToString(),
-                Value = ((int)vg).ToString()
-            });
 
         [Required(ErrorMessage = "Musíš zadat email."), MaxLength(50, ErrorMessage = "Email může mít maximálně 50 znaků.")]
         [EmailAddress(ErrorMessage = "Emailová adresa je ve špatném formátu.")]

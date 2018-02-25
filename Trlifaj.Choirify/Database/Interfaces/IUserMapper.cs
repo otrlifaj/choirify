@@ -6,7 +6,7 @@ using Trlifaj.Choirify.Models;
 
 namespace Trlifaj.Choirify.Database.Interfaces
 {
-    public interface IEventMapper : IDataMapper<Event, int>
+    public interface IUserMapper : IDataMapper<ApplicationUser, string>
     {
     }
 }

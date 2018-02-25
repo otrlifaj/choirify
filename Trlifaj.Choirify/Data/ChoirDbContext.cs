@@ -13,12 +13,13 @@ namespace Trlifaj.Choirify.Data
 {
     public class ChoirDbContext : IdentityDbContext<ApplicationUser>
     {
-        public static readonly LoggerFactory MyConsoleLoggerFactory = new LoggerFactory
-            (new[] {
-                new ConsoleLoggerProvider((category, level) =>
-                category == DbLoggerCategory.Database.Command.Name
-                && level == LogLevel.Information, true) });
+        //public static readonly LoggerFactory MyConsoleLoggerFactory = new LoggerFactory
+        //    (new[] {
+        //        new ConsoleLoggerProvider((category, level) =>
+        //        category == DbLoggerCategory.Database.Command.Name
+        //        && level == LogLevel.Information, true) });
 
+        
         public DbSet<Event> Events { get; set; }
         public DbSet<Link> Links { get; set; }
         public DbSet<News> News { get; set; }
@@ -39,8 +40,8 @@ namespace Trlifaj.Choirify.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder
-                .UseLoggerFactory(MyConsoleLoggerFactory);
+            //optionsBuilder
+            //    .UseLoggerFactory(MyConsoleLoggerFactory);
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -50,5 +51,6 @@ namespace Trlifaj.Choirify.Data
             // Add your customizations after calling base.OnModelCreating(builder);
 
         }
+        public DbSet<Trlifaj.Choirify.Models.ApplicationUser> ApplicationUser { get; set; }
     }
 }

@@ -8,11 +8,10 @@ using Trlifaj.Choirify.Models;
 
 namespace Trlifaj.Choirify.Database.MySQL
 {
-    public class RehearsalMapper : GenericMapper<Rehearsal>, IRehearsalMapper
+    public class RehearsalMapper : GenericMapper<Rehearsal, int>, IRehearsalMapper
     {
         public RehearsalMapper(ChoirDbContext context) : base(context)
         {
-
         }
     }
 }

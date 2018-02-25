@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Trlifaj.Choirify.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "Seznam uživatelů";
+}
+
+<h2>Uživatelé</h2>
+
+@*<p>
+    <a asp-action="Create">Vytvořit nového uživatele</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Surname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateOfBirth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumberOfIDCard)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PassportNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastLogin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsSinger)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CanLogin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VoiceGroup)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfIDCard)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassportNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastLogin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSinger)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CanLogin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VoiceGroup)
+            </td>
+            <td>
+                <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.Id">Upravit</a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detail</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Smazat</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

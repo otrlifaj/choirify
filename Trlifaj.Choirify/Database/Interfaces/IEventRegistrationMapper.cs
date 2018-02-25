@@ -7,7 +7,7 @@ using Trlifaj.Choirify.Models.ManyToMany;
 
 namespace Trlifaj.Choirify.Database.Interfaces
 {
-    public interface IEventRegistrationMapper : IDataMapper<EventRegistration>
+    public interface IEventRegistrationMapper : IDataMapper<EventRegistration, int>
     {
     }
 }

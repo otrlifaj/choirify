@@ -8,11 +8,11 @@ using Trlifaj.Choirify.Models;
 
 namespace Trlifaj.Choirify.Database.MySQL
 {
-    public class NewsMapper : GenericMapper<News, int>, INewsMapper
+    public class UserMapper : GenericMapper<ApplicationUser, string>, IUserMapper
     {
-        public NewsMapper(ChoirDbContext context) : base(context)
-    {
+        public UserMapper(ChoirDbContext context) : base(context)
+        {
 
+        }
     }
-}
 }

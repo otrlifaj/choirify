@@ -1,0 +1,180 @@
+﻿@model Trlifaj.Choirify.ViewModels.UserViewModels.UserDetailViewModel
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>Uživatel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Surname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.DateOfBirth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.DateOfBirth)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.PhoneNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.NumberOfIDCard)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.NumberOfIDCard)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.PassportNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.PassportNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.ImageUrl)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.ImageUrl)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.CreatedOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.CreatedOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.LastLogin)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.LastLogin)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.IsActive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.IsActive)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.IsSinger)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.IsSinger)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.CanLogin)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.CanLogin)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.VoiceGroup)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.VoiceGroup)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.NormalizedUserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.NormalizedUserName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.NormalizedEmail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.NormalizedEmail)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.EmailConfirmed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.EmailConfirmed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.PasswordHash)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.PasswordHash)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.SecurityStamp)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.SecurityStamp)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.ConcurrencyStamp)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.ConcurrencyStamp)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.PhoneNumberConfirmed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.PhoneNumberConfirmed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.TwoFactorEnabled)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.TwoFactorEnabled)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.LockoutEnd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.LockoutEnd)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.LockoutEnabled)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.LockoutEnabled)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.AccessFailedCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.AccessFailedCount)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-info"asp-action="Edit" asp-route-id="@Model.User.Id">Upravit</a> |
+    <a class="btn btn-default" asp-action="Index">Seznam uživatelů</a>
+</div>

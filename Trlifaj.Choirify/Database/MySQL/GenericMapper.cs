@@ -9,7 +9,7 @@ using Trlifaj.Choirify.Database.Interfaces;
 
 namespace Trlifaj.Choirify.Database.MySQL
 {
-    public abstract class GenericMapper<Entity> : IDataMapper<Entity>  where Entity : class
+    public abstract class GenericMapper<Entity, IdType> : IDataMapper<Entity, IdType>  where Entity : class
     {
         protected ChoirDbContext Context { get; set; }
 
@@ -18,7 +18,7 @@ namespace Trlifaj.Choirify.Database.MySQL
             Context = context;
         }
 
-        public virtual Entity Find(int id)
+        public virtual Entity Find(IdType id)
         {
             return Context.Set<Entity>().Find(id);
         }

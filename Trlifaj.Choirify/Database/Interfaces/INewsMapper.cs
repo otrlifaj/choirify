@@ -6,7 +6,7 @@ using Trlifaj.Choirify.Models;
 
 namespace Trlifaj.Choirify.Database.Interfaces
 {
-    public interface INewsMapper : IDataMapper<News>
+    public interface INewsMapper : IDataMapper<News, int>
     {
     }
 }

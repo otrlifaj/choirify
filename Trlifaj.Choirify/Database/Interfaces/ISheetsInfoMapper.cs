@@ -7,7 +7,7 @@ using Trlifaj.Choirify.Models.ManyToMany;
 
 namespace Trlifaj.Choirify.Database.Interfaces
 {
-    public interface ISheetsInfoMapper : IDataMapper<UserSong>
+    public interface ISheetsInfoMapper : IDataMapper<UserSong, int>
     {
     }
 }

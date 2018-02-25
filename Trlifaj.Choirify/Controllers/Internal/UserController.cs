@@ -2,23 +2,47 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Trlifaj.Choirify.Database.Interfaces;
+using Trlifaj.Choirify.Models;
+using Trlifaj.Choirify.Services;
+using Trlifaj.Choirify.ViewModels.UserViewModels;
 
 namespace Trlifaj.Choirify.Controllers.Internal
 {
+    [Authorize(Roles = Roles.Admin + "," +Roles.Chairman + "," + Roles.ViceChairman)]
     public class UserController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserMapper _userMapper;
+
+        public UserController(
+            UserManager<ApplicationUser> userManager,
+            IUserMapper userMapper,
+            IRoleManager roleManager)
+        {
+            _userManager = userManager;
+            _userMapper = userMapper;
+        }
+        
+        
+
         // GET: User
         public ActionResult Index()
         {
-            return View();
+            var users = _userMapper.FindAll() ;
+            return View(users);
         }
 
         // GET: User/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(string id)
         {
-            return View();
+            var user = await _userManager.FindByIdAsync(id);
+            var model = new UserDetailViewModel { User = user };
+            return View(model);
         }
 
         // GET: User/Create

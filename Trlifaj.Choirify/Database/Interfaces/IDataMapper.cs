@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Trlifaj.Choirify.Database.Interfaces
 {
-    public interface IDataMapper<Entity> where Entity : class
+    public interface IDataMapper<Entity, IdType> where Entity : class
     {
-        Entity Find(int id);
+        Entity Find(IdType id);
         IQueryable<Entity> FindAll();
         IQueryable<Entity> FindBy(Expression<Func<Entity, bool>> predicate);
         Entity Create(Entity entity);

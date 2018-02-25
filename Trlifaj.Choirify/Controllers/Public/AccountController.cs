@@ -25,17 +25,20 @@ namespace Trlifaj.Choirify.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly IRoleManager _roleManager;
         private readonly ILogger _logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
+            IRoleManager roleManager,
             ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _roleManager = roleManager;
             _logger = logger;
         }
 
@@ -159,7 +162,7 @@ namespace Trlifaj.Choirify.Controllers
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    var role = await _userManager.AddToRoleAsync(user, "User");
+                    var role = await _userManager.AddToRoleAsync(user, _roleManager.User);
 
                     return View("RegistrationSuccesful", model);
                 }
@@ -253,7 +256,7 @@ namespace Trlifaj.Choirify.Controllers
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
                 await _emailSender.SendEmailAsync(model.Email, "Resetovat heslo",
-                   $"Své heslo resetuješ kliknutím na: <a href='{callbackUrl}'>link</a>");
+                   $"Své heslo resetuješ kliknutím <a href='{callbackUrl}'>zde</a>");
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
             }
 

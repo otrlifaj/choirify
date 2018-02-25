@@ -47,20 +47,25 @@ namespace Trlifaj.Choirify
                 .AddDefaultTokenProviders();
 
             // Add application services.
+            services.AddScoped<IUserMapper, UserMapper>();
             services.AddScoped<IEventMapper, EventMapper>();
             services.AddScoped<IEventRegistrationMapper, EventRegistrationMapper>();
             services.AddScoped<INewsMapper, NewsMapper>();
             services.AddScoped<IRehearsalMapper, RehearsalMapper>();
             services.AddScoped<ISheetsInfoMapper, SheetsInfoMapper>();
             services.AddScoped<ISongMapper, SongMapper>();
-
+           
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddSingleton<IRoleManager, RoleManager>();
 
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            IServiceProvider serviceProvider,
+            IRoleManager roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -84,18 +89,18 @@ namespace Trlifaj.Choirify
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            CreateRoles(serviceProvider).Wait();
+            CreateRoles(serviceProvider, roleManager).Wait();
         }
 
-        private async Task CreateRoles(IServiceProvider serviceProvider)
+        private async Task CreateRoles(IServiceProvider serviceProvider, IRoleManager roleManager)
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            string[] roleNames = { "User", "Singer", "Choirmaster", "Voice leader", "Dresscode leader", "Admin", "Chairman", "Vice chairman", "Music distributor", "Manager" };
+            
             IdentityResult roleResult;
 
             // create all roles in DB
-            foreach (var roleName in roleNames)
+            foreach (var roleName in roleManager.Roles)
             {
                 var roleExists = await RoleManager.RoleExistsAsync(roleName);
                 if (!roleExists)
@@ -104,6 +109,7 @@ namespace Trlifaj.Choirify
                 }
             }
 
+            // create admin account
             var adminInfo = Configuration.GetSection("Admin");
             var admin = new ApplicationUser
             {
@@ -129,7 +135,8 @@ namespace Trlifaj.Choirify
                 var createAdmin = await UserManager.CreateAsync(admin, adminPassword);
                 if (createAdmin.Succeeded)
                 {
-                    await UserManager.AddToRoleAsync(admin, "Admin");
+                    // assign admin user to admin role
+                    await UserManager.AddToRoleAsync(admin, roleManager.Admin);
                 }
             }
         }

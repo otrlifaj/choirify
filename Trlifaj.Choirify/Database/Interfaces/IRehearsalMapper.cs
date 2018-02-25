@@ -6,7 +6,7 @@ using Trlifaj.Choirify.Models;
 
 namespace Trlifaj.Choirify.Database.Interfaces
 {
-    public interface IRehearsalMapper : IDataMapper<Rehearsal>
+    public interface IRehearsalMapper : IDataMapper<Rehearsal, int>
     {
     }
 }
