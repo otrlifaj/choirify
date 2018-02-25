@@ -60,15 +60,8 @@ namespace Trlifaj.Choirify.Models
         [Column(TypeName = "varchar(255)")]
         public string Organizer { get; set; }
 
-        [Display(Name = "Účast")]
-        public List<ApplicationUser> SingersWhoAttended { get; set; }
-
-        [Display(Name = "Program")]
-        public List<Song> Programme { get; set; }
-
         public Event()
         {
-            Programme = new List<Song>();
             Links = new List<Link>();
         }
     }

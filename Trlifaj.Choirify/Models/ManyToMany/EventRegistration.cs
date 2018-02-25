@@ -6,12 +6,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Trlifaj.Choirify.Models.Enums;
 
-namespace Trlifaj.Choirify.Models
+namespace Trlifaj.Choirify.Models.ManyToMany
 {
     public class EventRegistration
     {
         [Key]
         public int Id { get; set; }
+
         [Required(ErrorMessage = "Musíš se vyjádřit k účasti.")]
         public Boolean IsPositive { get; set; }
 

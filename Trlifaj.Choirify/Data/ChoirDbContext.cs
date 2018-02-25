@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Trlifaj.Choirify.Models;
 using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Logging;
+using Trlifaj.Choirify.Models.ManyToMany;
 
 namespace Trlifaj.Choirify.Data
 {
@@ -18,12 +19,18 @@ namespace Trlifaj.Choirify.Data
                 category == DbLoggerCategory.Database.Command.Name
                 && level == LogLevel.Information, true) });
 
-        public DbSet<Song> Songs { get; set; }
         public DbSet<Event> Events { get; set; }
-        public DbSet<EventRegistration> EventRegistrations { get; set; }
-        public DbSet<SheetsInfo> Sheets { get; set; }
-        public DbSet<Rehearsal> Rehearsals { get; set; }
+        public DbSet<Link> Links { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<Rehearsal> Rehearsals { get; set; }
+        public DbSet<Song> Songs { get; set; }
+
+        public DbSet<EventAttendance> EventAttendances { get; set; }
+        public DbSet<EventRegistration> EventRegistrations { get; set; }
+        public DbSet<EventSong> EventSongs { get; set; }
+        public DbSet<RehearsalAttendance> RehearsalAttendances { get; set; }
+        public DbSet<RehearsalSong> RehearsalSongs { get; set; }
+        public DbSet<UserSong> Sheets { get; set; }
 
         public ChoirDbContext(DbContextOptions<ChoirDbContext> options)
             : base(options)

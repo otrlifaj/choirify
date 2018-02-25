@@ -12,9 +12,10 @@ using Trlifaj.Choirify.Models.Enums;
 namespace Trlifaj.Choirify.Data.Migrations
 {
     [DbContext(typeof(ChoirDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180223213230_ManyToMany")]
+    partial class ManyToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,10 +184,6 @@ namespace Trlifaj.Choirify.Data.Migrations
                     b.Property<string>("NumberOfIDCard")
                         .IsRequired()
                         .HasColumnType("varchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("PassportNumber")
-                        .HasColumnType("varchar(30)")
                         .HasMaxLength(15);
 
                     b.Property<string>("PasswordHash");

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Trlifaj.Choirify.Data;
 using Trlifaj.Choirify.Database.Interfaces;
 using Trlifaj.Choirify.Models;
+using Trlifaj.Choirify.Models.ManyToMany;
 
 namespace Trlifaj.Choirify.Database.MySQL
 {

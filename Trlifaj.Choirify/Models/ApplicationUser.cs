@@ -41,12 +41,17 @@ namespace Trlifaj.Choirify.Models
         [Column(TypeName = "varchar(50)")]
         public override string Email { get; set; }
 
-        [Required(ErrorMessage = "Musíš zadat číslo OP."), MaxLength(15, ErrorMessage = "Číslo OP může mít maximálně 20 znaků.")]
+        [Required(ErrorMessage = "Musíš zadat číslo OP."), MaxLength(20, ErrorMessage = "Číslo OP může mít maximálně 20 znaků.")]
         [Display(Name = "Číslo OP")]
         [Column(TypeName = "varchar(20)")]
         public string NumberOfIDCard { get; set; }
 
-        [Required(ErrorMessage = "Musíš zadat adresu."), MaxLength(100, ErrorMessage = "Adresa může mít maximálně 150 znaků.")]
+        [MaxLength(15, ErrorMessage = "Číslo pasu může mít maximálně 30 znaků.")]
+        [Display(Name = "Číslo pasu")]
+        [Column(TypeName = "varchar(30)")]
+        public string PassportNumber { get; set; }
+
+        [Required(ErrorMessage = "Musíš zadat adresu."), MaxLength(150, ErrorMessage = "Adresa může mít maximálně 150 znaků.")]
         [DataType(DataType.MultilineText)]
         [Display(Name = "Adresa")]
         [Column(TypeName = "varchar(150)")]

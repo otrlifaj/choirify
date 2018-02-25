@@ -23,11 +23,9 @@ namespace Trlifaj.Choirify.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        public List<ApplicationUser> SingersWhoAttended { get; set; }
-
         public Rehearsal()
         {
-            SingersWhoAttended = new List<ApplicationUser>();
+
         }
     }
 }
