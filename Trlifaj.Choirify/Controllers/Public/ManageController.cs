@@ -14,6 +14,7 @@ using Trlifaj.Choirify.Models;
 using Trlifaj.Choirify.ViewModels;
 using Trlifaj.Choirify.ViewModels.ManageViewModels;
 using Trlifaj.Choirify.Services;
+using Trlifaj.Choirify.Database.Interfaces;
 
 namespace Trlifaj.Choirify.Controllers
 {
@@ -26,6 +27,7 @@ namespace Trlifaj.Choirify.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
+        private readonly IUserMapper _userMapper;
 
         private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
         private const string RecoveryCodesKey = nameof(RecoveryCodesKey);
@@ -35,13 +37,15 @@ namespace Trlifaj.Choirify.Controllers
           SignInManager<ApplicationUser> signInManager,
           IEmailSender emailSender,
           ILogger<ManageController> logger,
-          UrlEncoder urlEncoder)
+          UrlEncoder urlEncoder,
+          IUserMapper userMapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
             _urlEncoder = urlEncoder;
+            _userMapper = userMapper;
         }
 
         [TempData]
@@ -50,7 +54,9 @@ namespace Trlifaj.Choirify.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var user = await _userManager.GetUserAsync(User);
+
+            var userId = _userManager.GetUserId(User);
+            var user = (userId != null) ? _userMapper.Find(userId) : null;
             if (user == null)
             {
                 throw new ApplicationException($"Nelze načíst uživatele s ID '{_userManager.GetUserId(User)}'.");
@@ -62,12 +68,12 @@ namespace Trlifaj.Choirify.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                FirstName = user.FirstName,
-                Surname = user.Surname,
-                DateOfBirth = user.DateOfBirth,
-                NumberOfIDCard = user.NumberOfIDCard,
-                Address = user.Address,
-                PassportNumber = user.PassportNumber,
+                FirstName = user.Singer.FirstName,
+                Surname = user.Singer.Surname,
+                DateOfBirth = user.Singer.DateOfBirth,
+                NumberOfIDCard = user.Singer.NumberOfIDCard,
+                Address = user.Singer.Address,
+                PassportNumber = user.Singer.PassportNumber,
                 StatusMessage = StatusMessage
             };
 
@@ -83,7 +89,8 @@ namespace Trlifaj.Choirify.Controllers
                 return View(model);
             }
 
-            var user = await _userManager.GetUserAsync(User);
+            var userId = _userManager.GetUserId(User);
+            var user = (userId != null) ? _userMapper.Find(userId) : null;
             if (user == null)
             {
                 throw new ApplicationException($"Nelze načíst uživatele s ID '{_userManager.GetUserId(User)}'.");
@@ -124,12 +131,14 @@ namespace Trlifaj.Choirify.Controllers
 
             user = await _userManager.GetUserAsync(User);
 
-            user.Address = model.Address;
-            user.DateOfBirth = model.DateOfBirth;
-            user.FirstName = model.FirstName;
-            user.Surname = model.Surname;
-            user.NumberOfIDCard = model.NumberOfIDCard;
-            user.PassportNumber = model.PassportNumber;
+            user.Singer.Address = model.Address;
+            user.Singer.DateOfBirth = model.DateOfBirth;
+            user.Singer.FirstName = model.FirstName;
+            user.Singer.Surname = model.Surname;
+            user.Singer.NumberOfIDCard = model.NumberOfIDCard;
+            user.Singer.PassportNumber = model.PassportNumber;
+            user.Singer.Email = model.Email;
+            user.Singer.PhoneNumber = model.PhoneNumber;
 
             var updateUserResult = await _userManager.UpdateAsync(user);
             if (!updateUserResult.Succeeded)

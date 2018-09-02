@@ -16,7 +16,7 @@ namespace Trlifaj.Choirify.Models.ManyToMany
         [Required]
         public Boolean Attended { get; set; }
 
-        public ApplicationUser Singer { get; set; }
+        public Singer Singer { get; set; }
 
         public Event Event { get; set; }
 

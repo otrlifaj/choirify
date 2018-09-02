@@ -15,6 +15,7 @@ using Trlifaj.Choirify.ViewModels;
 using Trlifaj.Choirify.ViewModels.AccountViewModels;
 using Trlifaj.Choirify.Services;
 using Trlifaj.Choirify.Models.Enums;
+using Trlifaj.Choirify.Database.Interfaces;
 
 namespace Trlifaj.Choirify.Controllers
 {
@@ -27,14 +28,17 @@ namespace Trlifaj.Choirify.Controllers
         private readonly IEmailSender _emailSender;
         private readonly IRoleManager _roleManager;
         private readonly ILogger _logger;
+        private readonly ISingerMapper _singerMapper;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             IRoleManager roleManager,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            ISingerMapper singerMapper)
         {
+            _singerMapper = singerMapper;
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
@@ -136,22 +140,24 @@ namespace Trlifaj.Choirify.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    FirstName = model.FirstName,
-                    Surname = model.Surname,
-                    DateOfBirth = model.DateOfBirth ?? DateTime.Today,
                     PhoneNumber = model.PhoneNumber,
-                    NumberOfIDCard = model.NumberOfIDCard,
-                    Address = model.Address,
-                    IsSinger = model.IsSinger,
                     CreatedOn = DateTime.Now,
-                    IsActive = true,
                     CanLogin = false,
                 };
 
-                if (user.IsSinger)
+                user.Singer = new Singer
                 {
-                    user.VoiceGroup = model.VoiceGroup;
-                }
+                    FirstName = model.FirstName,
+                    Surname = model.Surname,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
+                    DateOfBirth = model.DateOfBirth ?? DateTime.Today,
+                    IsActive = true,
+                    NumberOfIDCard = model.NumberOfIDCard,
+                    Address = model.Address,
+                    VoiceGroup = model.VoiceGroup
+                };
+
 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

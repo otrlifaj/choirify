@@ -15,7 +15,7 @@ namespace Trlifaj.Choirify.Models.ManyToMany
         [Display(Name = "Účast")]
         public Boolean Attended { get; set; }
 
-        public ApplicationUser Singer { get; set; }
+        public Singer Singer { get; set; }
 
         public Rehearsal Rehearsal { get; set; }
 

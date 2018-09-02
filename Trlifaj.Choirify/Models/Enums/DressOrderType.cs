@@ -7,11 +7,11 @@ namespace Trlifaj.Choirify.Models.Enums
 {
     public enum DressOrderType
     {
-        IHaveMyOwn,
+        Own,
         XS,
         S,
         M,
         L,
-        AlreadyBorrowed
+        Borrowed
     }
 }

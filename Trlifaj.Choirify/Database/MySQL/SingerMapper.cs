@@ -9,14 +9,14 @@ using Trlifaj.Choirify.Models;
 
 namespace Trlifaj.Choirify.Database.MySQL
 {
-    public class RehearsalMapper : GenericMapper<Rehearsal, int>, IRehearsalMapper
+    public class SingerMapper : GenericMapper<Singer, int>, ISingerMapper
     {
-        public RehearsalMapper(ChoirDbContext context) : base(context)
+        public SingerMapper(ChoirDbContext context) : base(context)
         {
 
         }
 
-        public override void Delete(Rehearsal entity)
+        public override void Delete(Singer entity)
         {
             entity.IsDeleted = true;
             Context.Entry(entity).State = EntityState.Modified;

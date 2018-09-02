@@ -14,7 +14,7 @@ namespace Trlifaj.Choirify.Models.ManyToMany
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Musíš se vyjádřit k účasti.")]
-        public Boolean IsPositive { get; set; }
+        public Boolean Answer { get; set; }
 
         [MaxLength(255, ErrorMessage = "Maximální délka poznámky je 255 znaků.")]
         [Display(Name = "Poznámka")]
@@ -24,7 +24,7 @@ namespace Trlifaj.Choirify.Models.ManyToMany
         [Display(Name = "Šaty")]
         public DressOrderType? DressOrder { get; set; }
 
-        public ApplicationUser Singer { get; set; }
+        public Singer Singer { get; set; }
 
         public Event Event { get; set; }
 

@@ -9,7 +9,7 @@ using Trlifaj.Choirify.Models.ManyToMany;
 
 namespace Trlifaj.Choirify.Database.MySQL
 {
-    public class SheetsInfoMapper : GenericMapper<UserSong, int>, ISheetsInfoMapper
+    public class SheetsInfoMapper : GenericMapper<SingerSong, int>, ISheetsInfoMapper
     {
         public SheetsInfoMapper(ChoirDbContext context) : base(context)
         {

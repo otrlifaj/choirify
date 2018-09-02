@@ -48,6 +48,7 @@ namespace Trlifaj.Choirify
 
             // Add application services.
             services.AddScoped<IUserMapper, UserMapper>();
+            services.AddScoped<ISingerMapper, SingerMapper>();
             services.AddScoped<IEventMapper, EventMapper>();
             services.AddScoped<IEventRegistrationMapper, EventRegistrationMapper>();
             services.AddScoped<INewsMapper, NewsMapper>();
@@ -97,7 +98,7 @@ namespace Trlifaj.Choirify
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             
-            IdentityResult roleResult;
+            // IdentityResult roleResult;
 
             // create all roles in DB
             foreach (var roleName in roleManager.Roles)
@@ -105,7 +106,8 @@ namespace Trlifaj.Choirify
                 var roleExists = await RoleManager.RoleExistsAsync(roleName);
                 if (!roleExists)
                 {
-                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                    //roleResult =
+                    await RoleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
 
@@ -114,18 +116,11 @@ namespace Trlifaj.Choirify
             var admin = new ApplicationUser
             {
                 UserName = adminInfo["Email"],
-                FirstName = adminInfo["FirstName"],
-                Surname = adminInfo["Surname"],
                 Email = adminInfo["Email"],
-                PhoneNumber = adminInfo["PhoneNumber"],
-                NumberOfIDCard = adminInfo["NumberOfIDCard"],
-                PassportNumber = null,
-                Address = adminInfo["Address"],
-                CanLogin = Boolean.Parse(adminInfo["CanLogin"]),
-                IsSinger = Boolean.Parse(adminInfo["IsSinger"]),
-                IsActive = Boolean.Parse(adminInfo["IsActive"]),
+                CanLogin = true,
                 EmailConfirmed = true,
-                CreatedOn = DateTime.Now
+                CreatedOn = DateTime.Now,
+                SingerId = int.Parse(adminInfo["SingerId"])
             };
             string adminPassword = adminInfo["Password"];
             var user = await UserManager.FindByEmailAsync(admin.Email);

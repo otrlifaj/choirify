@@ -7,7 +7,7 @@ using Trlifaj.Choirify.Models.Enums;
 
 namespace Trlifaj.Choirify.Models.ManyToMany
 {
-    public class UserSong
+    public class SingerSong
     {
         [Key]
         public int Id { get; set; }
@@ -19,9 +19,9 @@ namespace Trlifaj.Choirify.Models.ManyToMany
 
         public Song Song { get; set; }
 
-        public ApplicationUser Singer { get; set; }
+        public Singer Singer { get; set; }
 
-        public UserSong()
+        public SingerSong()
         {
 
         }

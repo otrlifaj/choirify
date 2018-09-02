@@ -8,7 +8,7 @@ using Trlifaj.Choirify.Models.Enums;
 
 namespace Trlifaj.Choirify.Models
 {
-    public class Song
+    public class Song : BaseEntity
     {
         [Key]
         public int Id { get; set; }
@@ -21,7 +21,10 @@ namespace Trlifaj.Choirify.Models
         [Display(Name = "Autor")]
         [Column(TypeName = "varchar(100)")]
         public string Author { get; set; }
-        
+
+        [Display(Name = "Aktuální")]
+        public Boolean Current { get; set; }
+
         [MaxLength(200, ErrorMessage = "Maximální délka popisu je 200 znaků.")]
         [Display(Name = "Popis")]
         [Column(TypeName = "varchar(200)")]

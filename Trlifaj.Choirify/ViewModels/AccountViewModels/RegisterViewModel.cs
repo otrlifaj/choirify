@@ -16,7 +16,7 @@ namespace Trlifaj.Choirify.ViewModels.AccountViewModels
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Musíš zadat heslo.")]
         [StringLength(100, ErrorMessage = "{0} musí mít minimálně {2} a maximálně {1} znaků.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Heslo")]

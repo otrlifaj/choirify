@@ -40,7 +40,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // GET: User/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = _userMapper.Find(id);
             var model = new UserDetailViewModel { User = user };
             return View(model);
         }

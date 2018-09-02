@@ -13,31 +13,31 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
+                    @Html.DisplayNameFor(model => model.Singer.FirstName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Surname)
+                    @Html.DisplayNameFor(model => model.Singer.Surname)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DateOfBirth)
+                    @Html.DisplayNameFor(model => model.Singer.DateOfBirth)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                    @Html.DisplayNameFor(model => model.Singer.PhoneNumber)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Email)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.NumberOfIDCard)
+                    @Html.DisplayNameFor(model => model.Singer.NumberOfIDCard)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PassportNumber)
+                    @Html.DisplayNameFor(model => model.Singer.PassportNumber)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Address)
+                    @Html.DisplayNameFor(model => model.Singer.Address)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ImageUrl)
+                    @Html.DisplayNameFor(model => model.Singer.ImageUrl)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.CreatedOn)
@@ -46,16 +46,13 @@
                     @Html.DisplayNameFor(model => model.LastLogin)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IsActive)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsSinger)
+                    @Html.DisplayNameFor(model => model.Singer.IsActive)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.CanLogin)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.VoiceGroup)
+                    @Html.DisplayNameFor(model => model.Singer.VoiceGroup)
                 </th>
             <th></th>
         </tr>
@@ -64,31 +61,31 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => item.Singer.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Surname)
+                @Html.DisplayFor(modelItem => item.Singer.Surname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
+                @Html.DisplayFor(modelItem => item.Singer.DateOfBirth)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                @Html.DisplayFor(modelItem => item.Singer.PhoneNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NumberOfIDCard)
+                @Html.DisplayFor(modelItem => item.Singer.NumberOfIDCard)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PassportNumber)
+                @Html.DisplayFor(modelItem => item.Singer.PassportNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                @Html.DisplayFor(modelItem => item.Singer.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
+                @Html.DisplayFor(modelItem => item.Singer.ImageUrl)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedOn)
@@ -97,16 +94,13 @@
                 @Html.DisplayFor(modelItem => item.LastLogin)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsSinger)
+                @Html.DisplayFor(modelItem => item.Singer.IsActive)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CanLogin)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VoiceGroup)
+                @Html.DisplayFor(modelItem => item.Singer.VoiceGroup)
             </td>
             <td>
                 <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.Id">Upravit</a>

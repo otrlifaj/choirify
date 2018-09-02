@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Trlifaj.Choirify.Models
 {
-    public class Event
+    public class Event : BaseEntity
     {
         [Key]
         public int Id { get; set; }
