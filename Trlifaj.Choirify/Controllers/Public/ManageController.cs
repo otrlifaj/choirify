@@ -130,15 +130,17 @@ namespace Trlifaj.Choirify.Controllers
             }
 
             user = await _userManager.GetUserAsync(User);
-
-            user.Singer.Address = model.Address;
-            user.Singer.DateOfBirth = model.DateOfBirth;
-            user.Singer.FirstName = model.FirstName;
-            user.Singer.Surname = model.Surname;
-            user.Singer.NumberOfIDCard = model.NumberOfIDCard;
-            user.Singer.PassportNumber = model.PassportNumber;
-            user.Singer.Email = model.Email;
-            user.Singer.PhoneNumber = model.PhoneNumber;
+            if (user.Singer != null)
+            {
+                user.Singer.Address = model.Address;
+                user.Singer.DateOfBirth = model.DateOfBirth;
+                user.Singer.FirstName = model.FirstName;
+                user.Singer.Surname = model.Surname;
+                user.Singer.NumberOfIDCard = model.NumberOfIDCard;
+                user.Singer.PassportNumber = model.PassportNumber;
+                user.Singer.Email = model.Email;
+                user.Singer.PhoneNumber = model.PhoneNumber;
+            }
 
             var updateUserResult = await _userManager.UpdateAsync(user);
             if (!updateUserResult.Succeeded)

@@ -8,8 +8,8 @@ namespace Trlifaj.Choirify.Services
     public interface IRoleManager
     {
         List<string> Roles { get; }
+        List<ChoirRole> ChoirRoles { get; }
         string Admin { get; }
-        string User { get; }
         string Singer { get; }
         string Choirmaster { get; }
         string VoiceLeader { get; }

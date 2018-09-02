@@ -56,6 +56,7 @@ namespace Trlifaj.Choirify.Data
             builder.Entity<Rehearsal>().HasQueryFilter(p => !p.IsDeleted);
             builder.Entity<Singer>().HasQueryFilter(p => !p.IsDeleted);
             builder.Entity<Song>().HasQueryFilter(p => !p.IsDeleted);
+            builder.Entity<ApplicationUser>().HasQueryFilter(p => !p.IsDeleted);
 
             // initial data seeding
             builder.Entity<Song>().HasData(new Song{Id = 1, Name = "21 Guns", Author = "Green day", Current = true, SheetsAvailable = 1, SheetType = SheetType.Unified});

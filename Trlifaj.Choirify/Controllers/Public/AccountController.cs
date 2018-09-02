@@ -168,7 +168,7 @@ namespace Trlifaj.Choirify.Controllers
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    var role = await _userManager.AddToRoleAsync(user, _roleManager.User);
+                    var role = await _userManager.AddToRoleAsync(user, _roleManager.Singer);
 
                     return View("RegistrationSuccesful", model);
                 }

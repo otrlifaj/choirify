@@ -33,5 +33,13 @@ namespace Trlifaj.Choirify.Database.MySQL
         {
             return Context.Users.Include(u => u.Singer).FirstOrDefault(u => u.Id == id);
         }
+
+        public override void Delete(ApplicationUser entity)
+        {
+            entity.IsDeleted = true;
+            entity.CanLogin = false;
+            Context.Entry(entity).State = EntityState.Modified;
+            Context.SaveChanges();
+        }
     }
 }

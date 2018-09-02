@@ -20,6 +20,9 @@ namespace Trlifaj.Choirify.Models
         [Column(TypeName = "varchar(50)")]
         public override string Email { get; set; }
 
+        [Display(Name = "Telefon")]
+        public override string PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
+
         [DataType(DataType.DateTime)]
         [Display(Name = "Účet vytvořen")]
         public DateTime CreatedOn { get; set; }
@@ -28,6 +31,7 @@ namespace Trlifaj.Choirify.Models
         [Display(Name = "Poslední přihlášení")]
         public DateTime LastLogin { get; set; }
 
+        public Boolean IsDeleted { get; set; }
 
         [Display(Name = "Příhlašení povoleno")]
         public Boolean CanLogin { get; set; }

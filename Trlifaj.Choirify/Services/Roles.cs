@@ -9,8 +9,6 @@ namespace Trlifaj.Choirify.Services
     {
         public const string Admin = "Admin";
 
-        public const string User = "User";
-
         public const string Singer = "Singer";
 
         public const string Choirmaster = "Choirmaster";

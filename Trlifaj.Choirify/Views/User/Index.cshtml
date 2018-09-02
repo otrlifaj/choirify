@@ -1,113 +1,69 @@
-﻿@model IEnumerable<Trlifaj.Choirify.Models.ApplicationUser>
+﻿@model IEnumerable<Trlifaj.Choirify.ViewModels.UserViewModels.UserListViewModel>
 
 @{
     ViewData["Title"] = "Seznam uživatelů";
 }
 
 <h2>Uživatelé</h2>
-
-@*<p>
-    <a asp-action="Create">Vytvořit nového uživatele</a>
-</p>*@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Singer.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Singer.Surname)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Singer.DateOfBirth)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Singer.PhoneNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Singer.NumberOfIDCard)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Singer.PassportNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Singer.Address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Singer.ImageUrl)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreatedOn)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastLogin)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Singer.IsActive)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CanLogin)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Singer.VoiceGroup)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VoiceGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastLogin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CanLogin)
+            </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Singer.FirstName)
+                @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Singer.Surname)
+                @Html.DisplayFor(modelItem => item.Surname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Singer.DateOfBirth)
+                @Html.DisplayFor(modelItem => item.VoiceGroup)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Singer.PhoneNumber)
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Singer.NumberOfIDCard)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Singer.PassportNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Singer.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Singer.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedOn)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.LastLogin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Singer.IsActive)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CanLogin)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Singer.VoiceGroup)
-            </td>
-            <td>
-                <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.Id">Upravit</a>
-                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detail</a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Smazat</a>
+                <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.UserId">Upravit</a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.UserId">Detail</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.UserId">Smazat</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

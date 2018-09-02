@@ -10,7 +10,6 @@ namespace Trlifaj.Choirify.Services
         public List<string> Roles => new List<string>
         {
             Admin,
-            User,
             Singer,
             Choirmaster,
             VoiceLeader,
@@ -21,9 +20,20 @@ namespace Trlifaj.Choirify.Services
             Manager
         };
 
-        public string Admin => "Admin";
+        public List<ChoirRole> ChoirRoles => new List<ChoirRole>
+        {
+            new ChoirRole{ DisplayName = "Administrátor", Value = Admin},
+            new ChoirRole{ DisplayName = "Zpěvák", Value = Singer},
+            new ChoirRole{ DisplayName = "Sbormistr", Value = Choirmaster},
+            new ChoirRole{ DisplayName = "Hlasový vedoucí", Value = VoiceLeader},
+            new ChoirRole{ DisplayName = "Dresscode lady", Value = DresscodeLeader},
+            new ChoirRole{ DisplayName = "Předseda", Value = Chairman},
+            new ChoirRole{ DisplayName = "Místopředseda", Value = ViceChairman},
+            new ChoirRole{ DisplayName = "Notář", Value = MusicDistributor},
+            new ChoirRole{ DisplayName = "Manažer", Value = Manager},
+        };
 
-        public string User => "User";
+        public string Admin => "Admin";
 
         public string Singer => "Singer";
 

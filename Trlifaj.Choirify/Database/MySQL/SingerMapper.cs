@@ -19,6 +19,7 @@ namespace Trlifaj.Choirify.Database.MySQL
         public override void Delete(Singer entity)
         {
             entity.IsDeleted = true;
+            entity.IsActive = false;
             Context.Entry(entity).State = EntityState.Modified;
             Context.SaveChanges();
         }

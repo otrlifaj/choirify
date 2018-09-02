@@ -72,17 +72,12 @@
                 <span asp-validation-for="Country" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IsSinger"></label>
-                <input asp-for="IsSinger" class="form-control" />
-                <span asp-validation-for="IsSinger" class="text-danger"></span>
-            </div>
-            <div class="form-group @(Model.IsSinger?"visible-item":"hidden-item")">
                 <label asp-for="VoiceGroup"></label>
                 @Html.DropDownListFor(model => model.VoiceGroup, Model.VoiceGroups, "S1", new { @class = "form-control" })
                 <span asp-validation-for="VoiceGroup" class="text-danger"></span>
             </div>
 
-            <button type="submit" class="btn btn-default">Register</button>
+            <button type="submit" class="btn btn-success">Registrovat</button>
         </form>
     </div>
 </div>
