@@ -1,17 +1,18 @@
-﻿@model Trlifaj.Choirify.ViewModels.UserViewModels.UserDetailEditViewModel
+﻿@model Trlifaj.Choirify.Models.Singer
 
 @{
-    ViewData["Title"] = "Úprava uživatele";
+    ViewData["Title"] = "Edit";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>Edit</h2>
+
+<h4>Singer</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="UserId" />
-            <input type="hidden" asp-for="SingerId" />
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
@@ -29,12 +30,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" readonly/>
+                <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control disabled" readonly />
+                <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -65,26 +66,25 @@
                 </div>
             </div>
             <div class="form-group">
+                <label asp-for="VoiceGroup" class="control-label"></label>
+                <input asp-for="VoiceGroup" class="form-control" />
+                <span asp-validation-for="VoiceGroup" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="CanLogin" /> @Html.DisplayNameFor(model => model.CanLogin)
+                        <input asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
                     </label>
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="VoiceGroup"></label>
-                @Html.DropDownListFor(model => model.VoiceGroup, Model.VoiceGroups, "S1", new { @class = "form-control" })
-                <span asp-validation-for="VoiceGroup" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SelectedRoles"></label>
-                @Html.ListBoxFor(model => model.SelectedRoles, Model.Roles)
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Uložit" class="btn btn-success" />
-                <a asp-action="Index" class="btn btn-default">Seznam uživatelů</a>
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
 </div>
 

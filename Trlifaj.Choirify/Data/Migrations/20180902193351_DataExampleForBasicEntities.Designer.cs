@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trlifaj.Choirify.Data;
 
 namespace Trlifaj.Choirify.Data.Migrations
 {
     [DbContext(typeof(ChoirDbContext))]
-    partial class ChoirDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180902193351_DataExampleForBasicEntities")]
+    partial class DataExampleForBasicEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

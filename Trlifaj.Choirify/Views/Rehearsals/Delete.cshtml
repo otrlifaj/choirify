@@ -1,0 +1,30 @@
+﻿@model Trlifaj.Choirify.Models.Rehearsal
+
+@{
+    ViewData["Title"] = "Smazat zkoušku";
+}
+
+<h3>Opravdu chceš smazat zkoušku?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Smazat" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-default">Seznam zkoušek</a>
+    </form>
+</div>

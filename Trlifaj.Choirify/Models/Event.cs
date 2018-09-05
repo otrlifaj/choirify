@@ -32,7 +32,7 @@ namespace Trlifaj.Choirify.Models
         [Column(TypeName = "varchar(150)")]
         public string Place { get; set; }
 
-        [Required(AllowEmptyStrings = true), MaxLength(150, ErrorMessage = "Popis události může mít maximálně 1000 znaků.")]
+        [Required(AllowEmptyStrings = true, ErrorMessage = "Musí být zadán nějaký popis události"), MaxLength(150, ErrorMessage = "Popis události může mít maximálně 1000 znaků.")]
         [Display(Name = "Popis")]
         [DataType(DataType.MultilineText)]
         [Column(TypeName = "varchar(1000)")]

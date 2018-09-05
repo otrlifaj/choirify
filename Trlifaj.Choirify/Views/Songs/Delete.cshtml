@@ -1,0 +1,36 @@
+﻿@model Trlifaj.Choirify.Models.Song
+
+@{
+    ViewData["Title"] = "Smazat skladbu";
+}
+
+<h3>Opravdu chceš smazat skladbu?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Current)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Current)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Smazat" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-default">Seznam skladeb</a>
+    </form>
+</div>

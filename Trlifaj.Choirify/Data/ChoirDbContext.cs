@@ -66,7 +66,7 @@ namespace Trlifaj.Choirify.Data
             builder.Entity<Singer>().HasData(new Singer { Id = 1, FirstName = "Ondřej", Surname = "Trlifaj", Address = "Adresa ondry trlifaje", DateOfBirth = new DateTime(1992, 1, 1),
                                                     Email = "ondra.trli@centrum.cz", IsActive = true, VoiceGroup = VoiceGroup.B2, NumberOfIDCard = "123456", PassportNumber = "654321",
                                                     PhoneNumber = "+420123456789" });
-
+            builder.Entity<Rehearsal>().HasData(new Rehearsal { Id = 1, Date = new DateTime(2018, 9, 7), Description = "První zkouška semestru", IsDeleted = false });
         }
     }
 }
