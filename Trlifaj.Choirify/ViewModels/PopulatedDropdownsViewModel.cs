@@ -8,7 +8,7 @@ using Trlifaj.Choirify.Services;
 
 namespace Trlifaj.Choirify.ViewModels
 {
-    public class CountriesAndVoiceGroupsViewModel
+    public class PopulatedDropdownsViewModel
     {
         private static IRoleManager roleManager { get; set; } = new RoleManager();
 
@@ -47,7 +47,7 @@ namespace Trlifaj.Choirify.ViewModels
 
         public readonly IEnumerable<SelectListItem> Roles;
 
-        public CountriesAndVoiceGroupsViewModel()
+        public PopulatedDropdownsViewModel()
         {
             Roles = roleManager.ChoirRoles.Select(r => ConvertRoleToSelectListItem(r));
         }

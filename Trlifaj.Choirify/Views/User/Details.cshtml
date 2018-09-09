@@ -79,8 +79,12 @@
     <input type="hidden" asp-for="UserId" />
     <input type="hidden" asp-for="SingerId" />
     <input type="hidden" asp-for="ChoirmasterId" />
-
+    
     <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model.UserId">Upravit</a>
     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.UserId">Smazat</a>
     <a class="btn btn-default" asp-action="Index">Seznam uživatelů</a>
+    @if(Model.SingerId != null)
+    {
+    <a class="btn btn-success" asp-controller="Singers" asp-action="Details" asp-route-id="@Model.SingerId">Zobrazit osobní informace</a>
+    }
 </div>

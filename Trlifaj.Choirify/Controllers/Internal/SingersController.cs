@@ -1,49 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Trlifaj.Choirify.Data;
+using System.Linq;
+using Trlifaj.Choirify.Database.Interfaces;
 using Trlifaj.Choirify.Models;
 using Trlifaj.Choirify.Services;
+using Trlifaj.Choirify.ViewModels.SingerViewModels;
 
 namespace Trlifaj.Choirify.Controllers.Internal
 {
     [Authorize(Roles = Roles.Admin + "," + Roles.Chairman + "," + Roles.ViceChairman)]
     public class SingersController : Controller
     {
-        private readonly ChoirDbContext _context;
+        private readonly ISingerMapper _singerMapper;
 
-        public SingersController(ChoirDbContext context)
+        public SingersController(ISingerMapper singerMapper)
         {
-            _context = context;
+            _singerMapper = singerMapper;
         }
 
         // GET: Singers
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Singers.ToListAsync());
+            return View(_singerMapper.FindAll().Select(s => new SingerListViewModel(s)));
         }
 
         // GET: Singers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var singer = await _context.Singers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var singer = _singerMapper.Find(id.Value);
             if (singer == null)
             {
                 return NotFound();
             }
-
-            return View(singer);
+            var model = new SingerDetailEditViewModel(singer);
+            return View(model);
         }
 
         // GET: Singers/Create
@@ -53,104 +48,90 @@ namespace Trlifaj.Choirify.Controllers.Internal
         }
 
         // POST: Singers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,Surname,DateOfBirth,PhoneNumber,Email,NumberOfIDCard,PassportNumber,Address,ImageUrl,IsActive,VoiceGroup,IsDeleted")] Singer singer)
+        public IActionResult Create([Bind] SingerDetailEditViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(singer);
-                await _context.SaveChangesAsync();
+                var singer = model.ToSinger();
+                _singerMapper.Create(singer);
                 return RedirectToAction(nameof(Index));
             }
-            return View(singer);
+            return View(model);
         }
 
         // GET: Singers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var singer = await _context.Singers.FindAsync(id);
+            var singer = _singerMapper.Find(id.Value);
+
             if (singer == null)
             {
                 return NotFound();
             }
-            return View(singer);
+            var model = new SingerDetailEditViewModel(singer);
+            return View(model);
         }
 
         // POST: Singers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,Surname,DateOfBirth,PhoneNumber,Email,NumberOfIDCard,PassportNumber,Address,ImageUrl,IsActive,VoiceGroup,IsDeleted")] Singer singer)
+        public IActionResult Edit(int id, [Bind] SingerDetailEditViewModel model)
         {
-            if (id != singer.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(singer);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SingerExists(singer.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var singer = model.ToSinger();
+                _singerMapper.Update(singer);
                 return RedirectToAction(nameof(Index));
             }
-            return View(singer);
+
+            return View(model);
         }
 
         // GET: Singers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var singer = await _context.Singers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var singer = _singerMapper.Find(id.Value);
+
             if (singer == null)
             {
                 return NotFound();
             }
-
-            return View(singer);
+            var model = new SingerDetailEditViewModel(singer);
+            return View(model);
         }
 
         // POST: Singers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var singer = await _context.Singers.FindAsync(id);
-            _context.Singers.Remove(singer);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool SingerExists(int id)
-        {
-            return _context.Singers.Any(e => e.Id == id);
+            try
+            {
+                var singer = _singerMapper.Find(id);
+                _singerMapper.Delete(singer);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

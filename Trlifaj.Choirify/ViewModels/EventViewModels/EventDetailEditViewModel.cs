@@ -17,32 +17,17 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
         [Display(Name = "Název")]
         public string Name { get; set; }
 
-        private DateTime _from;
 
         [Required]
         [Display(Name = "Od")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd/M/yyyy hh:mm}")]
-        public DateTime From
-        {
-            get
-            {
-                return _from;
-            }
-            set
-            {
-                _from = value;
-                if (EndOfRegistration == DateTime.MinValue)
-                {
-                    EndOfRegistration = new DateTime(_from.Year, _from.Month, _from.Day, 23, 59, 59).AddDays(-1);
-                }
-            }
-        }
+        [DisplayFormat(DataFormatString = "{0:d/M/yyyy hh:mm}")]
+        public DateTime From { get; set; }
 
         [Required]
         [Display(Name = "Do")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd/M/yyyy hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:d/M/yyyy hh:mm}")]
         public DateTime To { get; set; }
 
         [Required]
@@ -61,13 +46,13 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Začátek přihlašování")]
-        [DisplayFormat(DataFormatString = "{0:dd/M/yyyy hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:d/M/yyyy hh:mm}")]
         public DateTime StartOfRegistration { get; set; } = DateTime.Now;
 
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Konec přihlašování")]
-        [DisplayFormat(DataFormatString = "{0:dd/M/yyyy hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:d/M/yyyy hh:mm}")]
         public DateTime EndOfRegistration { get; set; }
 
         [Display(Name = "Pořadatel")]

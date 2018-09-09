@@ -1,13 +1,11 @@
-﻿@model Trlifaj.Choirify.Models.Singer
+﻿@model Trlifaj.Choirify.ViewModels.SingerViewModels.SingerDetailEditViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.FirstName + " " + Model.Surname;
 }
 
-<h2>Details</h2>
-
+<h2>Detail zpěváka</h2>
 <div>
-    <h4>Singer</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -59,12 +57,6 @@
             @Html.DisplayFor(model => model.Address)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.IsActive)
         </dt>
         <dd>
@@ -76,15 +68,10 @@
         <dd>
             @Html.DisplayFor(model => model.VoiceGroup)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model.Id">Upravit</a>
+    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Smazat</a>
+    <a class="btn btn-default" asp-action="Index">Seznam zpěváků</a>
 </div>

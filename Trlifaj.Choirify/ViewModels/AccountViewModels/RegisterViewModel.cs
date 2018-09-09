@@ -8,7 +8,7 @@ using Trlifaj.Choirify.Models.Enums;
 
 namespace Trlifaj.Choirify.ViewModels.AccountViewModels
 {
-    public class RegisterViewModel : CountriesAndVoiceGroupsViewModel
+    public class RegisterViewModel : PopulatedDropdownsViewModel
     {
 
         [Required(ErrorMessage = "Musíš zadat email."), MaxLength(50, ErrorMessage = "Email může mít maximálně 50 znaků.")]

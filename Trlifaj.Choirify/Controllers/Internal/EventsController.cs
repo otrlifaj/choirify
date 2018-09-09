@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Trlifaj.Choirify.Data;
+using System;
+using System.Linq;
 using Trlifaj.Choirify.Database.Interfaces;
 using Trlifaj.Choirify.Models;
 using Trlifaj.Choirify.Services;
@@ -27,7 +22,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // GET: Events
         public IActionResult Index()
         {
-            return View(_eventMapper.FindAll().Select(e => ConvertToEventListViewModel(e)).AsEnumerable());
+            return View(_eventMapper.FindAll().Select(e => new EventListViewModel(e)).AsEnumerable());
         }
 
         // GET: Events/Details/5
@@ -49,12 +44,13 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // GET: Events/Create
         public IActionResult Create()
         {
+            var now = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, 0);
             return View(new EventDetailEditViewModel
             {
-                From = DateTime.Now,
-                To = DateTime.Now,
-                StartOfRegistration = DateTime.Now,
-                EndOfRegistration = DateTime.Now
+                From = now,
+                To = now,
+                StartOfRegistration = now,
+                EndOfRegistration = now
             });
         }
 
@@ -104,7 +100,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
         }
 
         // GET: Events/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -132,56 +128,5 @@ namespace Trlifaj.Choirify.Controllers.Internal
                 return View();
             }
         }
-
-        private EventDetailEditViewModel ConvertToEventDetailEditViewModel(Event @event)
-        {
-
-            if (@event == null)
-            {
-                return new EventDetailEditViewModel();
-            }
-            EventDetailEditViewModel result = null;
-            {
-                result = new EventDetailEditViewModel
-                {
-                    Id = @event.Id,
-                    Name = @event.Name,
-                    Place = @event.Place,
-                    Description = @event.Description,
-                    From = @event.From,
-                    To = @event.To,
-                    StartOfRegistration = @event.StartOfRegistration,
-                    EndOfRegistration = @event.EndOfRegistration,
-                    EventType = @event.EventType,
-                    Organizer = @event.Organizer
-                };
-                return result;
-            }
-        }
-
-        private EventListViewModel ConvertToEventListViewModel(Event @event)
-        {
-
-            if (@event == null)
-            {
-                return new EventListViewModel();
-            }
-            EventListViewModel result = null;
-            {
-                result = new EventListViewModel
-                {
-                    Id = @event.Id,
-                    Name = @event.Name,
-                    Place = @event.Place,
-                    From = @event.From,
-                    To = @event.To,
-                    StartOfRegistration = @event.StartOfRegistration,
-                    EndOfRegistration = @event.EndOfRegistration,
-                    EventType = @event.EventType,
-                };
-                return result;
-            }
-        }
-
     }
 }

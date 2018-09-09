@@ -7,7 +7,7 @@ using Trlifaj.Choirify.Models.Enums;
 
 namespace Trlifaj.Choirify.ViewModels.UserViewModels
 {
-    public class UserDetailEditViewModel : CountriesAndVoiceGroupsViewModel
+    public class UserDetailEditViewModel : PopulatedDropdownsViewModel
     {
 
         public string UserId { get; set; }
@@ -27,12 +27,12 @@ namespace Trlifaj.Choirify.ViewModels.UserViewModels
 
         [DataType(DataType.DateTime)]
         [Display(Name = "Účet vytvořen")]
-        [DisplayFormat(DataFormatString = "{0:dd/M/yyyy hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:d/M/yyyy hh:mm}")]
         public DateTime CreatedOn { get; set; }
 
         [DataType(DataType.DateTime)]
         [Display(Name = "Poslední přihlášení")]
-        [DisplayFormat(DataFormatString = "{0:dd/M/yyyy hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:d/M/yyyy hh:mm}")]
         public DateTime LastLogin { get; set; }
 
         [Display(Name = "Povolit přístup")]
