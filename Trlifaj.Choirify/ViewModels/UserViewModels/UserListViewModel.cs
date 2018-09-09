@@ -12,7 +12,9 @@ namespace Trlifaj.Choirify.ViewModels.UserViewModels
     {
         public string UserId { get; set; }
 
-        public int SingerId { get; set; }
+        public int? SingerId { get; set; }
+
+        public int? ChoirmasterId { get; set; }
 
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -36,6 +38,24 @@ namespace Trlifaj.Choirify.ViewModels.UserViewModels
         [Display(Name = "Přístup povolen")]
         public Boolean CanLogin { get; set; }
 
+        [Display(Name = "GDPR")]
+        public Boolean GdprApproved { get; set; }
+
+        public Boolean IsChoirmaster
+        {
+            get
+            {
+                return (ChoirmasterId != null);
+            }
+        }
+
+        public Boolean IsSinger
+        {
+            get
+            {
+                return (SingerId != null);
+            }
+        }
 
     }
 }

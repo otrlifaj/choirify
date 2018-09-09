@@ -19,19 +19,19 @@ namespace Trlifaj.Choirify.Database.MySQL
 
         public override IQueryable<ApplicationUser> FindAll()
         {
-            IQueryable<ApplicationUser> query = Context.Users.Include(u => u.Singer);
+            IQueryable<ApplicationUser> query = Context.Users.Include(u => u.Singer).Include(u => u.Choirmaster);
             return query;
         }
 
         public override IQueryable<ApplicationUser> FindBy(Expression<Func<ApplicationUser, bool>> predicate)
         {
-            IQueryable<ApplicationUser> query = Context.Users.Include(u => u.Singer).Where(predicate);
+            IQueryable<ApplicationUser> query = Context.Users.Include(u => u.Singer).Include(u => u.Choirmaster).Where(predicate);
             return query;
         }
 
         public override ApplicationUser Find(string id)
         {
-            return Context.Users.Include(u => u.Singer).FirstOrDefault(u => u.Id == id);
+            return Context.Users.Include(u => u.Singer).Include(u => u.Choirmaster).FirstOrDefault(u => u.Id == id);
         }
 
         public override void Delete(ApplicationUser entity)

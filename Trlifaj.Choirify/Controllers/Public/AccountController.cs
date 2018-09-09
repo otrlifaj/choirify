@@ -16,6 +16,8 @@ using Trlifaj.Choirify.ViewModels.AccountViewModels;
 using Trlifaj.Choirify.Services;
 using Trlifaj.Choirify.Models.Enums;
 using Trlifaj.Choirify.Database.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Trlifaj.Choirify.Helpers;
 
 namespace Trlifaj.Choirify.Controllers
 {
@@ -29,6 +31,7 @@ namespace Trlifaj.Choirify.Controllers
         private readonly IRoleManager _roleManager;
         private readonly ILogger _logger;
         private readonly ISingerMapper _singerMapper;
+        private readonly IConfiguration _configuration;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -36,7 +39,8 @@ namespace Trlifaj.Choirify.Controllers
             IEmailSender emailSender,
             IRoleManager roleManager,
             ILogger<AccountController> logger,
-            ISingerMapper singerMapper)
+            ISingerMapper singerMapper,
+            IConfiguration configuration)
         {
             _singerMapper = singerMapper;
             _userManager = userManager;
@@ -44,6 +48,7 @@ namespace Trlifaj.Choirify.Controllers
             _emailSender = emailSender;
             _roleManager = roleManager;
             _logger = logger;
+            _configuration = configuration;
         }
 
         [TempData]
@@ -136,6 +141,11 @@ namespace Trlifaj.Choirify.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                if (!model.GdprApproved)
+                {
+                    ModelState.AddModelError("GdprApproved", "Nedal jsi souhlas se zpracováním osobních údajů.");
+                    return View(model);
+                }
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
@@ -143,20 +153,40 @@ namespace Trlifaj.Choirify.Controllers
                     PhoneNumber = model.PhoneNumber,
                     CreatedOn = DateTime.Now,
                     CanLogin = false,
+                    GdprApproved = model.GdprApproved
                 };
 
-                user.Singer = new Singer
+                string role; 
+                if (!model.IsSinger && ChoirmasterRegistrationAllowed())
                 {
-                    FirstName = model.FirstName,
-                    Surname = model.Surname,
-                    Email = model.Email,
-                    PhoneNumber = model.PhoneNumber,
-                    DateOfBirth = model.DateOfBirth ?? DateTime.Today,
-                    IsActive = true,
-                    NumberOfIDCard = model.NumberOfIDCard,
-                    Address = model.Address,
-                    VoiceGroup = model.VoiceGroup
-                };
+                    user.Choirmaster = new Choirmaster
+                    {
+                        FirstName = model.FirstName,
+                        Surname = model.Surname,
+                        Email = model.Email,
+                        PhoneNumber = model.PhoneNumber,
+                        DateOfBirth = model.DateOfBirth ?? DateTime.Today,
+                        NumberOfIDCard = model.NumberOfIDCard,
+                        Address = model.Address,
+                    };
+                    role = _roleManager.Choirmaster;
+                }
+                else
+                {
+                    user.Singer = new Singer
+                    {
+                        FirstName = model.FirstName,
+                        Surname = model.Surname,
+                        Email = model.Email,
+                        PhoneNumber = model.PhoneNumber,
+                        DateOfBirth = model.DateOfBirth ?? DateTime.Today,
+                        IsActive = true,
+                        NumberOfIDCard = model.NumberOfIDCard,
+                        Address = model.Address,
+                        VoiceGroup = model.VoiceGroup
+                    };
+                    role = _roleManager.Singer;
+                }
 
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -168,7 +198,7 @@ namespace Trlifaj.Choirify.Controllers
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    var role = await _userManager.AddToRoleAsync(user, _roleManager.Singer);
+                    await _userManager.AddToRoleAsync(user, role);
 
                     return View("RegistrationSuccesful", model);
                 }
@@ -230,7 +260,7 @@ namespace Trlifaj.Choirify.Controllers
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new ApplicationException($"Nebylo možné najít uživatele s ID '{userId}'.");
+                throw new ChoirAppException($"Nepodařilo se najít uživatele.");
             }
             var result = await _userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
@@ -283,7 +313,7 @@ namespace Trlifaj.Choirify.Controllers
         {
             if (code == null)
             {
-                throw new ApplicationException("Musíš zadat kód pro resetování hesla.");
+                throw new ChoirAppException("Musíš zadat kód pro resetování hesla.");
             }
             var model = new ResetPasswordViewModel { Code = code };
             return View(model);
@@ -349,6 +379,19 @@ namespace Trlifaj.Choirify.Controllers
             }
         }
 
+        private bool ChoirmasterRegistrationAllowed()
+        {
+            var registrationConfig = _configuration.GetSection("Registration");
+            var result = false;
+            if (Boolean.TryParse(registrationConfig["ChoirmasterRegistration"], out result))
+            {
+                return result;
+            }
+            else
+            {
+                return false;
+            }
+        }
         #endregion
     }
 }

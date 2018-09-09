@@ -15,6 +15,7 @@ using Trlifaj.Choirify.ViewModels;
 using Trlifaj.Choirify.ViewModels.ManageViewModels;
 using Trlifaj.Choirify.Services;
 using Trlifaj.Choirify.Database.Interfaces;
+using Trlifaj.Choirify.Helpers;
 
 namespace Trlifaj.Choirify.Controllers
 {
@@ -59,23 +60,55 @@ namespace Trlifaj.Choirify.Controllers
             var user = (userId != null) ? _userMapper.Find(userId) : null;
             if (user == null)
             {
-                throw new ApplicationException($"Nelze načíst uživatele s ID '{_userManager.GetUserId(User)}'.");
+                throw new ChoirAppException($"Nepodařilo se najít uživatele.");
             }
 
-            var model = new IndexViewModel
+            IndexViewModel model = null;
+            if (user.SingerId != null)
             {
-                Username = user.UserName,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                IsEmailConfirmed = user.EmailConfirmed,
-                FirstName = user.Singer.FirstName,
-                Surname = user.Singer.Surname,
-                DateOfBirth = user.Singer.DateOfBirth,
-                NumberOfIDCard = user.Singer.NumberOfIDCard,
-                Address = user.Singer.Address,
-                PassportNumber = user.Singer.PassportNumber,
-                StatusMessage = StatusMessage
-            };
+                model = new IndexViewModel
+                {
+                    Username = user.UserName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    IsEmailConfirmed = user.EmailConfirmed,
+                    FirstName = user.Singer.FirstName,
+                    Surname = user.Singer.Surname,
+                    DateOfBirth = user.Singer.DateOfBirth,
+                    NumberOfIDCard = user.Singer.NumberOfIDCard,
+                    Address = user.Singer.Address,
+                    PassportNumber = user.Singer.PassportNumber,
+                    StatusMessage = StatusMessage
+                };
+            }
+            else if (user.ChoirmasterId != null)
+            {
+                model = new IndexViewModel
+                {
+                    Username = user.UserName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    IsEmailConfirmed = user.EmailConfirmed,
+                    FirstName = user.Choirmaster.FirstName,
+                    Surname = user.Choirmaster.Surname,
+                    DateOfBirth = user.Choirmaster.DateOfBirth,
+                    NumberOfIDCard = user.Choirmaster.NumberOfIDCard,
+                    Address = user.Choirmaster.Address,
+                    PassportNumber = user.Choirmaster.PassportNumber,
+                    StatusMessage = StatusMessage
+                };
+            }
+            else
+            {
+                model = new IndexViewModel
+                {
+                    Username = user.UserName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    IsEmailConfirmed = user.EmailConfirmed,
+                    StatusMessage = StatusMessage
+                };
+            }
 
             return View(model);
         }
@@ -93,7 +126,7 @@ namespace Trlifaj.Choirify.Controllers
             var user = (userId != null) ? _userMapper.Find(userId) : null;
             if (user == null)
             {
-                throw new ApplicationException($"Nelze načíst uživatele s ID '{_userManager.GetUserId(User)}'.");
+                throw new ChoirAppException($"Nepodařilo se najít uživatele.");
             }
 
             var email = user.Email;
@@ -141,6 +174,17 @@ namespace Trlifaj.Choirify.Controllers
                 user.Singer.Email = model.Email;
                 user.Singer.PhoneNumber = model.PhoneNumber;
             }
+            else if (user.Choirmaster != null)
+            {
+                user.Choirmaster.Address = model.Address;
+                user.Choirmaster.DateOfBirth = model.DateOfBirth;
+                user.Choirmaster.FirstName = model.FirstName;
+                user.Choirmaster.Surname = model.Surname;
+                user.Choirmaster.NumberOfIDCard = model.NumberOfIDCard;
+                user.Choirmaster.PassportNumber = model.PassportNumber;
+                user.Choirmaster.Email = model.Email;
+                user.Choirmaster.PhoneNumber = model.PhoneNumber;
+            }
 
             var updateUserResult = await _userManager.UpdateAsync(user);
             if (!updateUserResult.Succeeded)
@@ -165,7 +209,7 @@ namespace Trlifaj.Choirify.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                throw new ApplicationException($"Nelze načíst uživatele s ID '{_userManager.GetUserId(User)}'.");
+                throw new ChoirAppException($"Nepodařilo se najít uživatele.");
             }
 
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -183,7 +227,7 @@ namespace Trlifaj.Choirify.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                throw new ApplicationException($"Nelze načíst uživatele s ID '{_userManager.GetUserId(User)}'.");
+                throw new ChoirAppException($"Nepodařilo se najít uživatele.");
             }
 
             var model = new ChangePasswordViewModel { StatusMessage = StatusMessage };
@@ -202,7 +246,7 @@ namespace Trlifaj.Choirify.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                throw new ApplicationException($"Nelze načíst uživatele s ID '{_userManager.GetUserId(User)}'.");
+                throw new ChoirAppException($"Nepodařilo se najít uživatele.");
             }
 
             var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);

@@ -49,6 +49,7 @@ namespace Trlifaj.Choirify
             // Add application services.
             services.AddScoped<IUserMapper, UserMapper>();
             services.AddScoped<ISingerMapper, SingerMapper>();
+            services.AddScoped<IChoirmasterMapper, ChoirmasterMapper>();
             services.AddScoped<IEventMapper, EventMapper>();
             services.AddScoped<IEventRegistrationMapper, EventRegistrationMapper>();
             services.AddScoped<INewsMapper, NewsMapper>();
@@ -118,9 +119,9 @@ namespace Trlifaj.Choirify
                 UserName = adminInfo["Email"],
                 Email = adminInfo["Email"],
                 CanLogin = true,
+                GdprApproved = true,
                 EmailConfirmed = true,
                 CreatedOn = DateTime.Now,
-                SingerId = int.Parse(adminInfo["SingerId"])
             };
             string adminPassword = adminInfo["Password"];
             var user = await UserManager.FindByEmailAsync(admin.Email);

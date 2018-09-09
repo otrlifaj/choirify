@@ -36,12 +36,21 @@ namespace Trlifaj.Choirify.Models
         [Display(Name = "Příhlašení povoleno")]
         public Boolean CanLogin { get; set; }
 
-        public int SingerId { get; set; }
+        [Display(Name = "Souhlas se zpracováním osobních údajů")]
+        public Boolean GdprApproved { get; set; }
+
+        public int? SingerId { get; set; }
         public Singer Singer { get; set; }
+
+        public int? ChoirmasterId { get; set; }
+        public Choirmaster Choirmaster { get; set; }
 
         public ApplicationUser()
         {
             CanLogin = false;
+            SingerId = null;
+            ChoirmasterId = null;
+            GdprApproved = false;
 
         }
 

@@ -77,10 +77,12 @@ namespace Trlifaj.Choirify.ViewModels.AccountViewModels
 
         [Required]
         [Display(Name = "Zpěvák")]
-        public Boolean IsSinger { get; set; }
+        public Boolean IsSinger { get; set; } = true;
 
         [Display(Name = "Hlasová skupina")]
         public VoiceGroup? VoiceGroup { get; set; }
-
+        
+        [Display(Name = "Souhlas se zpracováním osobních údajů")]
+        public Boolean GdprApproved { get; set; } = false;
     }
 }

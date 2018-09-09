@@ -27,6 +27,7 @@ namespace Trlifaj.Choirify.Data
         public DbSet<Rehearsal> Rehearsals { get; set; }
         public DbSet<Song> Songs { get; set; }
         public DbSet<Singer> Singers { get; set; }
+        public DbSet<Choirmaster> Choirmasters { get; set; }
 
         public DbSet<EventAttendance> EventAttendances { get; set; }
         public DbSet<EventRegistration> EventRegistrations { get; set; }
@@ -57,6 +58,7 @@ namespace Trlifaj.Choirify.Data
             builder.Entity<Singer>().HasQueryFilter(p => !p.IsDeleted);
             builder.Entity<Song>().HasQueryFilter(p => !p.IsDeleted);
             builder.Entity<ApplicationUser>().HasQueryFilter(p => !p.IsDeleted);
+            builder.Entity<Choirmaster>().HasQueryFilter(p => !p.IsDeleted);
 
             // initial data seeding
             builder.Entity<Song>().HasData(new Song{Id = 1, Name = "21 Guns", Author = "Green day", Current = true, SheetsAvailable = 1, SheetType = SheetType.Unified});

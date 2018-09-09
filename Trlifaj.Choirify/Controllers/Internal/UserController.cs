@@ -19,15 +19,18 @@ namespace Trlifaj.Choirify.Controllers.Internal
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserMapper _userMapper;
         private readonly ISingerMapper _singerMapper;
+        private readonly IChoirmasterMapper _choirmasterMapper;
 
         public UserController(
             UserManager<ApplicationUser> userManager,
             IUserMapper userMapper,
-            ISingerMapper singerMapper)
+            ISingerMapper singerMapper,
+            IChoirmasterMapper choirmasterMapper)
         {
             _userManager = userManager;
             _userMapper = userMapper;
             _singerMapper = singerMapper;
+            _choirmasterMapper = choirmasterMapper;
         }
 
 
@@ -35,7 +38,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // GET: User
         public ActionResult Index()
         {
-            var users = _userMapper.FindAll(); // loads Singer property too
+            var users = _userMapper.FindAll(); // loads Singer and Choirmaster property too
             var model = users.Select(u => ConvertToUserListViewModel(u)).AsEnumerable();
             return View(model);
         }
@@ -43,7 +46,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // GET: User/Details/5
         public async Task<ActionResult> Details(string id)
         {
-            var user = _userMapper.Find(id); // loads Singer property too
+            var user = _userMapper.Find(id); // loads Singer and Choirmaster property too
             var model = ConvertToUserDetailEditViewModel(user);
             var roles = await _userManager.GetRolesAsync(user);
             model.SelectedRoles = roles.ToList();
@@ -53,7 +56,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // GET: User/Edit/5
         public async Task<ActionResult> Edit(string id)
         {
-            var user = _userMapper.Find(id); // loads Singer property too
+            var user = _userMapper.Find(id); // loads Singer and Choirmaster property too
             var model = ConvertToUserDetailEditViewModel(user);
             var roles = await _userManager.GetRolesAsync(user);
             model.SelectedRoles = roles.ToList();
@@ -67,7 +70,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
         {
             if (ModelState.IsValid)
             {
-                var user = _userMapper.Find(id); // loads Singer property too
+                var user = _userMapper.Find(id); // loads Singer and Choirmaster property too
                 var updatedUser = MergeUserWithEditModel(user, model);
 
                 var updateUserResult = await _userManager.UpdateAsync(updatedUser);
@@ -99,7 +102,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // GET: User/Delete/5
         public ActionResult Delete(string id)
         {
-            var user = _userMapper.Find(id); // loads Singer property too
+            var user = _userMapper.Find(id); // loads Singer and Choirmaster property too
             var model = ConvertToUserDetailEditViewModel(user);
             return View(model);
         }
@@ -111,9 +114,16 @@ namespace Trlifaj.Choirify.Controllers.Internal
         {
             try
             {
-                var user = _userMapper.Find(id); // loads Singer property too
+                var user = _userMapper.Find(id); // loads Singer and Choirmaster property too
                 _userMapper.Delete(user);
-                _singerMapper.Delete(user.Singer);
+                if (user.Singer != null)
+                {
+                    _singerMapper.Delete(user.Singer);
+                }
+                else if (user.Choirmaster != null)
+                {
+                    _choirmasterMapper.Delete(user.Choirmaster);
+                }
 
                 return RedirectToAction(nameof(Index));
             }
@@ -125,44 +135,99 @@ namespace Trlifaj.Choirify.Controllers.Internal
 
         private UserListViewModel ConvertToUserListViewModel(ApplicationUser user)
         {
-            var result = new UserListViewModel
+            UserListViewModel result = null;
+            if (user.Singer != null)
             {
-                UserId = user.Id,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                CanLogin = user.CanLogin,
-                LastLogin = user.LastLogin,
+                result = new UserListViewModel
+                {
+                    UserId = user.Id,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    CanLogin = user.CanLogin,
+                    LastLogin = user.LastLogin,
 
-                SingerId = user.Singer.Id,
-                FirstName = user.Singer.FirstName,
-                Surname = user.Singer.Surname,
-                VoiceGroup = user.Singer.VoiceGroup
-            };
+                    SingerId = user.Singer.Id,
+                    FirstName = user.Singer.FirstName,
+                    Surname = user.Singer.Surname,
+                    VoiceGroup = user.Singer.VoiceGroup
+                };
+            }
+            else if (user.Choirmaster != null)
+            {
+                result = new UserListViewModel
+                {
+                    UserId = user.Id,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    CanLogin = user.CanLogin,
+                    LastLogin = user.LastLogin,
+
+                    ChoirmasterId = user.Choirmaster.Id,
+                    FirstName = user.Choirmaster.FirstName,
+                    Surname = user.Choirmaster.Surname,
+                };
+            }
+            else
+            {
+                result = new UserListViewModel
+                {
+                    UserId = user.Id,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    CanLogin = user.CanLogin,
+                    LastLogin = user.LastLogin,
+                };
+            }
+
             return result;
         }
 
         private UserDetailEditViewModel ConvertToUserDetailEditViewModel(ApplicationUser user)
         {
-            var result = new UserDetailEditViewModel
-            {
-                UserId = user.Id,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                CanLogin = user.CanLogin,
-                LastLogin = user.LastLogin,
-                CreatedOn = user.CreatedOn,
+            UserDetailEditViewModel result = null;
 
-                SingerId = user.Singer.Id,
-                Address = user.Singer.Address,
-                FirstName = user.Singer.FirstName,
-                Surname = user.Singer.Surname,
-                VoiceGroup = user.Singer.VoiceGroup,
-                DateOfBirth = user.Singer.DateOfBirth,
-                ImageUrl = user.Singer.ImageUrl,
-                IsActive = user.Singer.IsActive,
-                NumberOfIDCard = user.Singer.NumberOfIDCard,
-                PassportNumber = user.Singer.PassportNumber
-            };
+            if (user.Singer != null)
+            {
+                result = new UserDetailEditViewModel
+                {
+                    UserId = user.Id,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    CanLogin = user.CanLogin,
+                    LastLogin = user.LastLogin,
+
+                    SingerId = user.Singer.Id,
+                    FirstName = user.Singer.FirstName,
+                    Surname = user.Singer.Surname,
+                };
+            }
+            else if (user.Choirmaster != null)
+            {
+                result = new UserDetailEditViewModel
+                {
+                    UserId = user.Id,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    CanLogin = user.CanLogin,
+                    LastLogin = user.LastLogin,
+                    CreatedOn = user.CreatedOn,
+
+                    ChoirmasterId = user.Choirmaster.Id,
+                    FirstName = user.Choirmaster.FirstName,
+                    Surname = user.Choirmaster.Surname,
+                };
+            }
+            else
+            {
+                result = new UserDetailEditViewModel
+                {
+                    UserId = user.Id,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    CanLogin = user.CanLogin,
+                    LastLogin = user.LastLogin,
+                };
+            }
             return result;
         }
 
@@ -172,17 +237,12 @@ namespace Trlifaj.Choirify.Controllers.Internal
 
             if (user.Singer != null)
             {
-                user.Singer.Address = model.Address;
                 user.Singer.FirstName = model.FirstName;
                 user.Singer.Surname = model.Surname;
-                user.Singer.VoiceGroup = model.VoiceGroup;
-                user.Singer.DateOfBirth = model.DateOfBirth;
-                user.Singer.ImageUrl = model.ImageUrl;
-                user.Singer.IsActive = model.IsActive;
-                user.Singer.NumberOfIDCard = model.NumberOfIDCard;
-                user.Singer.PassportNumber = model.PassportNumber;
-                user.Singer.Email = model.Email;
-                user.Singer.PhoneNumber = model.PhoneNumber;
+            } else if (user.Choirmaster != null)
+            {
+                user.Choirmaster.FirstName = model.FirstName;
+                user.Choirmaster.Surname = model.Surname;
             }
 
             return user;
