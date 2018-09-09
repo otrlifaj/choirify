@@ -28,11 +28,9 @@ namespace Trlifaj.Choirify.ViewModels.UserViewModels
         [Display(Name = "Příjmení")]
         public string Surname { get; set; }
 
-        [Display(Name = "Hlasová skupina")]
-        public VoiceGroup? VoiceGroup { get; set; }
-
         [DataType(DataType.DateTime)]
         [Display(Name = "Poslední přihlášení")]
+        [DisplayFormat(DataFormatString = "{0:dd/M/yyyy hh:mm}")]
         public DateTime LastLogin { get; set; }
 
         [Display(Name = "Přístup povolen")]

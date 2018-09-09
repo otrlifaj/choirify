@@ -27,10 +27,12 @@ namespace Trlifaj.Choirify.ViewModels.UserViewModels
 
         [DataType(DataType.DateTime)]
         [Display(Name = "Účet vytvořen")]
+        [DisplayFormat(DataFormatString = "{0:dd/M/yyyy hh:mm}")]
         public DateTime CreatedOn { get; set; }
 
         [DataType(DataType.DateTime)]
         [Display(Name = "Poslední přihlášení")]
+        [DisplayFormat(DataFormatString = "{0:dd/M/yyyy hh:mm}")]
         public DateTime LastLogin { get; set; }
 
         [Display(Name = "Povolit přístup")]

@@ -7,116 +7,100 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Trlifaj.Choirify.Data;
+using Trlifaj.Choirify.Database.Interfaces;
 using Trlifaj.Choirify.Models;
 using Trlifaj.Choirify.Services;
+using Trlifaj.Choirify.ViewModels.EventViewModels;
 
 namespace Trlifaj.Choirify.Controllers.Internal
 {
     [Authorize(Roles = Roles.Admin + "," + Roles.Chairman + "," + Roles.ViceChairman)]
     public class EventsController : Controller
     {
-        private readonly ChoirDbContext _context;
+        private readonly IEventMapper _eventMapper;
 
-        public EventsController(ChoirDbContext context)
+        public EventsController(IEventMapper eventMapper)
         {
-            _context = context;
+            _eventMapper = eventMapper;
         }
 
         // GET: Events
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Events.ToListAsync());
+            return View(_eventMapper.FindAll().Select(e => ConvertToEventListViewModel(e)).AsEnumerable());
         }
 
         // GET: Events/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var @event = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var @event = _eventMapper.Find(id.Value);
             if (@event == null)
             {
                 return NotFound();
             }
 
-            return View(@event);
+            return View(new EventDetailEditViewModel(@event));
         }
 
         // GET: Events/Create
         public IActionResult Create()
         {
-            return View();
+            return View(new EventDetailEditViewModel
+            {
+                From = DateTime.Now,
+                To = DateTime.Now,
+                StartOfRegistration = DateTime.Now,
+                EndOfRegistration = DateTime.Now
+            });
         }
 
         // POST: Events/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,From,To,Place,Description,ImageUrl,StartOfRegistration,EndOfRegistration,Organizer,IsDeleted")] Event @event)
+        public IActionResult Create([Bind] EventDetailEditViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(@event);
-                await _context.SaveChangesAsync();
+                _eventMapper.Create(model.ToEvent());
                 return RedirectToAction(nameof(Index));
             }
-            return View(@event);
+            return View(model);
         }
 
         // GET: Events/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var @event = await _context.Events.FindAsync(id);
-            if (@event == null)
+            else
             {
-                return NotFound();
+                var @event = _eventMapper.Find(id.Value);
+                if (@event == null)
+                {
+                    return NotFound();
+                }
+                return View(new EventDetailEditViewModel(@event));
             }
-            return View(@event);
         }
 
         // POST: Events/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,From,To,Place,Description,ImageUrl,StartOfRegistration,EndOfRegistration,Organizer,IsDeleted")] Event @event)
+        public IActionResult Edit(int id, [Bind] EventDetailEditViewModel model)
         {
-            if (id != @event.Id)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(@event);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EventExists(@event.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _eventMapper.Update(model.ToEvent());
                 return RedirectToAction(nameof(Index));
             }
-            return View(@event);
+            return View(model);
         }
 
         // GET: Events/Delete/5
@@ -127,30 +111,77 @@ namespace Trlifaj.Choirify.Controllers.Internal
                 return NotFound();
             }
 
-            var @event = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            return View(@event);
+            var e = _eventMapper.Find(id.Value);
+            var model = new EventDetailEditViewModel(e);
+            return View(model);
         }
 
         // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var @event = await _context.Events.FindAsync(id);
-            _context.Events.Remove(@event);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var e = _eventMapper.Find(id);
+                _eventMapper.Delete(e);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
 
-        private bool EventExists(int id)
+        private EventDetailEditViewModel ConvertToEventDetailEditViewModel(Event @event)
         {
-            return _context.Events.Any(e => e.Id == id);
+
+            if (@event == null)
+            {
+                return new EventDetailEditViewModel();
+            }
+            EventDetailEditViewModel result = null;
+            {
+                result = new EventDetailEditViewModel
+                {
+                    Id = @event.Id,
+                    Name = @event.Name,
+                    Place = @event.Place,
+                    Description = @event.Description,
+                    From = @event.From,
+                    To = @event.To,
+                    StartOfRegistration = @event.StartOfRegistration,
+                    EndOfRegistration = @event.EndOfRegistration,
+                    EventType = @event.EventType,
+                    Organizer = @event.Organizer
+                };
+                return result;
+            }
         }
+
+        private EventListViewModel ConvertToEventListViewModel(Event @event)
+        {
+
+            if (@event == null)
+            {
+                return new EventListViewModel();
+            }
+            EventListViewModel result = null;
+            {
+                result = new EventListViewModel
+                {
+                    Id = @event.Id,
+                    Name = @event.Name,
+                    Place = @event.Place,
+                    From = @event.From,
+                    To = @event.To,
+                    StartOfRegistration = @event.StartOfRegistration,
+                    EndOfRegistration = @event.EndOfRegistration,
+                    EventType = @event.EventType,
+                };
+                return result;
+            }
+        }
+
     }
 }

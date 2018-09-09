@@ -1,4 +1,4 @@
-﻿@model Trlifaj.Choirify.Models.Event
+﻿@model Trlifaj.Choirify.ViewModels.EventViewModels.EventDetailEditViewModel
 
 @{
     ViewData["Title"] = "Nová událost";
@@ -11,13 +11,18 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="EventType"></label>
+                @Html.DropDownListFor(model => model.EventType, Model.EventTypes, new { @class = "form-control" })
+                <span asp-validation-for="EventType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="From" class="control-label"></label>
-                <input asp-for="From" class="form-control" />
+                <input asp-for="From" class="form-control" asp-format="{0:MM/dd/yyyy hh:mm}"/>
                 <span asp-validation-for="From" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -34,11 +39,6 @@
                 <label asp-for="Description" class="control-label"></label>
                 <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="StartOfRegistration" class="control-label"></label>

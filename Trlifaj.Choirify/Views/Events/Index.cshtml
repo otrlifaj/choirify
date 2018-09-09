@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Trlifaj.Choirify.Models.Event>
+﻿@model IEnumerable<Trlifaj.Choirify.ViewModels.EventViewModels.EventListViewModel>
 
 @{
     ViewData["Title"] = "Události";
@@ -12,6 +12,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EventType)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -30,6 +33,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventTypeString)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>

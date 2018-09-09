@@ -149,7 +149,6 @@ namespace Trlifaj.Choirify.Controllers.Internal
                     SingerId = user.Singer.Id,
                     FirstName = user.Singer.FirstName,
                     Surname = user.Singer.Surname,
-                    VoiceGroup = user.Singer.VoiceGroup
                 };
             }
             else if (user.Choirmaster != null)

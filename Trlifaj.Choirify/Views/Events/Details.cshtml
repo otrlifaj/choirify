@@ -1,4 +1,4 @@
-﻿@model Trlifaj.Choirify.Models.Event
+﻿@model Trlifaj.Choirify.ViewModels.EventViewModels.EventDetailEditViewModel
 
 @{
     ViewData["Title"] = Model.Name + " " + Model.Place;
@@ -9,6 +9,12 @@
 <div>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EventType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EventTypeString)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -38,12 +44,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ImageUrl)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.StartOfRegistration)

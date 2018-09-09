@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Trlifaj.Choirify.Models.Enums;
 
 namespace Trlifaj.Choirify.Models
 {
@@ -26,6 +27,11 @@ namespace Trlifaj.Choirify.Models
         [Display(Name = "Do")]
         [DataType(DataType.DateTime)]
         public DateTime To { get; set; }
+
+        [Required]
+        [Display(Name = "Typ")]
+        [Column(TypeName = "varchar(20)")]
+        public EventType EventType { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Musí být zadáno místo konání události."), MaxLength(150, ErrorMessage = "Místo konání může mít maximálně 150 znaků.")]
         [Display(Name = "Místo")]
@@ -59,6 +65,7 @@ namespace Trlifaj.Choirify.Models
         [Display(Name = "Pořadatel")]
         [Column(TypeName = "varchar(255)")]
         public string Organizer { get; set; }
+
 
         public Event()
         {
