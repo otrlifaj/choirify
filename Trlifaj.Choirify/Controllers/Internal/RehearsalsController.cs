@@ -7,43 +7,44 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Trlifaj.Choirify.Data;
+using Trlifaj.Choirify.Database.Interfaces;
 using Trlifaj.Choirify.Models;
 using Trlifaj.Choirify.Services;
+using Trlifaj.Choirify.ViewModels.RehearsalViewModels;
 
 namespace Trlifaj.Choirify.Controllers.Internal
 {
     [Authorize(Roles = Roles.Admin + "," + Roles.Chairman + "," + Roles.ViceChairman)]
     public class RehearsalsController : Controller
     {
-        private readonly ChoirDbContext _context;
+        private readonly IRehearsalMapper _rehearsalMapper;
 
-        public RehearsalsController(ChoirDbContext context)
+        public RehearsalsController(IRehearsalMapper rehearsalMapper)
         {
-            _context = context;
+            _rehearsalMapper = rehearsalMapper;
         }
 
         // GET: Rehearsals
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Rehearsals.ToListAsync());
+            return View(_rehearsalMapper.FindAll().Select(r => new RehearsalListViewModel(r)));
         }
 
         // GET: Rehearsals/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var rehearsal = await _context.Rehearsals
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var rehearsal = _rehearsalMapper.Find(id.Value);
             if (rehearsal == null)
             {
                 return NotFound();
             }
-
-            return View(rehearsal);
+            var model = new RehearsalDetailEditViewModel(rehearsal);
+            return View(model);
         }
 
         // GET: Rehearsals/Create
@@ -53,104 +54,88 @@ namespace Trlifaj.Choirify.Controllers.Internal
         }
 
         // POST: Rehearsals/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Date,Description,IsDeleted")] Rehearsal rehearsal)
+        public IActionResult Create([Bind] RehearsalDetailEditViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(rehearsal);
-                await _context.SaveChangesAsync();
+                var rehearsal = model.ToRehearsal();
+                _rehearsalMapper.Create(rehearsal);
                 return RedirectToAction(nameof(Index));
             }
-            return View(rehearsal);
+            return View(model);
         }
 
         // GET: Rehearsals/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var rehearsal = await _context.Rehearsals.FindAsync(id);
+            var rehearsal = _rehearsalMapper.Find(id.Value);
             if (rehearsal == null)
             {
                 return NotFound();
             }
-            return View(rehearsal);
+            var model = new RehearsalDetailEditViewModel(rehearsal);
+            return View(model);
         }
 
         // POST: Rehearsals/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,Description,IsDeleted")] Rehearsal rehearsal)
+        public IActionResult Edit(int id, [Bind] RehearsalDetailEditViewModel model)
         {
-            if (id != rehearsal.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(rehearsal);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RehearsalExists(rehearsal.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var rehearsal = model.ToRehearsal();
+                _rehearsalMapper.Update(rehearsal);
                 return RedirectToAction(nameof(Index));
             }
-            return View(rehearsal);
+            return View(model);
         }
 
         // GET: Rehearsals/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var rehearsal = await _context.Rehearsals
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var rehearsal = _rehearsalMapper.Find(id.Value);
             if (rehearsal == null)
             {
                 return NotFound();
             }
-
-            return View(rehearsal);
+            var model = new RehearsalDetailEditViewModel(rehearsal);
+            return View(model);
         }
 
         // POST: Rehearsals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var rehearsal = await _context.Rehearsals.FindAsync(id);
-            _context.Rehearsals.Remove(rehearsal);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var rehearsal = _rehearsalMapper.Find(id);
+                _rehearsalMapper.Delete(rehearsal);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
 
-        private bool RehearsalExists(int id)
-        {
-            return _context.Rehearsals.Any(e => e.Id == id);
-        }
     }
 }

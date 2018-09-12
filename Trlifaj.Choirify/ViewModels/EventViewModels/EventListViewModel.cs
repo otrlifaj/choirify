@@ -20,13 +20,13 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
         [Required]
         [Display(Name = "Od")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:d/M/yyyy hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:d/M/yyyy HH:mm}")]
         public DateTime From { get; set; }
 
         [Required]
         [Display(Name = "Do")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:d/M/yyyy hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:d/M/yyyy HH:mm}")]
         public DateTime To { get; set; }
 
         [Required]
@@ -40,13 +40,13 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Začátek přihlašování")]
-        [DisplayFormat(DataFormatString = "{0:d/M/yyyy hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:d/M/yyyy HH:mm}")]
         public DateTime StartOfRegistration { get; set; } = DateTime.Now;
 
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Konec přihlašování")]
-        [DisplayFormat(DataFormatString = "{0:d/M/yyyy hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:d/M/yyyy HH:mm}")]
         public DateTime EndOfRegistration { get; set; }
 
         public EventListViewModel()

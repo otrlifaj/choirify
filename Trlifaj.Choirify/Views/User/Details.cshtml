@@ -65,6 +65,12 @@
             @Html.DisplayFor(model => model.CanLogin)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.GdprApproved)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GdprApproved)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.SelectedRoles)
         </dt>
         @foreach (var role in Model.SelectedRoles)

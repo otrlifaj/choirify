@@ -145,6 +145,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
                     PhoneNumber = user.PhoneNumber,
                     CanLogin = user.CanLogin,
                     LastLogin = user.LastLogin,
+                    GdprApproved = user.GdprApproved,
 
                     SingerId = user.Singer.Id,
                     FirstName = user.Singer.FirstName,
@@ -160,6 +161,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
                     PhoneNumber = user.PhoneNumber,
                     CanLogin = user.CanLogin,
                     LastLogin = user.LastLogin,
+                    GdprApproved = user.GdprApproved,
 
                     ChoirmasterId = user.Choirmaster.Id,
                     FirstName = user.Choirmaster.FirstName,
@@ -175,6 +177,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
                     PhoneNumber = user.PhoneNumber,
                     CanLogin = user.CanLogin,
                     LastLogin = user.LastLogin,
+                    GdprApproved = user.GdprApproved,
                 };
             }
 
@@ -194,6 +197,8 @@ namespace Trlifaj.Choirify.Controllers.Internal
                     PhoneNumber = user.PhoneNumber,
                     CanLogin = user.CanLogin,
                     LastLogin = user.LastLogin,
+                    CreatedOn = user.CreatedOn,
+                    GdprApproved = user.GdprApproved,
 
                     SingerId = user.Singer.Id,
                     FirstName = user.Singer.FirstName,
@@ -210,6 +215,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
                     CanLogin = user.CanLogin,
                     LastLogin = user.LastLogin,
                     CreatedOn = user.CreatedOn,
+                    GdprApproved = user.GdprApproved,
 
                     ChoirmasterId = user.Choirmaster.Id,
                     FirstName = user.Choirmaster.FirstName,
@@ -225,6 +231,8 @@ namespace Trlifaj.Choirify.Controllers.Internal
                     PhoneNumber = user.PhoneNumber,
                     CanLogin = user.CanLogin,
                     LastLogin = user.LastLogin,
+                    CreatedOn = user.CreatedOn,
+                    GdprApproved = user.GdprApproved,
                 };
             }
             return result;

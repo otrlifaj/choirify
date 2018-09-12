@@ -47,6 +47,9 @@ namespace Trlifaj.Choirify.ViewModels.UserViewModels
         [Display(Name = "Příjmení")]
         public string Surname { get; set; }
 
+        [Display(Name = "GDPR")]
+        public Boolean GdprApproved { get; set; }
+
         [Display(Name = "Role")]
         public List<string> SelectedRoles { get; set; }
 
