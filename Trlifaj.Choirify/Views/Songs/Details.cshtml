@@ -1,4 +1,4 @@
-﻿@model Trlifaj.Choirify.Models.Song
+﻿@model Trlifaj.Choirify.ViewModels.SongViewModels.SongDetailEditViewModel
 
 @{
     ViewData["Title"] = Model.Name + " (" + Model.Author + ")";
@@ -49,11 +49,12 @@
             @Html.DisplayNameFor(model => model.SheetType)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.SheetType)
+            @Html.DisplayFor(model => model.SheetTypeString)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Upravit</a>
-    <a asp-action="Index" class="btn btn-success">Seznam skladeb</a>
+    <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model.Id">Upravit</a>
+    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Smazat</a>
+    <a class="btn btn-default" asp-action="Index">Seznam skladeb</a>
 </div>

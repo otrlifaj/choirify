@@ -21,7 +21,7 @@ namespace Trlifaj.Choirify.ViewModels.AccountViewModels
 
         [DataType(DataType.Password)]
         [Display(Name = "Potvrdit heslo")]
-        [Compare("Password", ErrorMessage = "Hesl se neshodují.")]
+        [Compare("Password", ErrorMessage = "Hesla se neshodují.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

@@ -1,4 +1,4 @@
-﻿@model Trlifaj.Choirify.Models.Song
+﻿@model Trlifaj.Choirify.ViewModels.SongViewModels.SongDetailEditViewModel
 
 @{
     ViewData["Title"] = "Úprava skladby";
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Duration" class="control-label"></label>
-                <input asp-for="Duration" class="form-control" />
+                <input asp-for="Duration" class="form-control" step="1"/>
                 <span asp-validation-for="Duration" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -44,13 +44,13 @@
                 <span asp-validation-for="SheetsAvailable" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SheetType" class="control-label"></label>
-                <select asp-for="SheetType" class="form-control"></select>
+                <label asp-for="SheetType"></label>
+                @Html.DropDownListFor(model => model.SheetType, Model.SheetTypes, new { @class = "form-control" })
                 <span asp-validation-for="SheetType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-success" />
-                <a asp-action="Index" class="btn btn-success">Seznam skladeb</a>
+                <input type="submit" value="Uložit" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-default">Seznam skladeb</a>
             </div>
         </form>
     </div>
