@@ -1,9 +1,47 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Smíšený komorní sboru Univerzity Palackého v Olomouci";
 }
 
-<div class="row">
-    <div class="container">
-        <h1>Ateneo</h1>
+@if (User.Identity.IsAuthenticated)
+{
+    ViewData["Title"] = "Rozcestník";
+    <div class="navigation-page">
+        <div class="row">
+            @await Html.PartialAsync("/Views/Home/Partials/_EventsHomepageCardPartial.cshtml")
+            @await Html.PartialAsync("/Views/Home/Partials/_SongsHomepageCardPartial.cshtml")
+            @await Html.PartialAsync("/Views/Home/Partials/_SingersHomepageCardPartial.cshtml")
+        </div>
+
+        <div class="row">
+            @await Html.PartialAsync("/Views/Home/Partials/_AdminHomepageCardPartial.cshtml")
+            @await Html.PartialAsync("/Views/Home/Partials/_SongsManagementHomepageCardPartial.cshtml")
+            @await Html.PartialAsync("/Views/Home/Partials/_DressCodeHomepageCardPartial.cshtml")
+        </div>
+        <div class="row">
+            @*TODO informace o aktuálních událostech atd. zde*@
+        </div>
     </div>
-</div>
+}
+else
+{
+    <div class="navigation-page">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="text-center homepage-menu-item-container">
+                    <a class="homepage-menu-link" asp-area="" asp-controller="Account" asp-action="Login">
+                        <i class="fas fa-door-open fa-8x"></i>
+                        <h2>Přihlásit se</h2>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center homepage-menu-item-container">
+                    <a class="homepage-menu-link" asp-area="" asp-controller="Account" asp-action="Register">
+                        <i class="fas fa-user-plus  fa-8x"></i>
+                        <h2>Registrovat se</h2>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

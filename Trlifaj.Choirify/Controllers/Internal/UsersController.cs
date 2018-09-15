@@ -14,14 +14,14 @@ using Trlifaj.Choirify.ViewModels.UserViewModels;
 namespace Trlifaj.Choirify.Controllers.Internal
 {
     [Authorize(Roles = Roles.Admin + "," + Roles.Chairman + "," + Roles.ViceChairman)]
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserMapper _userMapper;
         private readonly ISingerMapper _singerMapper;
         private readonly IChoirmasterMapper _choirmasterMapper;
 
-        public UserController(
+        public UsersController(
             UserManager<ApplicationUser> userManager,
             IUserMapper userMapper,
             ISingerMapper singerMapper,

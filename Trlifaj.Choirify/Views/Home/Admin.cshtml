@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Administrace";
+}
+@if (User.Identity.IsAuthenticated &&
+(User.IsInRole(Roles.Admin)
+|| User.IsInRole(Roles.Chairman)
+|| User.IsInRole(Roles.ViceChairman)))
+{
+    <div class="navigation-page">
+        <div class="row">
+            @await Html.PartialAsync("/Views/Home/AdminPartials/_EventsCardPartial.cshtml")
+            @await Html.PartialAsync("/Views/Home/AdminPartials/_SongsCardPartial.cshtml")
+            @await Html.PartialAsync("/Views/Home/AdminPartials/_SingersCardPartial.cshtml")
+        </div>
+        <div class="row">
+            @await Html.PartialAsync("/Views/Home/AdminPartials/_UsersCardPartial.cshtml")
+            @await Html.PartialAsync("/Views/Home/AdminPartials/_RehearsalsCardPartial.cshtml")
+            @*TODO novinky zde*@
+            @*@await Html.PartialAsync("/Views/Home/AdminPartials/_NewsHomepageCardPartial.cshtml")*@
+        </div>
+    </div>
+}

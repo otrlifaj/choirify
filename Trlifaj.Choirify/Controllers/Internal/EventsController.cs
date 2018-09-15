@@ -22,7 +22,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // GET: Events
         public IActionResult Index()
         {
-            return View(_eventMapper.FindAll().Select(e => new EventListViewModel(e)).AsEnumerable());
+            return View(_eventMapper.FindAll().OrderBy(e => e.From).Select(e => new EventListViewModel(e)).AsEnumerable());
         }
 
         // GET: Events/Details/5

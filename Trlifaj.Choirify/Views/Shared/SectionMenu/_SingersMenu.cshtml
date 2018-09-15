@@ -1,0 +1,4 @@
+﻿@if (User.IsInRole(Roles.Singer))
+{
+    <li><a asp-area="" asp-controller="Singers" asp-action="SingerIndex">Zpěváci</a></li>
+}

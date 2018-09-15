@@ -1,0 +1,31 @@
+﻿@if (User.IsInRole(Roles.Choirmaster) || User.IsInRole(Roles.Admin))
+{
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+            Sbormistrovské menu
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a asp-area="" asp-controller="Events" asp-action="ChoirmasterIndex">
+                    Události
+                </a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Rehearsals" asp-action="ChoirmasterIndex">
+                    Zkoušky
+                </a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Songs" asp-action="ChoirmasterIndex">
+                    Skladby
+                </a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Singers" asp-action="ChoirmasterIndex">
+                    Zpěváci
+                </a>
+            </li>
+        </ul>
+    </li>
+}
