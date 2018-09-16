@@ -1,4 +1,4 @@
-﻿@model EventListViewModel
+﻿@model SingerEventListViewModel
 <tr>
     <td>
         @Html.DisplayFor(modelItem => Model.EventTypeString)
@@ -6,16 +6,40 @@
     <td>
         @Html.DisplayFor(modelItem => Model.Name)
     </td>
-    <td>
+    <td class="hidden-xs hidden-sm">
         @Html.DisplayFor(modelItem => Model.Place)
     </td>
-    <td>
+    <td class="hidden-xs hidden-sm">
         @Html.DisplayFor(modelItem => Model.From)
     </td>
-    <td>
+    <td class="hidden-xs hidden-sm">
         @Html.DisplayFor(modelItem => Model.To)
+    </td>
+    <td class="hidden-xs hidden-sm">
+        @Html.DisplayFor(modelItem => Model.EndOfRegistration)
+    </td>
+    <td class="text-center">
+        @if (Model.Registration.Id != null)
+        {
+            if (Model.Registration.Answer == true)
+            {
+                <i class="fas fa-calendar-check fa-2x text-success"></i>
+            }
+            else
+            {
+                <i class="fas fa-calendar-times fa-2x text-danger"></i>
+            }
+        }
+        else
+        {
+            <span>Nevyjádřil/a ses!</span>
+        }
     </td>
     <td>
         <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
+        @if (DateTime.Now < Model.EndOfRegistration)
+        {
+            await Html.RenderPartialAsync("/Views/Events/Shared/_EventRegistrationModal.cshtml", Model.Registration);
+        }
     </td>
 </tr>

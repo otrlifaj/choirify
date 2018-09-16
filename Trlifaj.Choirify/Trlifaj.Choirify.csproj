@@ -27,6 +27,12 @@
     <Content Update="Views\Events\Admin.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Events\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Events\Shared\_ChoirmasterEventListItemPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Events\Shared\_SingerEventListItemPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

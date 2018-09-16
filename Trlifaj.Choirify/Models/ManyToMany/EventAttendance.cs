@@ -11,13 +11,15 @@ namespace Trlifaj.Choirify.Models.ManyToMany
     public class EventAttendance
     {
         [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         public Boolean Attended { get; set; }
 
+        public int? SingerId { get; set; }
         public Singer Singer { get; set; }
 
+        public int? EventId { get; set; }
         public Event Event { get; set; }
 
         public EventAttendance()

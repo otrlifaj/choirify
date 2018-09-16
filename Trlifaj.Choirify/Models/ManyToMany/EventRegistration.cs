@@ -11,7 +11,7 @@ namespace Trlifaj.Choirify.Models.ManyToMany
     public class EventRegistration
     {
         [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required(ErrorMessage = "Musíš se vyjádřit k účasti.")]
         public Boolean Answer { get; set; }
@@ -24,8 +24,11 @@ namespace Trlifaj.Choirify.Models.ManyToMany
         [Display(Name = "Šaty")]
         public DressOrderType? DressOrder { get; set; }
 
+
+        public int? SingerId { get; set; }
         public Singer Singer { get; set; }
 
+        public int? EventId { get; set; }
         public Event Event { get; set; }
 
         public EventRegistration()

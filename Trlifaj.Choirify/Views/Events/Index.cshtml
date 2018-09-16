@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Trlifaj.Choirify.ViewModels.EventViewModels.EventListViewModel>
+﻿@model IEnumerable<Trlifaj.Choirify.ViewModels.EventViewModels.SingerEventListViewModel>
 
 @{
     ViewData["Title"] = "Události";
@@ -14,14 +14,19 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            <th class="hidden-xs hidden-sm">
                 @Html.DisplayNameFor(model => model.Place)
             </th>
-            <th>
+            <th class="hidden-xs hidden-sm">
                 @Html.DisplayNameFor(model => model.From)
             </th>
-            <th>
+            <th class="hidden-xs hidden-sm">
                 @Html.DisplayNameFor(model => model.To)
+            </th>
+            <th class="hidden-xs hidden-sm">
+                @Html.DisplayNameFor(model => model.EndOfRegistration)
+            </th>
+            <th>
             </th>
             <th></th>
         </tr>

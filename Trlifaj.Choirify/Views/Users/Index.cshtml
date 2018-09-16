@@ -20,16 +20,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.PhoneNumber)
             </th>
-            <th>
+            <th class="hidden-xs hidden-sm">
                 @Html.DisplayNameFor(model => model.Email)
             </th>
-            <th>
+            <th class="hidden-xs hidden-sm">
                 @Html.DisplayNameFor(model => model.LastLogin)
             </th>
-            <th>
+            <th class="hidden-xs hidden-sm">
                 @Html.DisplayNameFor(model => model.CanLogin)
             </th>
-            <th>
+            <th class="hidden-xs hidden-sm">
                 @Html.DisplayNameFor(model => model.GdprApproved)
             </th>
 
@@ -61,22 +61,24 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PhoneNumber)
                 </td>
-                <td>
+                <td class="hidden-xs hidden-sm">
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
-                <td>
+                <td class="hidden-xs hidden-sm">
                     @Html.DisplayFor(modelItem => item.LastLogin)
                 </td>
-                <td>
+                <td class="hidden-xs hidden-sm">
                     @Html.DisplayFor(modelItem => item.CanLogin)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.GdprApproved)
                 </td>
                 <td>
-                    <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.UserId">Upravit</a>
-                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.UserId">Detail</a>
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.UserId">Smazat</a>
+                    <span style="white-space: nowrap">
+                        <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.UserId">Upravit</a>
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.UserId">Detail</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.UserId">Smazat</a>
+                    </span>
                 </td>
             </tr>
         }

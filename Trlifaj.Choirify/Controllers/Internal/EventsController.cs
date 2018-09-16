@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Trlifaj.Choirify.Database.Interfaces;
 using Trlifaj.Choirify.Models;
+using Trlifaj.Choirify.Models.Enums;
+using Trlifaj.Choirify.Models.ManyToMany;
 using Trlifaj.Choirify.Services;
 using Trlifaj.Choirify.ViewModels.EventViewModels;
 
@@ -13,16 +16,49 @@ namespace Trlifaj.Choirify.Controllers.Internal
     public class EventsController : Controller
     {
         private readonly IEventMapper _eventMapper;
+        private readonly IEventRegistrationMapper _eventRegistrationMapper;
+        private readonly IUserMapper _userMapper;
+        private readonly ISingerMapper _singerMapper;
 
-        public EventsController(IEventMapper eventMapper)
+        public EventsController(IEventMapper eventMapper, IEventRegistrationMapper eventRegistrationMapper, IUserMapper userMapper, ISingerMapper singerMapper)
         {
             _eventMapper = eventMapper;
+            _eventRegistrationMapper = eventRegistrationMapper;
+            _userMapper = userMapper;
+            _singerMapper = singerMapper;
         }
 
         // GET: Events
+        [Authorize(Roles = Roles.Singer)]
         public IActionResult Index()
         {
-            return View(_eventMapper.FindAll().OrderBy(e => e.From).Select(e => new EventListViewModel(e)).AsEnumerable());
+            IEnumerable<EventRegistration> singerRegistrations = new List<EventRegistration>();
+            VoiceGroup? voice = VoiceGroup.S1;
+            int? singerId = 0;
+
+            var user = _userMapper.FindBy(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            if (user != null && user.SingerId != null)
+            {
+                singerRegistrations = _eventRegistrationMapper.FindBy(er => er.SingerId == user.SingerId).ToList();
+                voice = _singerMapper.Find(user.SingerId.Value).VoiceGroup;
+                singerId = user.SingerId;
+            }
+            var events = _eventMapper.FindAll().AsEnumerable();
+            var model = events.Select(e =>
+            {
+                var registrationInfo = singerRegistrations.FirstOrDefault(r => r.EventId == e.Id);
+                if (registrationInfo == null)
+                {
+                    return new SingerEventListViewModel(e, new EventRegistrationViewModel(voice, e.Id, singerId, e.EndOfRegistration));
+                }
+                else
+                {
+                    return new SingerEventListViewModel(e, new EventRegistrationViewModel(registrationInfo, voice, e.EndOfRegistration));
+                }
+
+            }).OrderBy(ri => ri.From).AsEnumerable();
+
+            return View(model);
         }
 
         // GET: Events/Admin
@@ -33,10 +69,10 @@ namespace Trlifaj.Choirify.Controllers.Internal
         }
 
         //GET: Events/Choirmaster
-        [Authorize(Roles = Roles.Choirmaster + ","  + Roles.Admin)]
+        [Authorize(Roles = Roles.Choirmaster + "," + Roles.Admin)]
         public IActionResult Choirmaster()
         {
-            return View("Index", _eventMapper.FindAll().OrderBy(e => e.From).Select(e => new EventListViewModel(e)).AsEnumerable());
+            return View(_eventMapper.FindAll().OrderBy(e => e.From).Select(e => new EventListViewModel(e)).AsEnumerable());
         }
 
         //GET: Events/Dress

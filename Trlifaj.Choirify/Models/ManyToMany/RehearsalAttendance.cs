@@ -9,14 +9,16 @@ namespace Trlifaj.Choirify.Models.ManyToMany
     public class RehearsalAttendance
     {
         [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         [Display(Name = "Účast")]
         public Boolean Attended { get; set; }
 
+        public int? SingerId { get; set; }
         public Singer Singer { get; set; }
 
+        public int? RehearsalId { get; set; }
         public Rehearsal Rehearsal { get; set; }
 
         public RehearsalAttendance()

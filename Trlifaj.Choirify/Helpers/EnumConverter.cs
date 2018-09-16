@@ -69,10 +69,10 @@ namespace Trlifaj.Choirify.Helpers
             switch (dressOrderType)
             {
                 case DressOrderType.Own:
-                    result = "Má vlastní";
+                    result = "Vlastní";
                     break;
                 case DressOrderType.Borrowed:
-                    result = "Už má půjčené";
+                    result = "Už půjčené";
                     break;
                 case DressOrderType.XS:
                     result = "XS";

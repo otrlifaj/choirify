@@ -15,10 +15,13 @@ namespace Trlifaj.Choirify.Views.Manage
 
         public static string ChangePassword => "ChangePassword";
 
+        public static string Privacy => "Privacy";
+
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
         public static string ChangePasswordNavClass(ViewContext viewContext) => PageNavClass(viewContext, ChangePassword);
-    
+
+        public static string PrivacyPolicyNavClass(ViewContext viewContext) => PageNavClass(viewContext, Privacy);
         public static string PageNavClass(ViewContext viewContext, string page)
         {
             var activePage = viewContext.ViewData["ActivePage"] as string;

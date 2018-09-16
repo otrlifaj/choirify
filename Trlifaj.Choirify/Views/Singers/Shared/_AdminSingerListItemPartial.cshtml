@@ -12,12 +12,14 @@
     <td>
         @Html.DisplayFor(modelModel => Model.PhoneNumber)
     </td>
-    <td>
+    <td class="hidden-xs hidden-sm">
         @Html.DisplayFor(modelModel => Model.Email)
     </td>
     <td>
-        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Upravit</a>
-        <a asp-action="AdminDetails" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
-        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Smazat</a>
+        <span style="white-space: nowrap">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Upravit</a>
+            <a asp-action="AdminDetails" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Smazat</a>
+        </span>
     </td>
 </tr>
