@@ -1,0 +1,16 @@
+﻿@if (User.IsInRole(Roles.DresscodeLeader) || User.IsInRole(Roles.Admin))
+{
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+            Šatářka
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a asp-area="" asp-controller="Events" asp-action="Dress">
+                    Šaty
+                </a>
+            </li>
+        </ul>
+    </li>
+}

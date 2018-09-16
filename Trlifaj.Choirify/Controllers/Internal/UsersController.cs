@@ -13,7 +13,7 @@ using Trlifaj.Choirify.ViewModels.UserViewModels;
 
 namespace Trlifaj.Choirify.Controllers.Internal
 {
-    [Authorize(Roles = Roles.Admin + "," + Roles.Chairman + "," + Roles.ViceChairman)]
+    [Authorize(Roles = Roles.Admins.UserAdmins)]
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -35,15 +35,26 @@ namespace Trlifaj.Choirify.Controllers.Internal
 
 
 
-        // GET: User
-        public ActionResult Index()
+        // GET: Users
+        [Authorize(Roles = Roles.Admins.UserAdmins)]
+        public IActionResult Index()
         {
             var users = _userMapper.FindAll(); // loads Singer and Choirmaster property too
             var model = users.Select(u => ConvertToUserListViewModel(u)).AsEnumerable();
             return View(model);
         }
 
-        // GET: User/Details/5
+        // GET : Users/Admin
+        [Authorize(Roles = Roles.Admins.UserAdmins)]
+        public IActionResult Admin()
+        {
+            var users = _userMapper.FindAll(); // loads Singer and Choirmaster property too
+            var model = users.Select(u => ConvertToUserListViewModel(u)).AsEnumerable();
+            return View("Index", model);
+        }
+
+        // GET: Users/Details/5
+        [Authorize(Roles = Roles.Admins.UserAdmins)]
         public async Task<ActionResult> Details(string id)
         {
             var user = _userMapper.Find(id); // loads Singer and Choirmaster property too
@@ -53,8 +64,9 @@ namespace Trlifaj.Choirify.Controllers.Internal
             return View(model);
         }
 
-        // GET: User/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        // GET: Users/Edit/5
+        [Authorize(Roles = Roles.Admins.UserAdmins)]
+        public async Task<IActionResult> Edit(string id)
         {
             var user = _userMapper.Find(id); // loads Singer and Choirmaster property too
             var model = ConvertToUserDetailEditViewModel(user);
@@ -63,10 +75,11 @@ namespace Trlifaj.Choirify.Controllers.Internal
             return View(model);
         }
 
-        // POST: User/Edit/5
+        // POST: Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(string id, [Bind] UserDetailEditViewModel model)
+        [Authorize(Roles = Roles.Admins.UserAdmins)]
+        public async Task<IActionResult> Edit(string id, [Bind] UserDetailEditViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -93,24 +106,26 @@ namespace Trlifaj.Choirify.Controllers.Internal
                     AddErrors(addRolesResult);
                     return View(model);
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Admin));
             };
 
             return View(model);
         }
 
-        // GET: User/Delete/5
-        public ActionResult Delete(string id)
+        // GET: Users/Delete/5
+        [Authorize(Roles = Roles.Admins.UserAdmins)]
+        public IActionResult Delete(string id)
         {
             var user = _userMapper.Find(id); // loads Singer and Choirmaster property too
             var model = ConvertToUserDetailEditViewModel(user);
             return View(model);
         }
 
-        // POST: User/Delete/5
+        // POST: Users/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string id, IFormCollection collection)
+        [Authorize(Roles = Roles.Admins.UserAdmins)]
+        public IActionResult Delete(string id, IFormCollection collection)
         {
             try
             {
@@ -125,7 +140,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
                     _choirmasterMapper.Delete(user.Choirmaster);
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Admin));
             }
             catch
             {

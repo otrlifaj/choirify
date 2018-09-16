@@ -1,0 +1,71 @@
+﻿@model Trlifaj.Choirify.ViewModels.EventViewModels.EventDetailEditViewModel
+
+@{
+    ViewData["Title"] = Model.Name + " " + Model.Place;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EventType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EventTypeString)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.From)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.From)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.To)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.To)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Place)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Place)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartOfRegistration)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartOfRegistration)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EndOfRegistration)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndOfRegistration)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Organizer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Organizer)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Upravit</a>
+    <a asp-action="Admin" class="btn btn-default">Správa událostí</a>
+</div>

@@ -2,14 +2,14 @@
     <div class="text-center homepage-menu-item-container">
         @if (User.Identity.IsAuthenticated && User.IsInRole(Roles.Singer))
         {
-            <a class="homepage-menu-link" asp-area="" asp-controller="Singers" asp-action="Index">
+            <a class="homepage-menu-link" asp-area="" asp-controller="Singers">
                 <i class="fas fa-users fa-8x"></i>
                 <h2>Zpěváci</h2>
             </a>
         }
         else if (User.Identity.IsAuthenticated && User.IsInRole(Roles.Choirmaster))
         {
-            <a class="homepage-menu-link" asp-area="" asp-controller="Singers" asp-action="ChoirmasterIndex">
+            <a class="homepage-menu-link" asp-area="" asp-controller="Singers" asp-action="Choirmaster">
                 <i class="far fa-users-alt fa-8x"></i>
                 <h2>Zpěváci</h2>
             </a>

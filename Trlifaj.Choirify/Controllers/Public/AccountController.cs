@@ -104,7 +104,7 @@ namespace Trlifaj.Choirify.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Nelze přihlásit.");
+                        ModelState.AddModelError(string.Empty, "Nelze přihlásit - pravděpodobně jsi zadal špatné heslo.");
                         return View(model);
                     }
                 }

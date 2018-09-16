@@ -1,0 +1,21 @@
+﻿@model SingerListViewModel
+<tr>
+    <td>
+        @Html.DisplayFor(modelModel => Model.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.Surname)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.VoiceGroup)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.PhoneNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.Email)
+    </td>
+    <td>
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
+    </td>
+</tr>

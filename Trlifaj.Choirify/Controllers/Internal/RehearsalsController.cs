@@ -14,7 +14,7 @@ using Trlifaj.Choirify.ViewModels.RehearsalViewModels;
 
 namespace Trlifaj.Choirify.Controllers.Internal
 {
-    [Authorize(Roles = Roles.Admin + "," + Roles.Chairman + "," + Roles.ViceChairman)]
+    [Authorize]
     public class RehearsalsController : Controller
     {
         private readonly IRehearsalMapper _rehearsalMapper;
@@ -28,6 +28,20 @@ namespace Trlifaj.Choirify.Controllers.Internal
         public IActionResult Index()
         {
             return View(_rehearsalMapper.FindAll().Select(r => new RehearsalListViewModel(r)));
+        }
+
+        // GET: Rehearsals/Admin
+        [Authorize(Roles = Roles.Admins.RehearsalAdmins)]
+        public IActionResult Admin()
+        {
+            return View(_rehearsalMapper.FindAll().Select(r => new RehearsalListViewModel(r)));
+        }
+
+        // GET: Rehearsals/Choirmaster
+        [Authorize(Roles = Roles.Choirmaster + "," + Roles.Admin)]
+        public IActionResult Choirmaster()
+        {
+            return View("Index", _rehearsalMapper.FindAll().Select(r => new RehearsalListViewModel(r)));
         }
 
         // GET: Rehearsals/Details/5
@@ -47,7 +61,26 @@ namespace Trlifaj.Choirify.Controllers.Internal
             return View(model);
         }
 
+        // GET: Rehearsals/AdminDetails/5
+        [Authorize(Roles = Roles.Admins.RehearsalAdmins)]
+        public IActionResult AdminDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var rehearsal = _rehearsalMapper.Find(id.Value);
+            if (rehearsal == null)
+            {
+                return NotFound();
+            }
+            var model = new RehearsalDetailEditViewModel(rehearsal);
+            return View(model);
+        }
+
         // GET: Rehearsals/Create
+        [Authorize(Roles = Roles.Admins.RehearsalAdmins)]
         public IActionResult Create()
         {
             return View();
@@ -56,18 +89,20 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // POST: Rehearsals/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admins.RehearsalAdmins)]
         public IActionResult Create([Bind] RehearsalDetailEditViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var rehearsal = model.ToRehearsal();
                 _rehearsalMapper.Create(rehearsal);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Admin));
             }
             return View(model);
         }
 
         // GET: Rehearsals/Edit/5
+        [Authorize(Roles = Roles.Admins.RehearsalAdmins)]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,6 +122,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // POST: Rehearsals/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admins.RehearsalAdmins)]
         public IActionResult Edit(int id, [Bind] RehearsalDetailEditViewModel model)
         {
             if (id != model.Id)
@@ -98,12 +134,13 @@ namespace Trlifaj.Choirify.Controllers.Internal
             {
                 var rehearsal = model.ToRehearsal();
                 _rehearsalMapper.Update(rehearsal);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Admin));
             }
             return View(model);
         }
 
         // GET: Rehearsals/Delete/5
+        [Authorize(Roles = Roles.Admins.RehearsalAdmins)]
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -123,13 +160,14 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // POST: Rehearsals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admins.RehearsalAdmins)]
         public IActionResult DeleteConfirmed(int id)
         {
             try
             {
                 var rehearsal = _rehearsalMapper.Find(id);
                 _rehearsalMapper.Delete(rehearsal);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Admin));
             }
             catch
             {

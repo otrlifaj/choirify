@@ -1,0 +1,60 @@
+﻿@model Trlifaj.Choirify.ViewModels.SongViewModels.SongDetailEditViewModel
+
+@{
+    ViewData["Title"] = Model.Name + " (" + Model.Author + ")";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Current)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Current)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SheetsAvailable)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SheetsAvailable)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SheetType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SheetTypeString)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model.Id">Upravit</a>
+    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Smazat</a>
+    <a class="btn btn-default" asp-action="Admin">Správa skladeb</a>
+</div>

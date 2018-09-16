@@ -7,7 +7,8 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h4 class="text-success">Účet vytvořen</h4>
+        <h3 class="text-success">Účet vytvořen</h3>
+        <h4 class="text-info">Potvrď prosím svou registraci kliknutím na odkaz, který ti přišel na email.</h4>
         <hr />
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group">
@@ -57,7 +58,7 @@
         </div>
         <div class="form-group">
             <label asp-for="Country"></label>
-            <input asp-for="Country" disabled />
+            @Html.DropDownListFor(model => model.Country, Model.Countries, new { @class = "form-control", disabled = true })
             <span asp-validation-for="Country" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -65,11 +66,20 @@
             <input asp-for="IsSinger" class="form-control" disabled />
             <span asp-validation-for="IsSinger" class="text-danger"></span>
         </div>
+        @if (Model.IsSinger)
+        {
+            <div class="form-group">
+                <label asp-for="VoiceGroup"></label>
+                @Html.DropDownListFor(model => model.VoiceGroup, Model.VoiceGroups, new { @class = "form-control", disabled = true })
+                <span asp-validation-for="VoiceGroup" class="text-danger"></span>
+            </div>
+        }
         <div class="form-group">
-            <label asp-for="VoiceGroup"></label>
-            <input asp-for="VoiceGroup" class="form-control" disabled />
-            <span asp-validation-for="VoiceGroup" class="text-danger"></span>
+            <label asp-for="GdprApproved"></label>
+            <input asp-for="GdprApproved" class="form-control" disabled />
+            <span asp-validation-for="GdprApproved" class="text-danger"></span>
         </div>
+
     </div>
 </div>
 

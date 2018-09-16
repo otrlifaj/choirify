@@ -1,0 +1,17 @@
+﻿@model  SongListViewModel
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Author)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Current)
+    </td>
+    <td>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Upravit</a>
+        <a asp-action="AdminDetails" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Smazat</a>
+    </td>
+</tr>

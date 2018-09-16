@@ -1,0 +1,21 @@
+﻿@model EventListViewModel
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => Model.EventTypeString)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Place)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.From)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.To)
+    </td>
+    <td>
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
+    </td>
+</tr>

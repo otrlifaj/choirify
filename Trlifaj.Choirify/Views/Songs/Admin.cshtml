@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Trlifaj.Choirify.ViewModels.SongViewModels.SongListViewModel>
+
+@{
+    ViewData["Title"] = "Správa skladeb";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Přidat</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Current)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            Html.RenderPartialAsync("/Views/Songs/Shared/_AdminSongListItemPartial.cshtml", item);
+        }
+    </tbody>
+</table>

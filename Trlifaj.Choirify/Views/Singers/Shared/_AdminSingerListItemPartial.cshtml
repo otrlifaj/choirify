@@ -1,0 +1,23 @@
+﻿@model SingerListViewModel
+<tr>
+    <td>
+        @Html.DisplayFor(modelModel => Model.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.Surname)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.VoiceGroup)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.PhoneNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.Email)
+    </td>
+    <td>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Upravit</a>
+        <a asp-action="AdminDetails" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Smazat</a>
+    </td>
+</tr>

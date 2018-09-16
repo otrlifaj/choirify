@@ -4,7 +4,7 @@
     ViewData["Title"] = "Zpěváci";
 }
 
-<h2>Zpěváci</h2>
+<h2>@ViewData["Title"]</h2>
 <table class="table">
     <thead>
         <tr>
@@ -27,29 +27,9 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Surname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VoiceGroup)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-default">Upravit</a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detail</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Smazat</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            Html.RenderPartialAsync("/Views/Singers/Shared/_SingerSingerListItemPartial.cshtml", item);
+        }
     </tbody>
 </table>

@@ -1,0 +1,14 @@
+﻿@model RehearsalListViewModel
+<tr>
+    <td>
+        @Html.DisplayFor(modelModel => Model.Date)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.Description)
+    </td>
+    <td>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Upravit</a>
+        <a asp-action="AdminDetails" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Smazat</a>
+    </td>
+</tr>

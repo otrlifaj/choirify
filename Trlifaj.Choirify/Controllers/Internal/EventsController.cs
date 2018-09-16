@@ -9,7 +9,7 @@ using Trlifaj.Choirify.ViewModels.EventViewModels;
 
 namespace Trlifaj.Choirify.Controllers.Internal
 {
-    [Authorize(Roles = Roles.Admin + "," + Roles.Chairman + "," + Roles.ViceChairman)]
+    [Authorize]
     public class EventsController : Controller
     {
         private readonly IEventMapper _eventMapper;
@@ -25,6 +25,27 @@ namespace Trlifaj.Choirify.Controllers.Internal
             return View(_eventMapper.FindAll().OrderBy(e => e.From).Select(e => new EventListViewModel(e)).AsEnumerable());
         }
 
+        // GET: Events/Admin
+        [Authorize(Roles = Roles.Admins.EventAdmins)]
+        public IActionResult Admin()
+        {
+            return View(_eventMapper.FindAll().OrderBy(e => e.From).Select(e => new EventListViewModel(e)).AsEnumerable());
+        }
+
+        //GET: Events/Choirmaster
+        [Authorize(Roles = Roles.Choirmaster + ","  + Roles.Admin)]
+        public IActionResult Choirmaster()
+        {
+            return View("Index", _eventMapper.FindAll().OrderBy(e => e.From).Select(e => new EventListViewModel(e)).AsEnumerable());
+        }
+
+        //GET: Events/Dress
+        [Authorize(Roles = Roles.Admins.EventAdmins + "," + Roles.DresscodeLeader)]
+        public IActionResult Dress()
+        {
+            return View("Index", _eventMapper.FindAll().OrderBy(e => e.From).Select(e => new EventListViewModel(e)).AsEnumerable());
+        }
+
         // GET: Events/Details/5
         public IActionResult Details(int? id)
         {
@@ -37,10 +58,25 @@ namespace Trlifaj.Choirify.Controllers.Internal
             {
                 return NotFound();
             }
-
+            return View(new EventDetailEditViewModel(@event));
+        }
+        // GET: Events/AdminDetails/5
+        [Authorize(Roles = Roles.Admins.EventAdmins)]
+        public IActionResult AdminDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var @event = _eventMapper.Find(id.Value);
+            if (@event == null)
+            {
+                return NotFound();
+            }
             return View(new EventDetailEditViewModel(@event));
         }
 
+        [Authorize(Roles = Roles.Admins.EventAdmins)]
         // GET: Events/Create
         public IActionResult Create()
         {
@@ -57,17 +93,19 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // POST: Events/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admins.EventAdmins)]
         public IActionResult Create([Bind] EventDetailEditViewModel model)
         {
             if (ModelState.IsValid)
             {
                 _eventMapper.Create(model.ToEvent());
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Admin));
             }
             return View(model);
         }
 
         // GET: Events/Edit/5
+        [Authorize(Roles = Roles.Admins.EventAdmins)]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -88,18 +126,20 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // POST: Events/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admins.EventAdmins)]
         public IActionResult Edit(int id, [Bind] EventDetailEditViewModel model)
         {
 
             if (ModelState.IsValid)
             {
                 _eventMapper.Update(model.ToEvent());
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Admin));
             }
             return View(model);
         }
 
         // GET: Events/Delete/5
+        [Authorize(Roles = Roles.Admins.EventAdmins)]
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -115,13 +155,14 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admins.EventAdmins)]
         public IActionResult DeleteConfirmed(int id)
         {
             try
             {
                 var e = _eventMapper.Find(id);
                 _eventMapper.Delete(e);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Admin));
             }
             catch
             {

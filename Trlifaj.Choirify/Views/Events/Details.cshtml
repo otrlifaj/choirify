@@ -66,6 +66,8 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Upravit</a>
-    <a asp-action="Index" class="btn btn-default">Seznam událostí</a>
+    @if (User.IsInRole(Roles.Singer))
+    {
+        <a asp-action="Index" class="btn btn-default">Seznam událostí</a>
+    }
 </div>

@@ -21,12 +21,6 @@
             @Html.DisplayFor(model => model.Surname)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateOfBirth)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </dt>
         <dd>
@@ -39,30 +33,6 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.NumberOfIDCard)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NumberOfIDCard)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PassportNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PassportNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.VoiceGroup)
         </dt>
         <dd>
@@ -71,7 +41,5 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model.Id">Upravit</a>
-    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Smazat</a>
     <a class="btn btn-default" asp-action="Index">Seznam zpěváků</a>
 </div>

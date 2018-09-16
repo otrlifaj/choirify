@@ -3,12 +3,8 @@
 @{
     ViewData["Title"] = "Události";
 }
-
 <h2>@ViewData["Title"]</h2>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Přidat</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -31,29 +27,9 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventTypeString)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Place)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.From)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.To)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-default">Upravit</a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detail</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Smazat</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            Html.RenderPartialAsync("/Views/Events/Shared/_SingerEventListItemPartial.cshtml", item);
+        }
     </tbody>
 </table>
