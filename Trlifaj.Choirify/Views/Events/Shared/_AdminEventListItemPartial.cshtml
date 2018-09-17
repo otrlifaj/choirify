@@ -1,4 +1,4 @@
-﻿@model EventListViewModel
+﻿@model AdminEventListViewModel
 <tr>
     <td>
         @Html.DisplayFor(modelItem => Model.EventTypeString)
@@ -14,6 +14,20 @@
     </td>
     <td class="hidden-xs hidden-sm">
         @Html.DisplayFor(modelItem => Model.To)
+    </td>
+    <td>
+        <span class="text-success">
+            @Model.RegistrationsYes
+            <i class="fas fa-check fa-1x"></i>
+        </span>
+        <span class="text-danger">
+            @Model.RegistrationsNo
+            <i class="fas fa-times fa-1x"></i>
+        </span>
+        <span class="text-info">
+            @Model.WithoutAnswer
+            <i class="fas fa-minus fa-1x"></i>
+        </span>
     </td>
     <td>
         <span style="white-space: nowrap">

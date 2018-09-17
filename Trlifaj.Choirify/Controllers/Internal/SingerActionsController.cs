@@ -43,6 +43,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
             else
             {
                 var newRegistration = model.ToEventRegistration();
+                newRegistration.RegistrationDate = DateTime.Now;
                 newRegistration.Answer = true;
                 var oldRegistration = _eventRegistrationMapper.FindBy(er => er.SingerId == singerId && er.EventId == eventId).FirstOrDefault();
                 if (oldRegistration == null)
@@ -55,6 +56,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
                     oldRegistration.Answer = newRegistration.Answer;
                     oldRegistration.Comment = newRegistration.Comment;
                     oldRegistration.DressOrder = newRegistration.DressOrder;
+                    oldRegistration.RegistrationDate = newRegistration.RegistrationDate;
                     _eventRegistrationMapper.Update(oldRegistration);
                 }
                 return RedirectToAction("Index", "Events");
@@ -78,6 +80,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
             else
             {
                 var newRegistration = model.ToEventRegistration();
+                newRegistration.RegistrationDate = DateTime.Now;
                 newRegistration.Answer = false;
                 var oldRegistration = _eventRegistrationMapper.FindBy(er => er.SingerId == singerId && er.EventId == eventId).FirstOrDefault();
                 if (oldRegistration == null)
@@ -89,6 +92,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
                     oldRegistration.Answer = newRegistration.Answer;
                     oldRegistration.Comment = newRegistration.Comment;
                     oldRegistration.DressOrder = null;
+                    oldRegistration.RegistrationDate = newRegistration.RegistrationDate;
                     _eventRegistrationMapper.Update(oldRegistration);
                 }
                 return RedirectToAction("Index", "Events");

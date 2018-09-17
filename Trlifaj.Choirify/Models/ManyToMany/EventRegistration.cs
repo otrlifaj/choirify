@@ -24,6 +24,10 @@ namespace Trlifaj.Choirify.Models.ManyToMany
         [Display(Name = "Šaty")]
         public DressOrderType? DressOrder { get; set; }
 
+        [Display(Name = "Čas")]
+        [DataType(DataType.DateTime)]
+        public DateTime RegistrationDate { get; set; }
+
 
         public int? SingerId { get; set; }
         public Singer Singer { get; set; }

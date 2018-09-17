@@ -38,7 +38,7 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
         [Display(Name = "Místo")]
         public string Place { get; set; }
 
-        [Required(AllowEmptyStrings = true, ErrorMessage = "Musí být zadán nějaký popis události"), MaxLength(150, ErrorMessage = "Popis události může mít maximálně 1000 znaků.")]
+        [Required(AllowEmptyStrings = true, ErrorMessage = "Musí být zadán nějaký popis události"), MaxLength(1000, ErrorMessage = "Popis události může mít maximálně 1000 znaků.")]
         [Display(Name = "Popis")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }

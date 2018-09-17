@@ -43,7 +43,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            <textarea asp-for="Description" class="form-control singer-event-description-detail textarea-disabled-white" readonly></textarea>
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.StartOfRegistration)

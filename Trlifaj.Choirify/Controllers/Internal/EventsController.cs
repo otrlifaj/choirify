@@ -65,21 +65,35 @@ namespace Trlifaj.Choirify.Controllers.Internal
         [Authorize(Roles = Roles.Admins.EventAdmins)]
         public IActionResult Admin()
         {
-            return View(_eventMapper.FindAll().OrderBy(e => e.From).Select(e => new EventListViewModel(e)).AsEnumerable());
+            var events = _eventMapper.FindAll().OrderBy(e => e.From);
+            var eventIds = events.Select(e => e.Id).ToList();
+            var activeSingers = _singerMapper.FindBy(s => s.IsActive == true).Count();
+            var allEventRegistrations = _eventRegistrationMapper.FindBy(er => eventIds.Contains(er.EventId.Value)).ToList();
+
+            var model = new List<AdminEventListViewModel>();
+            foreach (var e in events)
+            {
+                var answeredYes = allEventRegistrations.Where(er => er.EventId.Value == e.Id && er.Answer == true).Count();
+                var answeredNo = allEventRegistrations.Where(er => er.EventId.Value == e.Id && er.Answer == false).Count();
+                var modelItem = new AdminEventListViewModel(e, activeSingers, answeredYes, answeredNo);
+                model.Add(modelItem);
+
+            }
+            return View(model);
         }
 
         //GET: Events/Choirmaster
         [Authorize(Roles = Roles.Choirmaster + "," + Roles.Admin)]
         public IActionResult Choirmaster()
         {
-            return View(_eventMapper.FindAll().OrderBy(e => e.From).Select(e => new EventListViewModel(e)).AsEnumerable());
+            return View(_eventMapper.FindAll().OrderBy(e => e.From).Select(e => new SingerEventListViewModel(e)).AsEnumerable());
         }
 
         //GET: Events/Dress
         [Authorize(Roles = Roles.Admins.EventAdmins + "," + Roles.DresscodeLeader)]
         public IActionResult Dress()
         {
-            return View("Index", _eventMapper.FindAll().OrderBy(e => e.From).Select(e => new EventListViewModel(e)).AsEnumerable());
+            return View("Index", _eventMapper.FindAll().OrderBy(e => e.From).Select(e => new SingerEventListViewModel(e)).AsEnumerable());
         }
 
         // GET: Events/Details/5
@@ -109,7 +123,28 @@ namespace Trlifaj.Choirify.Controllers.Internal
             {
                 return NotFound();
             }
-            return View(new EventDetailEditViewModel(@event));
+
+            var registrations = _eventRegistrationMapper.FindBy(er => er.EventId == id.Value).ToList();
+            var singers = _singerMapper.FindBy(s => s.IsActive == true).Select(s => new { s.Id, s.FirstName, s.Surname, s.VoiceGroup }).ToList();
+            var singersWhoDidntAnswer = singers.Where(s => !registrations.Select(r => r.SingerId.Value).Contains(s.Id)); 
+            var modelRegistrations = new List<AdminEventDetailSingerRegistrationViewModel>();
+            foreach (var er in registrations)
+            {
+                var singer = singers.FirstOrDefault(s => s.Id == er.SingerId.Value);
+                if (singer == null)
+                    continue;
+                var registrationModel = new AdminEventDetailSingerRegistrationViewModel(singer.Id, er.Id, @event.Id, singer.FirstName, singer.Surname, singer.VoiceGroup.Value, er.RegistrationDate, er.Answer, er.Comment);
+                modelRegistrations.Add(registrationModel);
+            }
+
+            var modelSingersWithoutAnswer = new List<AdminEventDetailSingerRegistrationViewModel>();
+            foreach (var singer in singersWhoDidntAnswer)
+            {
+                var notAnsweredModel = new AdminEventDetailSingerRegistrationViewModel(singer.Id, null, @event.Id, singer.FirstName, singer.Surname, singer.VoiceGroup.Value, null, null, null);
+                modelSingersWithoutAnswer.Add(notAnsweredModel);
+            }
+
+            return View(new AdminEventDetailViewModel(@event, modelRegistrations, modelSingersWithoutAnswer));
         }
 
         [Authorize(Roles = Roles.Admins.EventAdmins)]

@@ -21,10 +21,50 @@
 .carousel-inner .item img[src$=".svg"] {
     width: 100%;
 }
+.admin-event-details dt{
+    text-align: left;
+}
+
+
 
 /* QR code generator */
 #qrCode {
     margin: 15px;
+}
+
+.registration-status-table{
+    margin-top: 15px;
+}
+.admin-event-description-detail {
+    min-height: 100px;
+    max-width: 200px;
+}
+
+.admin-event-description-edit {
+    min-height: 175px;
+}
+
+.admin-event-description-create {
+    min-height: 175px;
+}
+
+.singer-event-description-detail {
+    min-height: 175px;
+    max-width: 400px;
+}
+
+.textarea-disabled-white[readonly] {
+    background-color: #fff;
+}
+.table-custom {
+    width: 100%;
+}
+
+.table-custom tbody tr td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    line-height: 15px;
+    text-align: center;
 }
 
 div.navigation-page {
@@ -36,7 +76,6 @@ div.homepage-menu-item-container {
     padding-top: 10px;
     border: 2px solid black;
     border-radius: 10px;
-    /*border-color: lightgray;*/
     border-color: #337ab7;
 }
 

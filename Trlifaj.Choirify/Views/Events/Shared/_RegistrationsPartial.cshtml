@@ -1,0 +1,66 @@
+﻿@model Trlifaj.Choirify.ViewModels.EventViewModels.AdminEventDetailViewModel
+
+<div class="event-registered-singers-container">
+    <h2>Přihlašování</h2>
+    <hr />
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Hlas
+                </th>
+                <th>
+                    Příjmení
+                </th>
+                <th>
+                    Jméno
+                </th>
+                <th>
+                    Přihlášen
+                </th>
+                <th class="hidden-xs hidden-sm">
+                    Poznámka
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Registrations.OrderByDescending(x => x.RegistrationPositive).ThenBy(x => x.Voice).ThenBy(x => x.Surname).ThenBy(x => x.FirstName))
+            {
+                await Html.RenderPartialAsync("/Views/Events/Shared/_RegistrationRow.cshtml", item);
+            }
+        </tbody>
+    </table>
+</div>
+@if (Model.WithoutAnswer.Count > 0)
+{
+    <div class="event-registered-singers-container">
+        <h2>Nevyjádřili se</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Hlas
+                    </th>
+                    <th>
+                        Příjmení
+                    </th>
+                    <th>
+                        Jméno
+                    </th>
+                    <th>
+
+                    </th>
+                    <th class="hidden-xs hidden-sm">
+                        Poznámka
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.WithoutAnswer.OrderBy(x => x.Voice).ThenBy(x => x.Surname).ThenBy(x => x.FirstName))
+                {
+                    await Html.RenderPartialAsync("/Views/Events/Shared/_RegistrationRow.cshtml", item);
+                }
+            </tbody>
+        </table>
+    </div>
+}

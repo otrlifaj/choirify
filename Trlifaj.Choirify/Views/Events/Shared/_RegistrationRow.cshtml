@@ -1,0 +1,46 @@
+﻿@model Trlifaj.Choirify.ViewModels.EventViewModels.AdminEventDetailSingerRegistrationViewModel
+
+@{ 
+    var rowStyle = "default";
+    if (Model.RegistrationPositive == true)
+    {
+        rowStyle = "success";
+    } else if (Model.RegistrationPositive == false)
+    {
+        rowStyle = "danger";
+    }
+}
+<tr class="@rowStyle">
+    <td>
+        @Html.DisplayFor(modelItem => Model.Voice)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Surname)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.FirstName)
+    </td>
+    <td class="text-center">
+        @if (Model.RegistrationPositive == true)
+        {
+            <span class="text-success">
+                <i class="fas fa-check fa-1x"></i>
+            </span>
+        }
+        else if (Model.RegistrationPositive == false)
+        {
+            <span class="text-danger">
+                <i class="fas fa-times fa-1x"></i>
+            </span>
+        }
+        else
+        {
+            <span class="text-info">
+                <i class="fas fa-minus fa-1x"></i>
+            </span>
+        }
+    </td>
+    <td class="hidden-xs hidden-sm">
+        @Html.DisplayFor(modelItem => Model.Comment)
+    </td>
+</tr>
