@@ -19,5 +19,16 @@ namespace Trlifaj.Choirify.ViewModels
                         Text = EnumConverter.GetSheetInfoTypeNameString(st),
                         Value = ((int)st).ToString()
                     });
+
+        public readonly IEnumerable<SelectListItem> SingerSheetInfoTypes =
+            Enum.GetValues(typeof(SheetInfoType))
+                .Cast<SheetInfoType>()
+                .Select(st =>
+                    new SelectListItem
+                    {
+                        Text = EnumConverter.GetSingerSheetInfoTypeNameString(st),
+                        Value = ((int)st).ToString()
+                    });
+
     }
 }

@@ -19,5 +19,15 @@ namespace Trlifaj.Choirify.ViewModels
                         Text = EnumConverter.GetDressOrderTypeNameString(dot),
                         Value = ((int)dot).ToString()
                     });
+
+        public readonly IEnumerable<SelectListItem> SingerDressOrderTypes =
+            Enum.GetValues(typeof(DressOrderType))
+                .Cast<DressOrderType>()
+                .Select(dot =>
+                    new SelectListItem
+                    {
+                        Text = EnumConverter.GetSingerDressOrderTypeNameString(dot),
+                        Value = ((int)dot).ToString()
+                    });
     }
 }

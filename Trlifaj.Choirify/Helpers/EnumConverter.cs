@@ -63,6 +63,24 @@ namespace Trlifaj.Choirify.Helpers
             return result;
         }
 
+        internal static string GetSingerSheetInfoTypeNameString(SheetInfoType sheetInfoType)
+        {
+            string result = null;
+            switch (sheetInfoType)
+            {
+                case SheetInfoType.NoCopy:
+                    result = "Nemám noty";
+                    break;
+                case SheetInfoType.HasCopy:
+                    result = "Mám noty";
+                    break;
+                case SheetInfoType.Ordered:
+                    result = "Mám objednáno";
+                    break;
+            }
+            return result;
+        }
+
         internal static string GetDressOrderTypeNameString(DressOrderType dressOrderType)
         {
             string result = null;
@@ -85,6 +103,33 @@ namespace Trlifaj.Choirify.Helpers
                     break;
                 case DressOrderType.L:
                     result = "L";
+                    break;
+            }
+            return result;
+        }
+
+        internal static string GetSingerDressOrderTypeNameString(DressOrderType dressOrderType)
+        {
+            string result = null;
+            switch (dressOrderType)
+            {
+                case DressOrderType.Own:
+                    result = "Mám vlastní";
+                    break;
+                case DressOrderType.Borrowed:
+                    result = "Už mám půjčené";
+                    break;
+                case DressOrderType.XS:
+                    result = "Chci půjčit XS";
+                    break;
+                case DressOrderType.S:
+                    result = "Chci půjčit S";
+                    break;
+                case DressOrderType.M:
+                    result = "Chci půjčit M";
+                    break;
+                case DressOrderType.L:
+                    result = "Chci půjčit L";
                     break;
             }
             return result;
