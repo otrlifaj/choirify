@@ -5,6 +5,10 @@
 }
 
 <h2>@ViewData["Title"]</h2>
+<p class="btn-group pull-right" role="group">
+    <a asp-action="Index" asp-route-filter="current" class="btn btn-primary">Aktuální</a>
+    <a asp-action="Index" asp-route-filter="all" class="btn btn-primary">Všechny</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -14,8 +18,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.Author)
             </th>
-            <th>
+            <th class="text-center">
                 @Html.DisplayNameFor(model => model.Current)
+            </th>
+            <th>
+                Noty
             </th>
             <th></th>
         </tr>

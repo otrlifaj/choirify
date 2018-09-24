@@ -71,11 +71,6 @@
                 @Html.DropDownListFor(model => model.Country, Model.Countries, new { @class = "form-control" })
                 <span asp-validation-for="Country" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="IsSinger"></label>
-                <input id="isSingerCheckbox" asp-for="IsSinger" class="form-control" />
-                <span asp-validation-for="IsSinger" class="text-danger"></span>
-            </div>
             <div class="form-group" id="voiceGroupDropdown">
                 <label asp-for="VoiceGroup"></label>
                 @Html.DropDownListFor(model => model.VoiceGroup, Model.VoiceGroups, new { @class = "form-control" })
@@ -83,7 +78,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="GdprApproved"></label>
-                <input asp-for="GdprApproved" class="form-control" />
+                <div class="material-switch pull-right">
+                    <input asp-for="GdprApproved" type="checkbox" id="gdprdApprovedSwitch" />
+                    <label class="label-success" for="gdprdApprovedSwitch"></label>
+                </div>
                 <a target="_blank" rel="noopener noreferrer" asp-area="" asp-controller="Home" asp-action="Privacy">
                     Přečti si zásady ochrany a zpracování osobních údajů
                 </a>

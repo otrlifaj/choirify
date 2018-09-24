@@ -1,0 +1,24 @@
+﻿@model DressCodeEventListViewModel
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => Model.EventTypeString)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Name)
+    </td>
+    <td class="hidden-xs hidden-sm">
+        @Html.DisplayFor(modelItem => Model.Place)
+    </td>
+    <td class="hidden-xs hidden-sm">
+        @Html.DisplayFor(modelItem => Model.From)
+    </td>
+    <td class="hidden-xs hidden-sm">
+        @Html.DisplayFor(modelItem => Model.To)
+    </td>
+    <td class="hidden-xs hidden-sm">
+        @Html.DisplayFor(modelItem => Model.EndOfRegistration)
+    </td>
+    <td>
+        <a asp-action="DressDetails" asp-route-id="@Model.Id" class="btn btn-info">Informace o šatech</a>
+    </td>
+</tr>

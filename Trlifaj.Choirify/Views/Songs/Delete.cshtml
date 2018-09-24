@@ -24,7 +24,18 @@
             @Html.DisplayNameFor(model => model.Current)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Current)
+            @if (Model.Current)
+            {
+                <span class="text-success">
+                    <i class="fas fa-check fa-1x"></i>
+                </span>
+            }
+            else
+            {
+                <span class="text-danger">
+                    <i class="fas fa-times fa-1x"></i>
+                </span>
+            }
         </dd>
     </dl>
 

@@ -67,11 +67,33 @@
                 <td class="hidden-xs hidden-sm">
                     @Html.DisplayFor(modelItem => item.LastLogin)
                 </td>
-                <td class="hidden-xs hidden-sm">
-                    @Html.DisplayFor(modelItem => item.CanLogin)
+                <td class="hidden-xs hidden-sm text-center">
+                    @if (item.CanLogin)
+                    {
+                        <span class="text-success">
+                            <i class="fas fa-check fa-1x"></i>
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-danger text-center">
+                            <i class="fas fa-times fa-1x"></i>
+                        </span>
+                    }
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GdprApproved)
+                <td class="hidden-xs hidden-sm text-center">
+                    @if (item.GdprApproved)
+                    {
+                        <span class="text-success">
+                            <i class="fas fa-check fa-1x"></i>
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-danger">
+                            <i class="fas fa-times fa-1x"></i>
+                        </span>
+                    }
                 </td>
                 <td>
                     <span style="white-space: nowrap">

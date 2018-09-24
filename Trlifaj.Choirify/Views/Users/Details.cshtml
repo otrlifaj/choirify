@@ -62,13 +62,35 @@
             @Html.DisplayNameFor(model => model.CanLogin)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CanLogin)
+            @if (Model.CanLogin)
+            {
+                <span class="text-success">
+                    <i class="fas fa-check fa-1x"></i>
+                </span>
+            }
+            else
+            {
+                <span class="text-danger">
+                    <i class="fas fa-times fa-1x"></i>
+                </span>
+            }
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.GdprApproved)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.GdprApproved)
+            @if (Model.GdprApproved)
+            {
+                <span class="text-success">
+                    <i class="fas fa-check fa-1x"></i>
+                </span>
+            }
+            else
+            {
+                <span class="text-danger">
+                    <i class="fas fa-times fa-1x"></i>
+                </span>
+            }
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.SelectedRoles)

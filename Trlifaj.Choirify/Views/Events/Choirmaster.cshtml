@@ -4,7 +4,10 @@
     ViewData["Title"] = "Události";
 }
 <h2>@ViewData["Title"]</h2>
-
+<p class="btn-group pull-right" role="group">
+    <a asp-action="Choirmaster" asp-route-filter="upcoming" class="btn btn-primary">Nadcházející</a>
+    <a asp-action="Choirmaster" asp-route-filter="all" class="btn btn-primary">Všechny</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -29,7 +32,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            Html.RenderPartialAsync("/Views/Events/Shared/_ChoirmasterEventListItemPartial.cshtml", item);
+            await Html.RenderPartialAsync("/Views/Events/Shared/_ChoirmasterEventListItemPartial.cshtml", item);
         }
     </tbody>
 </table>

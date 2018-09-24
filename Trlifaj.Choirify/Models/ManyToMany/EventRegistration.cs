@@ -22,6 +22,7 @@ namespace Trlifaj.Choirify.Models.ManyToMany
         public string Comment { get; set; }
 
         [Display(Name = "Šaty")]
+        [Column(TypeName = "varchar(10)")]
         public DressOrderType? DressOrder { get; set; }
 
         [Display(Name = "Čas")]

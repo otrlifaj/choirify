@@ -6,6 +6,10 @@
 <h2>@ViewData["Title"]</h2>
 <p>
     <a asp-action="Create" class="btn btn-success">Přidat</a>
+    <span class="btn-group pull-right" role="group">
+        <a asp-action="Admin" asp-route-filter="upcoming" class="btn btn-primary">Nadcházející</a>
+        <a asp-action="Admin" asp-route-filter="all" class="btn btn-primary">Všechny</a>
+    </span>
 </p>
 <table class="table">
     <thead>

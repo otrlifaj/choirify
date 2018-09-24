@@ -24,6 +24,7 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
 
         [MaxLength(255, ErrorMessage = "Maximální délka poznámky je 255 znaků.")]
         [Display(Name = "Poznámka")]
+        [Required(ErrorMessage = "V případě neúčasti musíš zadat důvod.")]
         public string Comment { get; set; }
 
         public VoiceGroup? Voice { get; set; }

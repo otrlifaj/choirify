@@ -7,7 +7,7 @@ using Trlifaj.Choirify.Models;
 
 namespace Trlifaj.Choirify.ViewModels.SongViewModels
 {
-    public class SongListViewModel
+    public class SongListViewModel : SheetInfoTypesViewModel
     {
 
         public int Id { get; set; }
@@ -22,6 +22,9 @@ namespace Trlifaj.Choirify.ViewModels.SongViewModels
         [Display(Name = "Aktuální")]
         public Boolean Current { get; set; }
 
+        [Display(Name = "Kopií ve skříni")]
+        public int SheetsAvailable { get; set; }
+
         public SongListViewModel()
         {
 
@@ -33,6 +36,7 @@ namespace Trlifaj.Choirify.ViewModels.SongViewModels
             Name = s.Name;
             Author = s.Author;
             Current = s.Current;
+            SheetsAvailable = s.SheetsAvailable;
         }
 
         public Song ToSong()
@@ -43,6 +47,7 @@ namespace Trlifaj.Choirify.ViewModels.SongViewModels
                 Name = Name,
                 Author = Author,
                 Current = Current,
+                SheetsAvailable = SheetsAvailable,
             };
         }
     }

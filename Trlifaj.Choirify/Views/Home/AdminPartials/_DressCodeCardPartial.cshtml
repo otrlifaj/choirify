@@ -1,8 +1,4 @@
-﻿@if (User.Identity.IsAuthenticated &&
-    (User.IsInRole(Roles.Admin) 
-    || User.IsInRole(Roles.DresscodeLeader)))
-{
-<div class="col-md-4">
+﻿<div class="col-md-4">
     <div class="text-center homepage-menu-item-container">
         <a class="homepage-menu-link" asp-area="" asp-controller="Events" asp-action="Dress">
             <i class="fas fa-tshirt  fa-8x"></i>
@@ -10,4 +6,3 @@
         </a>
     </div>
 </div>
-}

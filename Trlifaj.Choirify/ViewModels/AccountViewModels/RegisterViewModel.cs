@@ -75,10 +75,6 @@ namespace Trlifaj.Choirify.ViewModels.AccountViewModels
         [Display(Name = "Země")]
         public string Country { get; set; }
 
-        [Required]
-        [Display(Name = "Zpěvák")]
-        public Boolean IsSinger { get; set; } = true;
-
         [Display(Name = "Hlasová skupina")]
         public VoiceGroup? VoiceGroup { get; set; }
         

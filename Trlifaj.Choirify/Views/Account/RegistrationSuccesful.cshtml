@@ -7,8 +7,6 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h3 class="text-success">Účet vytvořen</h3>
-        <h4 class="text-info">Potvrď prosím svou registraci kliknutím na odkaz, který ti přišel na email.</h4>
         <hr />
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group">
@@ -62,26 +60,48 @@
             <span asp-validation-for="Country" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="IsSinger"></label>
-            <input asp-for="IsSinger" class="form-control" disabled />
-            <span asp-validation-for="IsSinger" class="text-danger"></span>
+            <label asp-for="VoiceGroup"></label>
+            @Html.DropDownListFor(model => model.VoiceGroup, Model.VoiceGroups, new { @class = "form-control", disabled = true })
+            <span asp-validation-for="VoiceGroup" class="text-danger"></span>
         </div>
-        @if (Model.IsSinger)
-        {
-            <div class="form-group">
-                <label asp-for="VoiceGroup"></label>
-                @Html.DropDownListFor(model => model.VoiceGroup, Model.VoiceGroups, new { @class = "form-control", disabled = true })
-                <span asp-validation-for="VoiceGroup" class="text-danger"></span>
-            </div>
-        }
         <div class="form-group">
             <label asp-for="GdprApproved"></label>
-            <input asp-for="GdprApproved" class="form-control" disabled />
-            <span asp-validation-for="GdprApproved" class="text-danger"></span>
+            @if (Model.GdprApproved)
+            {
+                <span class="text-success">
+                    <i class="fas fa-check fa-1x"></i>
+                </span>
+            }
+            else
+            {
+                <span class="text-danger">
+                    <i class="fas fa-times fa-1x"></i>
+                </span>
+            }
         </div>
-
     </div>
 </div>
+<div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="registrationModalLabel">
+                    Účet vytvořen
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h3>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-info">Potvrď prosím svou registraci kliknutím na odkaz, který ti přišel na email.</h5>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-success" value="Zavřít">
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")

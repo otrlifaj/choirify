@@ -1,0 +1,65 @@
+﻿@model SheetsStatusViewModel
+@{
+    ViewData["Title"] = Model.Author + " " + Model.Name;
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>@Model.Name</h2>
+        <h3>@Model.Author</h3>
+    </div>
+    <div class="col-md-4 col-md-offset-4">
+        <table class="sheet-status-info-table table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        Skříňka
+                    </th>
+                    <th class="text-center">
+                        Počet objednávek
+                    </th>
+                    <th class="text-center">
+                        Chybí kopie
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center">
+                    <td>
+                        <strong>
+                            @Model.SheetsAvailable
+                        </strong>
+                    </td>
+                    <td>
+                        @Model.SingersWhoOrderedCopy.Count
+                    </td>
+                    <td>
+                        @Model.MissingCopies
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @{
+            ViewBag.SongId = Model.SongId;
+            await Html.RenderPartialAsync("/Views/Songs/Shared/_SingersWithoutSheetsPartial.cshtml", Model.SingersWhoDontHaveCopy);
+        }
+    </div>
+    <div class="col-md-4">
+        @{
+            ViewBag.SongId = Model.SongId;
+            await Html.RenderPartialAsync("/Views/Songs/Shared/_SingersOrderedSheetsPartial.cshtml", Model.SingersWhoOrderedCopy);
+        }
+    </div>
+    <div class="col-md-4">
+        @{
+            ViewBag.SongId = Model.SongId;
+            await Html.RenderPartialAsync("/Views/Songs/Shared/_SingersHaveSheetsPartial.cshtml", Model.SingersWhoHaveCopy);
+        }
+    </div>
+</div>
+

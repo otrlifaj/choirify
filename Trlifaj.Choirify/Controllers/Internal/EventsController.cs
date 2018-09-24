@@ -30,7 +30,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
 
         // GET: Events
         [Authorize(Roles = Roles.Singer)]
-        public IActionResult Index()
+        public IActionResult Index(string filter = "upcoming")
         {
             IEnumerable<EventRegistration> singerRegistrations = new List<EventRegistration>();
             VoiceGroup? voice = VoiceGroup.S1;
@@ -43,8 +43,17 @@ namespace Trlifaj.Choirify.Controllers.Internal
                 voice = _singerMapper.Find(user.SingerId.Value).VoiceGroup;
                 singerId = user.SingerId;
             }
-            var events = _eventMapper.FindAll().AsEnumerable();
-            var model = events.Select(e =>
+            IQueryable<Event> events = new List<Event>().AsQueryable();
+            if (filter == "upcoming")
+            {
+                events = _eventMapper.FindBy(e => e.To >= DateTime.Now).OrderBy(e => e.From);
+            }
+            else if (filter == "all")
+            {
+                events = _eventMapper.FindAll().OrderByDescending(e => e.From);
+            }
+
+            var model = events.ToList().Select(e =>
             {
                 var registrationInfo = singerRegistrations.FirstOrDefault(r => r.EventId == e.Id);
                 if (registrationInfo == null)
@@ -63,9 +72,18 @@ namespace Trlifaj.Choirify.Controllers.Internal
 
         // GET: Events/Admin
         [Authorize(Roles = Roles.Admins.EventAdmins)]
-        public IActionResult Admin()
+        public IActionResult Admin(string filter = "upcoming")
         {
-            var events = _eventMapper.FindAll().OrderBy(e => e.From);
+            IQueryable<Event> events = new List<Event>().AsQueryable();
+            if (filter == "upcoming")
+            {
+                events = _eventMapper.FindBy(e => e.To >= DateTime.Now).OrderBy(e => e.From);
+            }
+            else if (filter == "all")
+            {
+                events = _eventMapper.FindAll().OrderByDescending(e => e.From);
+            }
+
             var eventIds = events.Select(e => e.Id).ToList();
             var activeSingers = _singerMapper.FindBy(s => s.IsActive == true).Count();
             var allEventRegistrations = _eventRegistrationMapper.FindBy(er => eventIds.Contains(er.EventId.Value)).ToList();
@@ -84,16 +102,42 @@ namespace Trlifaj.Choirify.Controllers.Internal
 
         //GET: Events/Choirmaster
         [Authorize(Roles = Roles.Choirmaster + "," + Roles.Admin)]
-        public IActionResult Choirmaster()
+        public IActionResult Choirmaster(string filter = "upcoming")
         {
-            return View(_eventMapper.FindAll().OrderBy(e => e.From).Select(e => new SingerEventListViewModel(e)).AsEnumerable());
+            IQueryable<Event> events = new List<Event>().AsQueryable();
+            if (filter == "upcoming")
+            {
+                events = _eventMapper.FindBy(e => e.To >= DateTime.Now).OrderBy(e => e.From);
+            }
+            else if (filter == "all")
+            {
+                events = _eventMapper.FindAll().OrderByDescending(e => e.From);
+            }
+
+            return View(events.Select(e => new SingerEventListViewModel(e)).AsEnumerable());
         }
 
         //GET: Events/Dress
         [Authorize(Roles = Roles.Admins.EventAdmins + "," + Roles.DresscodeLeader)]
-        public IActionResult Dress()
+        public IActionResult Dress(string filter = "upcoming")
         {
-            return View("Index", _eventMapper.FindAll().OrderBy(e => e.From).Select(e => new SingerEventListViewModel(e)).AsEnumerable());
+            IQueryable<Event> events = new List<Event>().AsQueryable();
+            if (filter == "upcoming")
+            {
+                events = _eventMapper.FindBy(e => e.To >= DateTime.Now).OrderBy(e => e.From);
+            }
+            else if (filter == "all")
+            {
+                events = _eventMapper.FindAll().OrderByDescending(e => e.From);
+            }
+
+            return View(events.Select(e => new DressCodeEventListViewModel(e)).AsEnumerable());
+        }
+        
+        [Authorize(Roles = Roles.Admins.EventAdmins + "," + Roles.DresscodeLeader)]
+        public IActionResult DressDetails(int eventId)
+        {
+            return View();
         }
 
         // GET: Events/Details/5

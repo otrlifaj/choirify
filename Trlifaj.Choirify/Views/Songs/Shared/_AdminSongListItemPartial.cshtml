@@ -1,4 +1,4 @@
-﻿@model SongListViewModel
+﻿@model AdminSongListViewModel
 <tr>
     <td>
         @Html.DisplayFor(modelItem => Model.Name)
@@ -6,14 +6,32 @@
     <td>
         @Html.DisplayFor(modelItem => Model.Author)
     </td>
-    <td>
-        @Html.DisplayFor(modelItem => Model.Current)
+    <td class="text-center">
+        @if (Model.Current == true)
+        {
+            <i class="fas fa-check fa-1x text-success"></i>
+        }
+        else
+        {
+            <i class="fas fa-times fa-1x text-danger"></i>
+        }
+    </td>
+    <td class="text-center">
+        <strong>
+            @Html.DisplayFor(modelItem => Model.SheetsAvailable)
+        </strong>
+    </td>
+    <td class="text-center">
+        <strong>
+            @Html.DisplayFor(modelItem => Model.CountOfOrders)
+        </strong>
     </td>
     <td>
         <span style="white-space: nowrap">
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Upravit</a>
             <a asp-action="AdminDetails" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
-            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Smazat</a>
+            @*<a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Smazat</a>*@
+            <a asp-action="Sheets" asp-route-id="@Model.Id" class="btn btn-warning">Noty</a>
         </span>
     </td>
 </tr>

@@ -14,12 +14,6 @@ namespace Trlifaj.Choirify.Data
 {
     public class ChoirDbContext : IdentityDbContext<ApplicationUser>
     {
-        //public static readonly LoggerFactory MyConsoleLoggerFactory = new LoggerFactory
-        //    (new[] {
-        //        new ConsoleLoggerProvider((category, level) =>
-        //        category == DbLoggerCategory.Database.Command.Name
-        //        && level == LogLevel.Information, true) });
-
         
         public DbSet<Event> Events { get; set; }
         public DbSet<Link> Links { get; set; }
@@ -43,12 +37,18 @@ namespace Trlifaj.Choirify.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder
-            //    .UseLoggerFactory(MyConsoleLoggerFactory);
+
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<SingerSong>()
+                .HasIndex(ss => ss.SingerId);
+            builder.Entity<SingerSong>()
+                .HasIndex(ss => ss.SongId);
+            builder.Entity<SingerSong>()
+                .HasIndex(ss => ss.Status);
 
             // soft delete on domain entities
             builder.Entity<Event>().HasQueryFilter(p => !p.IsDeleted);
@@ -59,16 +59,6 @@ namespace Trlifaj.Choirify.Data
             builder.Entity<Song>().HasQueryFilter(p => !p.IsDeleted);
             builder.Entity<ApplicationUser>().HasQueryFilter(p => !p.IsDeleted);
             builder.Entity<Choirmaster>().HasQueryFilter(p => !p.IsDeleted);
-
-            // initial data seeding
-            builder.Entity<Song>().HasData(new Song{Id = 1, Name = "21 Guns", Author = "Green day", Current = true, SheetsAvailable = 1, SheetType = SheetType.Unified});
-            builder.Entity<Event>().HasData(new Event {Id = 1, Description = "Nějaký popis události", From = new DateTime(2018, 9, 28, 18, 00, 00),
-                                                        To = new DateTime(2018, 9, 30, 9, 00, 00), Name = "Soustředění xyz", Place = "Konvikt",
-                                                        StartOfRegistration = new DateTime(2018, 9, 2, 0,0,0), EndOfRegistration = new DateTime(2018, 9, 20, 0,0,0)});
-            builder.Entity<Singer>().HasData(new Singer { Id = 1, FirstName = "Ondřej", Surname = "Trlifaj", Address = "Adresa ondry trlifaje", DateOfBirth = new DateTime(1992, 1, 1),
-                                                    Email = "ondra.trli@centrum.cz", IsActive = true, VoiceGroup = VoiceGroup.B2, NumberOfIDCard = "123456", PassportNumber = "654321",
-                                                    PhoneNumber = "+420123456789" });
-            builder.Entity<Rehearsal>().HasData(new Rehearsal { Id = 1, Date = new DateTime(2018, 9, 7), Description = "První zkouška semestru", IsDeleted = false });
         }
     }
 }

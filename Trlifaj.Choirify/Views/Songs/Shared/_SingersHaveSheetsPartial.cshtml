@@ -1,0 +1,37 @@
+﻿@model List<SingerInfoViewModel>
+<form asp-action="OrderForSingers" asp-controller="Songs" asp-route-returnurl="Sheets/@ViewBag.SongId" asp-route-songid="@ViewBag.SongId">
+    <div class="form-group pull-right">
+        <input type="submit" value="Objednat" class="btn btn-danger" />
+    </div>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    <strong class="text-success">
+                        Má noty
+                    </strong>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var toggleId = "toggle" + @Model[i].Id;
+                <tr class="bg-success">
+                    <td>
+                        @Model[i].TableFormat
+                        <div class="material-switch pull-right">
+                            <input asp-for="@Model[i].Id" type="hidden" />
+                            <input asp-for="@Model[i].FirstName" type="hidden" />
+                            <input asp-for="@Model[i].Surname" type="hidden" />
+                            <input asp-for="@Model[i].Status" type="hidden" />
+                            <input asp-for="@Model[i].Voice" type="hidden" />
+                            <input asp-for="@Model[i].SelectedForAction" type="checkbox" id="@toggleId" />
+                            <label class="label-success" for="@toggleId"></label>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

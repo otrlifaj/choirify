@@ -156,37 +156,20 @@ namespace Trlifaj.Choirify.Controllers
                     GdprApproved = model.GdprApproved
                 };
 
-                string role; 
-                if (!model.IsSinger && ChoirmasterRegistrationAllowed())
+                string role;
+                user.Singer = new Singer
                 {
-                    user.Choirmaster = new Choirmaster
-                    {
-                        FirstName = model.FirstName,
-                        Surname = model.Surname,
-                        Email = model.Email,
-                        PhoneNumber = model.PhoneNumber,
-                        DateOfBirth = model.DateOfBirth ?? DateTime.Today,
-                        NumberOfIDCard = model.NumberOfIDCard,
-                        Address = model.Address,
-                    };
-                    role = _roleManager.Choirmaster;
-                }
-                else
-                {
-                    user.Singer = new Singer
-                    {
-                        FirstName = model.FirstName,
-                        Surname = model.Surname,
-                        Email = model.Email,
-                        PhoneNumber = model.PhoneNumber,
-                        DateOfBirth = model.DateOfBirth ?? DateTime.Today,
-                        IsActive = true,
-                        NumberOfIDCard = model.NumberOfIDCard,
-                        Address = model.Address,
-                        VoiceGroup = model.VoiceGroup
-                    };
-                    role = _roleManager.Singer;
-                }
+                    FirstName = model.FirstName,
+                    Surname = model.Surname,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
+                    DateOfBirth = model.DateOfBirth ?? DateTime.Today,
+                    IsActive = true,
+                    NumberOfIDCard = model.NumberOfIDCard,
+                    Address = model.Address,
+                    VoiceGroup = model.VoiceGroup
+                };
+                role = _roleManager.Singer;
 
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -379,19 +362,6 @@ namespace Trlifaj.Choirify.Controllers
             }
         }
 
-        private bool ChoirmasterRegistrationAllowed()
-        {
-            var registrationConfig = _configuration.GetSection("Registration");
-            var result = false;
-            if (Boolean.TryParse(registrationConfig["ChoirmasterRegistration"], out result))
-            {
-                return result;
-            }
-            else
-            {
-                return false;
-            }
-        }
         #endregion
     }
 }
