@@ -23,7 +23,7 @@ namespace Trlifaj.Choirify.ViewModels.SingerViewModels
         [Required(ErrorMessage = "Musíš zadat datum narození.")]
         [DataType(DataType.Date)]
         [Display(Name = "Datum narození")]
-        [DisplayFormat(DataFormatString = "{0:d/M/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:d.M.yyyy}")]
         public DateTime DateOfBirth { get; set; }
 
         [Required(ErrorMessage = "Musíš zadat telefonní číslo."), MaxLength(20, ErrorMessage = "Telefonní číslo může mít maximálně 20 znaků.")]

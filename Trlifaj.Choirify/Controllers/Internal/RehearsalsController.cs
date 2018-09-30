@@ -27,21 +27,21 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // GET: Rehearsals
         public IActionResult Index()
         {
-            return View(_rehearsalMapper.FindAll().Select(r => new RehearsalListViewModel(r)));
+            return View(_rehearsalMapper.FindAll().OrderByDescending(r => r.Date).Select(r => new RehearsalListViewModel(r)));
         }
 
         // GET: Rehearsals/Admin
         [Authorize(Roles = Roles.Admins.RehearsalAdmins)]
         public IActionResult Admin()
         {
-            return View(_rehearsalMapper.FindAll().Select(r => new RehearsalListViewModel(r)));
+            return View(_rehearsalMapper.FindAll().OrderByDescending(r => r.Date).Select(r => new RehearsalListViewModel(r)));
         }
 
         // GET: Rehearsals/Choirmaster
         [Authorize(Roles = Roles.Choirmaster + "," + Roles.Admin)]
         public IActionResult Choirmaster()
         {
-            return View("Index", _rehearsalMapper.FindAll().Select(r => new RehearsalListViewModel(r)));
+            return View("Index", _rehearsalMapper.FindAll().OrderByDescending(r => r.Date).Select(r => new RehearsalListViewModel(r)));
         }
 
         // GET: Rehearsals/Details/5

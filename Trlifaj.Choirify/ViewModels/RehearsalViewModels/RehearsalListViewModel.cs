@@ -13,7 +13,7 @@ namespace Trlifaj.Choirify.ViewModels.RehearsalViewModels
 
         [Required(ErrorMessage = "Chybí datum zkoušky.")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:d/M/yyyy HH:mm}")]
+        [DisplayFormat(DataFormatString = "{0:dddd d.M.yyyy H:mm}")]
         [Display(Name = "Datum")]
         public DateTime Date { get; set; }
 

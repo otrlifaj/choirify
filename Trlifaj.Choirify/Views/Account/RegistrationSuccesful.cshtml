@@ -95,9 +95,6 @@
             <div class="modal-body">
                 <h5 class="text-info">Potvrď prosím svou registraci kliknutím na odkaz, který ti přišel na email.</h5>
             </div>
-            <div class="modal-footer">
-                <input type="submit" class="btn btn-success" value="Zavřít">
-            </div>
         </div>
     </div>
 </div>
@@ -105,4 +102,9 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
+<script type="text/javascript">
+    $(window).on('load',function(){
+        $('#registrationModal').modal('show');
+    });
+</script>
 }

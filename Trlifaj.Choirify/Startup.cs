@@ -91,7 +91,7 @@ namespace Trlifaj.Choirify
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            CreateRoles(serviceProvider, roleManager).Wait();
+            //CreateRoles(serviceProvider, roleManager).Wait();
         }
 
         private async Task CreateRoles(IServiceProvider serviceProvider, IRoleManager roleManager)

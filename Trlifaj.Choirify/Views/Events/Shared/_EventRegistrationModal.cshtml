@@ -7,14 +7,18 @@
     var unregisterModalLabelId = registerModalId + "label";
 }
 
-@if (!Model.IsRegistered || (Model.IsRegistered && Model.Answer == false))
-{
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#@registerModalId">Přihlásit</button>
-}
-@if (!Model.IsRegistered || (Model.IsRegistered && Model.Answer == true))
-{
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@unregisterModalId">Odhlásit</button>
-}
+<span class="buttons-nowrap">
+
+    <a asp-action="Details" asp-route-id="@Model.EventId" class="btn btn-info">Detail</a>
+    @if (!Model.IsRegistered || (Model.IsRegistered && Model.Answer == false))
+    {
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#@registerModalId">Přihlásit</button>
+    }
+    @if (!Model.IsRegistered || (Model.IsRegistered && Model.Answer == true))
+    {
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@unregisterModalId">Odhlásit</button>
+    }
+</span>
 
 <div class="modal fade" id="@registerModalId" tabindex="-1" role="dialog" aria-labelledby="@registerModalLabelId" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">

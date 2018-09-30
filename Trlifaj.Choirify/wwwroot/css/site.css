@@ -60,6 +60,22 @@
     width: 100%;
 }
 
+.event-name {
+    max-width: 250px;
+}
+
+.event-place {
+    max-width: 150px;
+}
+
+.buttons-nowrap {
+    white-space: nowrap;
+}
+
+.registration-comment {
+    max-width:100px
+}
+
 .table-custom tbody tr td {
     padding-top: 2px;
     padding-bottom: 2px;

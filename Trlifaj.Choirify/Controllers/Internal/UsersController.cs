@@ -40,7 +40,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
         public IActionResult Index()
         {
             var users = _userMapper.FindAll(); // loads Singer and Choirmaster property too
-            var model = users.Select(u => ConvertToUserListViewModel(u)).AsEnumerable();
+            var model = users.OrderByDescending(u => u.CreatedOn).Select(u => ConvertToUserListViewModel(u)).AsEnumerable();
             return View(model);
         }
 
@@ -49,7 +49,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
         public IActionResult Admin()
         {
             var users = _userMapper.FindAll(); // loads Singer and Choirmaster property too
-            var model = users.Select(u => ConvertToUserListViewModel(u)).AsEnumerable();
+            var model = users.OrderByDescending(u => u.CreatedOn).Select(u => ConvertToUserListViewModel(u)).AsEnumerable();
             return View("Index", model);
         }
 
