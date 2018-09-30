@@ -135,7 +135,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
                 oldInfo.Status = SheetInfoType.Ordered;
                 _sheetsInfoMapper.Update(oldInfo);
             }
-            return RedirectToAction("Index", "Songs", new { filter = filter });
+            return RedirectToAction("Index", "Songs", new { filter = filter }, "song" + (songId));
         }
 
         [HttpGet]
@@ -163,7 +163,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
                 oldInfo.Status = SheetInfoType.HasCopy;
                 _sheetsInfoMapper.Update(oldInfo);
             }
-            return RedirectToAction("Index", "Songs", new { filter = filter });
+            return RedirectToAction("Index", "Songs", new { filter = filter }, "song" + (songId));
         }
 
         [Authorize]

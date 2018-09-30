@@ -46,7 +46,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
             }
             else if (filter == "all")
             {
-                songs = _songMapper.FindAll().OrderByDescending(s => s.Current).ThenBy(s => s.Name);
+                songs = _songMapper.FindAll().OrderBy(s => s.Name);
             }
 
             var modelBase = new List<SingerSongListViewModel>();
@@ -77,7 +77,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
             }
             else if (filter == "all")
             {
-                songs = _songMapper.FindAll().OrderByDescending(s => s.Current).ThenBy(s => s.Name);
+                songs = _songMapper.FindAll().OrderBy(s => s.Name);
             }
 
             var modelBase = new List<AdminSongListViewModel>();
@@ -102,7 +102,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
             }
             else if (filter == "all")
             {
-                songs = _songMapper.FindAll().OrderByDescending(s => s.Current).ThenBy(s => s.Name);
+                songs = _songMapper.FindAll().OrderBy(s => s.Name);
             }
             return View("Index", songs.Select(s => new SongListViewModel(s)));
         }
