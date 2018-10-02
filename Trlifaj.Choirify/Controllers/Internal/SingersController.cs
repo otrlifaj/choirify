@@ -21,21 +21,22 @@ namespace Trlifaj.Choirify.Controllers.Internal
         // GET: Singers
         public IActionResult Index()
         {
-            return View(_singerMapper.FindAll().OrderBy(s => s.VoiceGroup).ThenBy(s => s.Surname).Select(s => new SingerListViewModel(s)));
+            return View(_singerMapper.FindAll().Select(s => new SingerListViewModel(s)).OrderBy(s => s.VoiceGroup).ThenBy(s => s.Surname));
         }
 
         // GET: Singers/Admin
         [Authorize(Roles = Roles.Admins.SingerAdmins)]
         public IActionResult Admin()
         {
-            return View(_singerMapper.FindAll().OrderBy(s => s.VoiceGroup).ThenBy(s => s.Surname).Select(s => new SingerListViewModel(s)));
+            return View(_singerMapper.FindAll().Select(s => new SingerListViewModel(s)).OrderBy(s => s.VoiceGroup).ThenBy(s => s.Surname));
         }
+
 
         // GET: Singers/Chorimaster
         [Authorize(Roles = Roles.Choirmaster + "," + Roles.Admin)]
         public IActionResult Choirmaster()
         {
-            return View("Index", _singerMapper.FindAll().OrderBy(s => s.VoiceGroup).ThenBy(s => s.Surname).Select(s => new SingerListViewModel(s)));
+            return View("Index", _singerMapper.FindAll().Select(s => new SingerListViewModel(s)).OrderBy(s => s.VoiceGroup).ThenBy(s => s.Surname));
         }
 
         // GET: Singers/Details/5

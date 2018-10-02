@@ -34,7 +34,7 @@ namespace Trlifaj.Choirify.ViewModels.SingerViewModels
         [Display(Name = "Aktivní")]
         public Boolean IsActive { get; set; }
 
-        [Display(Name = "Hlasová skupina")]
+        [Display(Name = "Hlas")]
         public VoiceGroup? VoiceGroup { get; set; }
 
         public SingerListViewModel()

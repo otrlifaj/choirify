@@ -4,10 +4,10 @@
     <table class="table table-striped table-hover table-bordered table-responsive table-custom">
         <thead>
             <tr>
-                <th>
+                <th colspan="2">
                     Hlas
                 </th>
-                <th>
+                <th colspan="2">
                     Může
                 </th>
                 <th>
@@ -20,6 +20,17 @@
         </thead>
         <tbody>
             <tr>
+                <td rowspan="2" style="vertical-align:middle; font-size:20px;">
+                    <strong>
+                        S
+                    </strong>
+                </td>
+                <td class="bg-success" rowspan="2" style="vertical-align:middle; font-size:20px;">
+                    <strong class="text-success">
+                        @{ var SYes = Model.S1Yes + Model.S2Yes;}
+                        @SYes
+                    </strong>
+                </td>
                 <td>
                     S1
                 </td>
@@ -60,6 +71,17 @@
                 </td>
             </tr>
             <tr>
+                <td rowspan="2" style="vertical-align:middle; font-size:20px;">
+                    <strong>
+                        A
+                    </strong>
+                </td>
+                <td class="bg-success" rowspan="2" style="vertical-align:middle; font-size:20px;">
+                    <strong class="text-success">
+                        @{ var AYes = Model.A1Yes + Model.A2Yes;}
+                        @AYes
+                    </strong>
+                </td>
                 <td>
                     A1
                 </td>
@@ -100,6 +122,17 @@
                 </td>
             </tr>
             <tr>
+                <td rowspan="2" style="vertical-align:middle; font-size:20px;">
+                    <strong>
+                        T
+                    </strong>
+                </td>
+                <td class="bg-success" rowspan="2" style="vertical-align:middle; font-size:20px;">
+                    <strong class="text-success">
+                        @{ var TYes = Model.T1Yes + Model.T2Yes;}
+                        @TYes
+                    </strong>
+                </td>
                 <td>
                     T1
                 </td>
@@ -140,6 +173,17 @@
                 </td>
             </tr>
             <tr>
+                <td rowspan="2" style="vertical-align:middle; font-size:20px;">
+                    <strong>
+                        B
+                    </strong>
+                </td>
+                <td class="bg-success" rowspan="2" style="vertical-align:middle; font-size:20px;">
+                    <strong class="text-success">
+                        @{ var BYes = Model.B1Yes + Model.B2Yes;}
+                        @BYes
+                    </strong>
+                </td>
                 <td>
                     B1
                 </td>

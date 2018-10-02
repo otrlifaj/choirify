@@ -13,6 +13,7 @@ using Trlifaj.Choirify.Models;
 using Trlifaj.Choirify.Services;
 using Trlifaj.Choirify.Database.Interfaces;
 using Trlifaj.Choirify.Database.MySQL;
+using Microsoft.AspNetCore.Localization;
 
 namespace Trlifaj.Choirify
 {
@@ -28,6 +29,10 @@ namespace Trlifaj.Choirify
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new RequestCulture("cs-CZ");
+            });
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
             services.AddDbContext<ChoirDbContext>(options =>
@@ -79,6 +84,8 @@ namespace Trlifaj.Choirify
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseRequestLocalization();
 
             app.UseStaticFiles();
 

@@ -4,6 +4,9 @@
     font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+td span a.btn {
+    margin-bottom: 5px;
+}
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -25,7 +28,9 @@
     text-align: left;
 }
 
-
+.registration-comment {
+    max-width: 100px
+}
 
 /* QR code generator */
 #qrCode {
@@ -72,9 +77,7 @@
     white-space: nowrap;
 }
 
-.registration-comment {
-    max-width:100px
-}
+
 
 .table-custom tbody tr td {
     padding-top: 2px;

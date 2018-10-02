@@ -7,7 +7,7 @@
     var unregisterModalLabelId = registerModalId + "label";
 }
 
-<span class="buttons-nowrap">
+<span>
 
     <a asp-action="Details" asp-route-id="@Model.EventId" class="btn btn-info">Detail</a>
     @if (!Model.IsRegistered || (Model.IsRegistered && Model.Answer == false))

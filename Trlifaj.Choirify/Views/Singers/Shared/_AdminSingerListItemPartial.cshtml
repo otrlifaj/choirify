@@ -16,7 +16,7 @@
         @Html.DisplayFor(modelModel => Model.Email)
     </td>
     <td>
-        <span style="white-space: nowrap">
+        <span>
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Upravit</a>
             <a asp-action="AdminDetails" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
             <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Smazat</a>

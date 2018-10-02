@@ -1,6 +1,6 @@
 ﻿@model AdminEventListViewModel
 <tr>
-    <td>
+    <td class="hidden-xs hidden-sm">
         @Html.DisplayFor(modelItem => Model.EventTypeString)
     </td>
     <td class="event-name">
@@ -15,7 +15,7 @@
     <td class="hidden-xs hidden-sm">
         @Html.DisplayFor(modelItem => Model.To)
     </td>
-    <td>
+    <td class="buttons-nowrap">
         <span class="text-success">
             @Model.RegistrationsYes
             <i class="fas fa-check fa-1x"></i>
@@ -30,7 +30,7 @@
         </span>
     </td>
     <td>
-        <span class="buttons-nowrap">
+        <span>
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Upravit</a>
             <a asp-action="AdminDetails" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
             <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Smazat</a>
