@@ -8,8 +8,6 @@
 }
 
 <span>
-
-    <a asp-action="Details" asp-route-id="@Model.EventId" class="btn btn-info">Detail</a>
     @if (!Model.IsRegistered || (Model.IsRegistered && Model.Answer == false))
     {
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#@registerModalId">Přihlásit</button>
