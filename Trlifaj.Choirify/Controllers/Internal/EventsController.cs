@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using Trlifaj.Choirify.Database.Interfaces;
 using Trlifaj.Choirify.Models;
 using Trlifaj.Choirify.Models.Enums;
@@ -19,13 +22,15 @@ namespace Trlifaj.Choirify.Controllers.Internal
         private readonly IEventRegistrationMapper _eventRegistrationMapper;
         private readonly IUserMapper _userMapper;
         private readonly ISingerMapper _singerMapper;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public EventsController(IEventMapper eventMapper, IEventRegistrationMapper eventRegistrationMapper, IUserMapper userMapper, ISingerMapper singerMapper)
+        public EventsController(IEventMapper eventMapper, IEventRegistrationMapper eventRegistrationMapper, IUserMapper userMapper, ISingerMapper singerMapper, IHostingEnvironment environment)
         {
             _eventMapper = eventMapper;
             _eventRegistrationMapper = eventRegistrationMapper;
             _userMapper = userMapper;
             _singerMapper = singerMapper;
+            _hostingEnvironment = environment;
         }
 
         // GET: Events
@@ -133,7 +138,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
 
             return View(events.Select(e => new DressCodeEventListViewModel(e)).AsEnumerable());
         }
-        
+
         [Authorize(Roles = Roles.Admins.EventAdmins + "," + Roles.DresscodeLeader)]
         public IActionResult DressDetails(int eventId)
         {
@@ -154,6 +159,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
             }
             return View(new EventDetailEditViewModel(@event));
         }
+
         // GET: Events/AdminDetails/5
         [Authorize(Roles = Roles.Admins.EventAdmins)]
         public IActionResult AdminDetails(int? id)
@@ -170,7 +176,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
 
             var registrations = _eventRegistrationMapper.FindBy(er => er.EventId == id.Value).ToList();
             var singers = _singerMapper.FindBy(s => s.IsActive == true).Select(s => new { s.Id, s.FirstName, s.Surname, s.VoiceGroup }).ToList();
-            var singersWhoDidntAnswer = singers.Where(s => !registrations.Select(r => r.SingerId.Value).Contains(s.Id)); 
+            var singersWhoDidntAnswer = singers.Where(s => !registrations.Select(r => r.SingerId.Value).Contains(s.Id));
             var modelRegistrations = new List<AdminEventDetailSingerRegistrationViewModel>();
             foreach (var er in registrations)
             {
@@ -189,6 +195,37 @@ namespace Trlifaj.Choirify.Controllers.Internal
             }
 
             return View(new AdminEventDetailViewModel(@event, modelRegistrations, modelSingersWithoutAnswer));
+        }
+
+        // GET: Events/ExportRegistrationsToExcel
+        [Authorize(Roles = Roles.Admins.EventAdmins)]
+        public IActionResult ExportRegistrationsToExcel(int eventId, bool registered, bool unregistered, bool withoutRegistrations)
+        {
+            var singers = _singerMapper.FindBy(s => s.IsActive).ToList();
+            var eventRegistrations = _eventRegistrationMapper.FindBy(er => er.EventId == eventId).ToList();
+            var @event = _eventMapper.Find(eventId);
+            var excelWorkbook = ExcelExporter.ExportRegistrations(singers, eventRegistrations, @event, registered, unregistered, withoutRegistrations);
+
+            var memory = new MemoryStream();
+            var fileName = $"Registrace-{DateTime.Now.ToString("d-M-yyyy-H-mm")}.xlsx";
+            var filePath = Path.Combine(_hostingEnvironment.WebRootPath, fileName);
+            using (var fs = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+            {
+                excelWorkbook.Write(fs);
+            }
+
+            using (var stream = new FileStream(filePath, FileMode.Open))
+            {
+                stream.CopyTo(memory);
+            }
+            memory.Position = 0;
+
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+
+            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
         [Authorize(Roles = Roles.Admins.EventAdmins)]
