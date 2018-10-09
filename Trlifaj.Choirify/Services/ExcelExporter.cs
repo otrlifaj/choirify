@@ -41,10 +41,10 @@ namespace Trlifaj.Choirify.Services
             List<RegistrationRow> excelRows = new List<RegistrationRow>();
 
             var positiveRegistrations = registrations.Where(r => r.Answer == true).ToList();
-            var singersWithPositiveRegistration = singers.Where(s => positiveRegistrations.Any(r => r.SingerId == s.Id)).OrderBy(s => s.VoiceGroup).ToList();
+            var singersWithPositiveRegistration = singers.Where(s => positiveRegistrations.Any(r => r.SingerId == s.Id)).OrderBy(s => s.VoiceGroup).ThenBy(s => s.Surname).ToList();
             var negativeRegistrations = registrations.Where(r => r.Answer == false).ToList();
-            var singersWithNegativeRegistration = singers.Where(s => negativeRegistrations.Any(r => r.SingerId == s.Id)).OrderBy(s => s.VoiceGroup).ToList();
-            var singersWithoutRegistration = singers.Where(s => !registrations.Any(r => r.SingerId == s.Id)).OrderBy(s => s.VoiceGroup).ToList();
+            var singersWithNegativeRegistration = singers.Where(s => negativeRegistrations.Any(r => r.SingerId == s.Id)).OrderBy(s => s.VoiceGroup).ThenBy(s => s.Surname).ToList();
+            var singersWithoutRegistration = singers.Where(s => !registrations.Any(r => r.SingerId == s.Id)).OrderBy(s => s.VoiceGroup).ThenBy(s => s.Surname).ToList();
 
             if (registered)
             {
@@ -111,11 +111,11 @@ namespace Trlifaj.Choirify.Services
             {
                 if (IsRegistered == true)
                 {
-                    return "Přihlášen";
+                    return "ANO";
                 }
                 else if (IsRegistered == false)
                 {
-                    return "Odhlášen";
+                    return "NE";
                 }
                 else
                 {
@@ -153,12 +153,12 @@ namespace Trlifaj.Choirify.Services
 
         public List<string> CellValues => new List<string>
         {
-            Name, Surname, Birth, Phone, Email, NumberOfIdCard, Address, VoiceString, Registration, Comment, RegisteredOn
+            VoiceString, Name, Surname, Birth, Phone, Email, NumberOfIdCard, Address, Registration, RegisteredOn, Comment
         };
 
         public static List<string> CellHeader => new List<string>
         {
-            "Jméno", "Příjmení", "Datum narození", "Telefon", "Email", "Číslo OP", "Adresa", "Hlas", "Účast", "Poznámka", "Datum přihlášení"
+            "Hlas", "Jméno", "Příjmení", "Datum narození", "Telefon", "Email", "Číslo OP", "Adresa", "Účast","Datum přihlášení", "Poznámka"
         };
     }
 
