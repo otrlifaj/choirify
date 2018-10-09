@@ -11,6 +11,8 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
     {
         public EventRegistrationViewModel Registration { get; set; }
 
+
+
         public SingerEventListViewModel() : base()
         {
 
@@ -21,9 +23,12 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
 
         }
 
-        public SingerEventListViewModel(Event @event, EventRegistrationViewModel registration) : this (@event)
+        public SingerEventListViewModel(Event @event, EventRegistrationViewModel registration, int activeSingers, int registrationsYes, int registrationsNo) : this (@event)
         {
             Registration = registration;
+            ActiveSingers = activeSingers;
+            RegistrationsYes = registrationsYes;
+            RegistrationsNo = registrationsNo;
         }
     }
 }

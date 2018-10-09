@@ -49,6 +49,27 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
         [DisplayFormat(DataFormatString = "{0:dddd d.M.yyyy H:mm}")]
         public DateTime EndOfRegistration { get; set; }
 
+
+        public int ActiveSingers { get; set; }
+        public int RegistrationsYes { get; set; }
+        public int RegistrationsNo { get; set; }
+
+        public int RegistrationsTotal
+        {
+            get
+            {
+                return RegistrationsYes + RegistrationsNo;
+            }
+        }
+
+        public int WithoutAnswer
+        {
+            get
+            {
+                return ActiveSingers - RegistrationsTotal;
+            }
+        }
+
         public EventListViewModel()
         {
 

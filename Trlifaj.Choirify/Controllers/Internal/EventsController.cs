@@ -58,16 +58,22 @@ namespace Trlifaj.Choirify.Controllers.Internal
                 events = _eventMapper.FindAll().OrderByDescending(e => e.From);
             }
 
+            var eventIds = events.Select(e => e.Id).ToList();
+            var activeSingers = _singerMapper.FindBy(s => s.IsActive == true).Count();
+            var allEventRegistrations = _eventRegistrationMapper.FindBy(er => eventIds.Contains(er.EventId.Value)).ToList();
+
             var model = events.ToList().Select(e =>
             {
+                var answeredYes = allEventRegistrations.Where(er => er.EventId.Value == e.Id && er.Answer == true).Count();
+                var answeredNo = allEventRegistrations.Where(er => er.EventId.Value == e.Id && er.Answer == false).Count();
                 var registrationInfo = singerRegistrations.FirstOrDefault(r => r.EventId == e.Id);
                 if (registrationInfo == null)
                 {
-                    return new SingerEventListViewModel(e, new EventRegistrationViewModel(voice, e.Id, singerId, e.EndOfRegistration));
+                    return new SingerEventListViewModel(e, new EventRegistrationViewModel(voice, e.Id, singerId, e.EndOfRegistration), activeSingers, answeredYes, answeredNo);
                 }
                 else
                 {
-                    return new SingerEventListViewModel(e, new EventRegistrationViewModel(registrationInfo, voice, e.EndOfRegistration));
+                    return new SingerEventListViewModel(e, new EventRegistrationViewModel(registrationInfo, voice, e.EndOfRegistration), activeSingers, answeredYes, answeredNo);
                 }
 
             }).OrderBy(ri => ri.From).AsEnumerable();
@@ -197,14 +203,16 @@ namespace Trlifaj.Choirify.Controllers.Internal
             return View(new AdminEventDetailViewModel(@event, modelRegistrations, modelSingersWithoutAnswer));
         }
 
-        // GET: Events/ExportRegistrationsToExcel
+        // POST: Events/ExportRegistrationsToExcel
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = Roles.Admins.EventAdmins)]
-        public IActionResult ExportRegistrationsToExcel(int eventId, bool registered, bool unregistered, bool withoutRegistrations)
+        public IActionResult ExportRegistrationsToExcel(int id, [Bind]ExcelExportParams exportParams)
         {
             var singers = _singerMapper.FindBy(s => s.IsActive).ToList();
-            var eventRegistrations = _eventRegistrationMapper.FindBy(er => er.EventId == eventId).ToList();
-            var @event = _eventMapper.Find(eventId);
-            var excelWorkbook = ExcelExporter.ExportRegistrations(singers, eventRegistrations, @event, registered, unregistered, withoutRegistrations);
+            var eventRegistrations = _eventRegistrationMapper.FindBy(er => er.EventId == id).ToList();
+            var @event = _eventMapper.Find(id);
+            var excelWorkbook = ExcelExporter.ExportRegistrations(singers, eventRegistrations, @event, exportParams.Registered, exportParams.Unregistered, exportParams.WithoutRegistration);
 
             var memory = new MemoryStream();
             var fileName = $"Registrace-{DateTime.Now.ToString("d-M-yyyy-H-mm")}.xlsx";

@@ -11,6 +11,7 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
 {
     public class AdminEventDetailViewModel : EventDetailEditViewModel
     {
+        public ExcelExportParams ExcelExportParams { get; set; }
         public List<AdminEventDetailSingerRegistrationViewModel> Registrations { get; set; }
 
         public List<AdminEventDetailSingerRegistrationViewModel> WithoutAnswer { get; set; }
@@ -213,8 +214,22 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
         {
             Registrations = registrations;
             WithoutAnswer = withoutAnswer;
+            ExcelExportParams = new ExcelExportParams { Id = e.Id, Registered = true, Unregistered = false, WithoutRegistration = false };
         }
 
+    }
 
+    public class ExcelExportParams
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Přihlášení")]
+        public bool Registered { get; set; }
+
+        [Display(Name = "Odhlášení")]
+        public bool Unregistered { get; set; }
+
+        [Display(Name = "Bez vyjádření")]
+        public bool WithoutRegistration { get; set; }
     }
 }

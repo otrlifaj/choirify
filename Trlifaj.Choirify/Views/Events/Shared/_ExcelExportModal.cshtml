@@ -1,0 +1,48 @@
+﻿@model ExcelExportParams
+
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#registrationsExcelExportModal">Exportovat</button>
+
+<div class="modal fade" id="registrationsExcelExportModal" tabindex="-1" role="dialog" aria-labelledby="registrationsExcelExportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <form asp-controller="Events" asp-action="ExportRegistrationsToExcel">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="registrationsExcelExportModalLabel">
+                        Exportovat do excelu
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="Registered" class="control-label"></label>
+                        <div class="material-switch pull-right">
+                            <input asp-for="Registered" type="checkbox" id="registeredSwitch" />
+                            <label class="label-success" for="registeredSwitch"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Unregistered" class="control-label"></label>
+                        <div class="material-switch pull-right">
+                            <input asp-for="Unregistered" type="checkbox" id="unregisteredSwitch" />
+                            <label class="label-danger" for="unregisteredSwitch"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WithoutRegistration" class="control-label"></label>
+                        <div class="material-switch pull-right">
+                            <input asp-for="WithoutRegistration" type="checkbox" id="withoutRegistrationSwitch" />
+                            <label class="label-info" for="withoutRegistrationSwitch"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Exportovat" data-dismiss="modal">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

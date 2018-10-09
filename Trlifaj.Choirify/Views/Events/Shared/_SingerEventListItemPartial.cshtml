@@ -19,21 +19,37 @@
         @Html.DisplayFor(modelItem => Model.EndOfRegistration)
     </td>
     <td class="text-center">
-        @if (Model.Registration.Id != null)
-        {
-            if (Model.Registration.Answer == true)
+        <span>
+            @if (Model.Registration.Id != null)
             {
-                <i class="fas fa-calendar-check fa-2x text-success"></i>
+                if (Model.Registration.Answer == true)
+                {
+                    <i class="fas fa-calendar-check fa-2x text-success"></i>
+                }
+                else
+                {
+                    <i class="fas fa-calendar-times fa-2x text-danger"></i>
+                }
             }
             else
             {
-                <i class="fas fa-calendar-times fa-2x text-danger"></i>
+                    <i class="fas fa-calendar-minus fa-2x text-info"></i>
             }
-        }
-        else
-        {
-            <span>Nevyjádřil/a ses!</span>
-        }
+        </span>
+        <span class="buttons-nowrap">
+            <span class="text-success">
+                @Model.RegistrationsYes
+                <i class="fas fa-check fa-1x"></i>
+            </span>
+            <span class="text-danger">
+                @Model.RegistrationsNo
+                <i class="fas fa-times fa-1x"></i>
+            </span>
+            <span class="text-info">
+                @Model.WithoutAnswer
+                <i class="fas fa-minus fa-1x"></i>
+            </span>
+        </span>
     </td>
     <td>
         <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>

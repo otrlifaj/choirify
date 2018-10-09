@@ -68,6 +68,7 @@
         <div>
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Upravit</a>
             <a asp-action="Admin" class="btn btn-default">Správa událostí</a>
+            @await Html.PartialAsync("/Views/Events/Shared/_ExcelExportModal.cshtml", Model.ExcelExportParams)
         </div>
     </div>
     <div class="col-md-8">
