@@ -13,27 +13,31 @@
         <a asp-action="Admin" asp-route-filter="all" class="btn btn-primary">Všechny</a>
     </span>
 </p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            <th class="hidden-xs">
                 @Html.DisplayNameFor(model => model.Author)
             </th>
-            <th class="text-center">
+            <th class="text-center hidden-xs">
                 @Html.DisplayNameFor(model => model.Current)
             </th>
-            <th colspan="2">
-                Skříň / Objednávky
-            </th>
-            @*<th class="text-center">
+            @*<th colspan="3" class="text-center">
+                    Skříň / Objednávky / Chybí
+                </th>*@
+            <th class="text-center">
                 @Html.DisplayNameFor(model => model.SheetsAvailable)
             </th>
             <th class="text-center">
                 @Html.DisplayNameFor(model => model.CountOfOrders)
-            </th>*@
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.MissingCopies)
+            </th>
             <th></th>
         </tr>
     </thead>

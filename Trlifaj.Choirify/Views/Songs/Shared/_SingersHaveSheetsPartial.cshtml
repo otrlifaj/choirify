@@ -1,6 +1,6 @@
 ﻿@model List<SingerInfoViewModel>
 <form asp-action="OrderForSingers" asp-controller="Songs" asp-route-returnurl="Sheets/@ViewBag.SongId" asp-route-songid="@ViewBag.SongId">
-    <div class="form-group pull-right">
+    <div class="form-group pull-right hidden-xs hidden-sm">
         <input type="submit" value="Objednat" class="btn btn-danger" />
     </div>
     <table class="table table-hover table-bordered">
@@ -34,4 +34,7 @@
             }
         </tbody>
     </table>
+    <div class="form-group pull-right hidden-md hidden-lg">
+        <input type="submit" value="Objednat" class="btn btn-danger" />
+    </div>
 </form>

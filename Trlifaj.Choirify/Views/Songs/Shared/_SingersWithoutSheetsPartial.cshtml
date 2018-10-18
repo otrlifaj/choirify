@@ -1,7 +1,8 @@
 ﻿@model List<SingerInfoViewModel>
-<form asp-action="OrderForSingers" asp-controller="Songs" asp-route-returnurl="Sheets/@ViewBag.SongId" asp-route-songid="@ViewBag.SongId">
-    <div class="form-group pull-right">
-        <input type="submit" value="Objednat" class="btn btn-info" />
+<form>
+    <div class="form-group pull-right hidden-xs hidden-sm">
+        <input formmethod="post" asp-action="DistributeToSingers" asp-controller="Songs" asp-route-songid="@ViewBag.SongId" asp-route-returnurl="Sheets/@ViewBag.SongId" type="submit" value="Dát noty" class="btn btn-success" />
+        <input formmethod="post" asp-action="OrderForSingers" asp-controller="Songs" asp-route-songid="@ViewBag.SongId" asp-route-returnurl="Sheets/@ViewBag.SongId" type="submit" value="Objednat" class="btn btn-info" />
     </div>
     <table class="table table-hover table-bordered">
         <thead>
@@ -34,4 +35,8 @@
             }
         </tbody>
     </table>
+    <div class="form-group pull-right hidden-md hidden-lg">
+        <input formmethod="post" asp-action="DistributeToSingers" asp-controller="Songs" asp-route-songid="@ViewBag.SongId" asp-route-returnurl="Sheets/@ViewBag.SongId" type="submit" value="Dát noty" class="btn btn-success" />
+        <input formmethod="post" asp-action="OrderForSingers" asp-controller="Songs" asp-route-songid="@ViewBag.SongId" asp-route-returnurl="Sheets/@ViewBag.SongId" type="submit" value="Objednat" class="btn btn-info" />
+    </div>
 </form>

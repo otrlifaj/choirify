@@ -43,16 +43,16 @@
 </div>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        @{
-            ViewBag.SongId = Model.SongId;
-            await Html.RenderPartialAsync("/Views/Songs/Shared/_SingersWithoutSheetsPartial.cshtml", Model.SingersWhoDontHaveCopy);
-        }
-    </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-md-push-4">
         @{
             ViewBag.SongId = Model.SongId;
             await Html.RenderPartialAsync("/Views/Songs/Shared/_SingersOrderedSheetsPartial.cshtml", Model.SingersWhoOrderedCopy);
+        }
+    </div>
+    <div class="col-md-4 col-md-pull-4">
+        @{
+            ViewBag.SongId = Model.SongId;
+            await Html.RenderPartialAsync("/Views/Songs/Shared/_SingersWithoutSheetsPartial.cshtml", Model.SingersWhoDontHaveCopy);
         }
     </div>
     <div class="col-md-4">

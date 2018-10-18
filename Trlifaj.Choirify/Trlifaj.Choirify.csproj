@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-Trlifaj.Choirify-0E7FA5FC-93F4-4F73-9D55-51994268AB73</UserSecretsId>
-    <Version>1.0</Version>
+    <Version>1.4.0</Version>
   </PropertyGroup>
 
 

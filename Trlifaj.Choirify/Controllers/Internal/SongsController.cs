@@ -146,6 +146,17 @@ namespace Trlifaj.Choirify.Controllers.Internal
                     _sheetsInfoMapper.Update(sheetsInfo);
                     distributed++;
                 }
+                else
+                {
+                    sheetsInfo = new Models.ManyToMany.SingerSong
+                    {
+                        SingerId = singerInfo.Id,
+                        SongId = songId,
+                        Status = SheetInfoType.HasCopy
+                    };
+                    _sheetsInfoMapper.Create(sheetsInfo);
+                    distributed++;
+                }
             }
 
             var song = _songMapper.Find(songId);

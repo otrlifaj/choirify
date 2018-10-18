@@ -3,10 +3,10 @@
     <td>
         @Html.DisplayFor(modelItem => Model.Name)
     </td>
-    <td>
+    <td class="hidden-xs">
         @Html.DisplayFor(modelItem => Model.Author)
     </td>
-    <td class="text-center">
+    <td class="text-center hidden-xs">
         @if (Model.Current == true)
         {
             <i class="fas fa-check fa-1x text-success"></i>
@@ -24,6 +24,11 @@
     <td class="text-center">
         <strong>
             @Html.DisplayFor(modelItem => Model.CountOfOrders)
+        </strong>
+    </td>
+    <td class="text-center text-danger">
+        <strong>
+            @Html.DisplayFor(modelItem => Model.MissingCopies)
         </strong>
     </td>
     <td>

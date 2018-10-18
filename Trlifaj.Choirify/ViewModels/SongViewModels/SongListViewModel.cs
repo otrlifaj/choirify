@@ -22,7 +22,7 @@ namespace Trlifaj.Choirify.ViewModels.SongViewModels
         [Display(Name = "Aktuální")]
         public Boolean Current { get; set; }
 
-        [Display(Name = "Kopií ve skříni")]
+        [Display(Name = "Skříň")]
         public int SheetsAvailable { get; set; }
 
         public SongListViewModel()

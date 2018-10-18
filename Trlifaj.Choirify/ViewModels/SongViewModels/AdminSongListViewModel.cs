@@ -9,8 +9,25 @@ namespace Trlifaj.Choirify.ViewModels.SongViewModels
 {
     public class AdminSongListViewModel : SongListViewModel
     {
-        [Display(Name="Objednávky")]
+        [Display(Name = "Objednávky")]
         public int CountOfOrders { get; set; }
+
+        [Display(Name = "Chybí")]
+        public int MissingCopies
+        {
+            get
+            {
+                var missingCopies = CountOfOrders - SheetsAvailable;
+                if (missingCopies < 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return missingCopies;
+                }
+            }
+        }
 
         public AdminSongListViewModel(Song s) : base(s)
         {

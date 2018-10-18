@@ -4,21 +4,52 @@
         @Html.DisplayFor(modelItem => Model.EventTypeString)
     </td>
     <td class="event-name">
-        @Html.DisplayFor(modelItem => Model.Name)
+        <div>
+            @if (Model.Registration.Id != null)
+            {
+                if (Model.Registration.Answer == true)
+                {
+                    <i class="fas fa-calendar-check fa-1x text-success"></i>
+                }
+                else
+                {
+                    <i class="fas fa-calendar-times fa-1x text-danger"></i>
+                }
+            }
+            else
+            {
+                <i class="fas fa-calendar-minus fa-1x text-info"></i>
+            }
+            @Html.DisplayFor(modelItem => Model.Name)
+        </div>
+        <span class="buttons-nowrap hidden-md hidden-lg">
+            <span class="text-success">
+                @Model.RegistrationsYes
+                <i class="fas fa-check fa-1x"></i>
+            </span>
+            <span class="text-danger">
+                @Model.RegistrationsNo
+                <i class="fas fa-times fa-1x"></i>
+            </span>
+            <span class="text-info">
+                @Model.WithoutAnswer
+                <i class="fas fa-minus fa-1x"></i>
+            </span>
+        </span>
     </td>
     <td class="hidden-xs hidden-sm event-place">
         @Html.DisplayFor(modelItem => Model.Place)
     </td>
-    <td>
+    <td class="text-center">
         @Html.DisplayFor(modelItem => Model.From)
     </td>
-    <td>
+    <td class="text-center">
         @Html.DisplayFor(modelItem => Model.To)
     </td>
     <td class="hidden-xs hidden-sm">
         @Html.DisplayFor(modelItem => Model.EndOfRegistration)
     </td>
-    <td class="text-center">
+    <td class="text-center hidden-xs hidden-sm">
         <span>
             @if (Model.Registration.Id != null)
             {
@@ -33,7 +64,7 @@
             }
             else
             {
-                    <i class="fas fa-calendar-minus fa-2x text-info"></i>
+                <i class="fas fa-calendar-minus fa-2x text-info"></i>
             }
         </span>
         <span class="buttons-nowrap">
