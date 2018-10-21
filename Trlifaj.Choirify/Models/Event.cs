@@ -33,15 +33,16 @@ namespace Trlifaj.Choirify.Models
         [Column(TypeName = "varchar(150)")]
         public string Place { get; set; }
 
-        [Required(AllowEmptyStrings = true, ErrorMessage = "Musí být zadán nějaký popis události"), MaxLength(150, ErrorMessage = "Popis události může mít maximálně 1000 znaků.")]
+        [Required(AllowEmptyStrings = true, ErrorMessage = "Musí být zadán nějaký popis události"), MaxLength(3000, ErrorMessage = "Popis události může mít maximálně 3000 znaků.")]
         [DataType(DataType.MultilineText)]
-        [Column(TypeName = "varchar(1000)")]
+        [Column(TypeName = "varchar(3000)")]
         public string Description { get; set; }
 
-        public IEnumerable<Link> Links { get; set; }
+        public List<Link> Links { get; set; }
 
         [DataType(DataType.ImageUrl)]
-        [Column(TypeName = "varchar(255)")]
+        [Column(TypeName = "varchar(1000)")]
+        [MaxLength(1000, ErrorMessage = "Odkaz může mít maximálně 1000 znaků.")]
         public string ImageUrl { get; set; }
 
         [Required]

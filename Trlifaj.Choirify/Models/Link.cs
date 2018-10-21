@@ -12,12 +12,13 @@ namespace Trlifaj.Choirify.Models
         [Key]
         public int Id { get; set; }
 
-        [MaxLength(1000, ErrorMessage = "Odkaz může mít maximálně 255 znaků.")]
-        [Column(TypeName = "varchar(255)")]
+        [MaxLength(1000, ErrorMessage = "Odkaz může mít maximálně 1000 znaků.")]
+        [Column(TypeName = "varchar(1000)")]
         public string Url { get; set; }
 
-        [MaxLength(1000, ErrorMessage = "Popis odkazu může mít maximálně 100 znaků.")]
+        [MaxLength(100, ErrorMessage = "Popis odkazu může mít maximálně 100 znaků.")]
         [Column(TypeName = "varchar(100)")]
+        [DataType(DataType.Url)]
         public string Description { get; set; }
     }
 }

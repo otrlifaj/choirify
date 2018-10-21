@@ -26,7 +26,7 @@ namespace Trlifaj.Choirify.Models
         // TODO: ensure that date is in past
         public DateTime DateOfBirth { get; set; }
 
-        [Required(ErrorMessage = "Musíš zadat telefonní číslo."), MaxLength(20, ErrorMessage = "Telefonní číslo může mít maximálně 20 znaků.")]
+        [Required(ErrorMessage = "Musíš zadat telefonní číslo."), MaxLength(20, ErrorMessage = "Telefonní číslo může mít maximálně 20 znaků."), MinLength(9, ErrorMessage = "Telefonní číslo musí mít minimálně 9 znaků.")]
         [DataType(DataType.PhoneNumber, ErrorMessage = "Telefonní číslo je ve špatném formátu.")]
         [Column(TypeName = "varchar(20)")]
         public string PhoneNumber { get; set; }
@@ -50,7 +50,8 @@ namespace Trlifaj.Choirify.Models
         public string Address { get; set; }
 
         [DataType(DataType.ImageUrl)]
-        [Column(TypeName = "varchar(255)")]
+        [Column(TypeName = "varchar(1000)")]
+        [MaxLength(1000, ErrorMessage = "Odkaz může mít maximálně 1000 znaků.")]
         public string ImageUrl { get; set; }
 
         [Required]

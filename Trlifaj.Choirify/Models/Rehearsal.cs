@@ -16,8 +16,8 @@ namespace Trlifaj.Choirify.Models
         [DataType(DataType.DateTime)]
         public DateTime Date { get; set; }
 
-        [MaxLength(1500, ErrorMessage = "Popis může mít maximálně 1500 znaků.")]
-        [Column(TypeName = "varchar(1500)")]
+        [MaxLength(3000, ErrorMessage = "Popis může mít maximálně 3000 znaků.")]
+        [Column(TypeName = "varchar(3000)")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 

@@ -62,5 +62,22 @@
             </div>
         </form>
     </div>
+    <div class="col-md-8">
+        <h4>
+            Odkazy
+        </h4>
+        @foreach (var link in Model.Links)
+        {
+            var linkModel = new LinkViewModel { Id = Model.Id, LinkId = link.Id, Url = link.Url, Description = link.Description, Controller = "Events", AddAction = "AddLink", DeleteAction = "RemoveLink" };
+            <p>
+                @await Html.PartialAsync("/Views/Shared/_LinkPartialRemovable.cshtml", linkModel)
+            </p>
+        }
+        @if (Model.Links.Count > 0)
+        {
+            <hr />
+        }
+        @await Html.PartialAsync("/Views/Shared/_AddLinkButtonWithModal.cshtml", new LinkViewModel { Id = Model.Id, Description = "", Url = "", Controller = "Events", AddAction = "AddLink" })
+    </div>
 </div>
 

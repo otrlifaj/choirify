@@ -64,6 +64,18 @@
                 @Html.DisplayFor(model => model.Organizer)
             </dd>
         </dl>
+        <div>
+            <h4>
+                Odkazy
+            </h4>
+            @foreach (var link in Model.Links)
+            {
+                var linkModel = new LinkViewModel { Id = Model.Id, LinkId = link.Id, Url = link.Url, Description = link.Description, Controller = "Events", AddAction = "AddLink", DeleteAction = "RemoveLink" };
+                <div>
+                    @await Html.PartialAsync("/Views/Shared/_LinkPartial.cshtml", linkModel)
+                </div>
+            }
+        </div>
         @await Html.PartialAsync("/Views/Events/Shared/_RegistrationStatusTable.cshtml", Model)
         <div>
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Upravit</a>

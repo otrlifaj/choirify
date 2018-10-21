@@ -1,0 +1,14 @@
+﻿@model LinkViewModel
+<div class="row">
+    <div class="col-md-10 col-xs-11">
+        @await Html.PartialAsync("/Views/Shared/_LinkPartial.cshtml", @Model)
+    </div>
+    <div class="col-md-2 col-xs-1">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a asp-controller="@Model.Controller" asp-action="@Model.DeleteAction" asp-route-id="@Model.Id" asp-route-linkId="@Model.LinkId" class="btn btn-xs btn-danger">
+                <span>&times;</span>
+            </a>
+        }
+    </div>
+</div>

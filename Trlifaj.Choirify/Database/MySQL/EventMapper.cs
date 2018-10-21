@@ -16,6 +16,11 @@ namespace Trlifaj.Choirify.Database.MySQL
 
         }
 
+        public override Event Find(int id)
+        {
+            return Context.Events.Include(s => s.Links).FirstOrDefault(s => s.Id == id);
+        }
+
         public override void Delete(Event entity)
         {
             entity.IsDeleted = true;

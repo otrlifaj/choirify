@@ -58,6 +58,9 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
         [Display(Name = "Pořadatel")]
         public string Organizer { get; set; }
 
+        [Display(Name = "Odkazy")]
+        public List<Link> Links { get; set; }
+
         public EventDetailEditViewModel()
         {
 
@@ -75,6 +78,7 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
             EndOfRegistration = e.EndOfRegistration;
             Description = e.Description;
             Organizer = e.Organizer;
+            Links = e.Links;
         }
 
         public Event ToEvent()
@@ -90,7 +94,8 @@ namespace Trlifaj.Choirify.ViewModels.EventViewModels
                 StartOfRegistration = StartOfRegistration,
                 EndOfRegistration = EndOfRegistration,
                 Description = Description,
-                Organizer = Organizer
+                Organizer = Organizer,
+                Links = Links
             };
         }
 

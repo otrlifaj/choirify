@@ -11,6 +11,7 @@ using Trlifaj.Choirify.Models;
 using Trlifaj.Choirify.Models.Enums;
 using Trlifaj.Choirify.Models.ManyToMany;
 using Trlifaj.Choirify.Services;
+using Trlifaj.Choirify.ViewModels;
 using Trlifaj.Choirify.ViewModels.EventViewModels;
 
 namespace Trlifaj.Choirify.Controllers.Internal
@@ -201,6 +202,45 @@ namespace Trlifaj.Choirify.Controllers.Internal
             }
 
             return View(new AdminEventDetailViewModel(@event, modelRegistrations, modelSingersWithoutAnswer));
+        }
+
+        // POST: Events/AddLink/5
+        [HttpPost]
+        [Authorize(Roles = Roles.Admins.EventAdmins)]
+        public IActionResult AddLink(int id, [Bind]LinkViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var @event = _eventMapper.Find(id);
+                if (@event == null)
+                {
+                    return NotFound();
+                }
+                var link = new Link { Description = model.Description, Url = model.Url, IsDeleted = false };
+                @event.Links = @event.Links ?? new List<Link>();
+                @event.Links.Add(link);
+                _eventMapper.Update(@event);
+            }
+            return RedirectToAction(nameof(Edit), new { Id = id });
+        }
+
+        // GET: Events/RemoveLink/5?linkId=1
+        [Authorize(Roles = Roles.Admins.EventAdmins)]
+        public IActionResult RemoveLink(int id, int linkId)
+        {
+            var @event = _eventMapper.Find(id);
+            if (@event == null)
+            {
+                return NotFound();
+            }
+            @event.Links = @event.Links ?? new List<Link>();
+            var link = @event.Links.FirstOrDefault(l => l.Id == linkId);
+            if (link != null)
+            {
+                link.IsDeleted = true;
+            }
+            _eventMapper.Update(@event);
+            return RedirectToAction(nameof(Edit), new { Id = id });
         }
 
         // POST: Events/ExportRegistrationsToExcel

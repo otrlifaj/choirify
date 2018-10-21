@@ -49,7 +49,8 @@ namespace Trlifaj.Choirify.Models
         public string Address { get; set; }
 
         [DataType(DataType.ImageUrl)]
-        [Column(TypeName = "varchar(255)")]
+        [Column(TypeName = "varchar(1000)")]
+        [MaxLength(1000, ErrorMessage = "Odkaz může mít maximálně 1000 znaků.")]
         public string ImageUrl { get; set; }
 
         public Choirmaster()

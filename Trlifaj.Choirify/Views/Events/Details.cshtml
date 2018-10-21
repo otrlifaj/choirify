@@ -6,7 +6,7 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<div>
+<div class="col-md-4">
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -65,9 +65,22 @@
         </dd>
     </dl>
 </div>
-<div>
+<div class="col-md-4">
+    <hr />
+    <h4>
+        Odkazy
+    </h4>
+    @foreach (var link in Model.Links)
+    {
+        var linkModel = new LinkViewModel { Id = Model.Id, LinkId = link.Id, Url = link.Url, Description = link.Description, Controller = "Events", AddAction = "AddLink", DeleteAction = "RemoveLink" };
+        <div>
+            @await Html.PartialAsync("/Views/Shared/_LinkPartial.cshtml", linkModel)
+        </div>
+    }
+</div>
+@*<div>
     @if (User.IsInRole(Roles.Singer))
     {
         <a asp-action="Index" class="btn btn-default">Seznam událostí</a>
     }
-</div>
+</div>*@

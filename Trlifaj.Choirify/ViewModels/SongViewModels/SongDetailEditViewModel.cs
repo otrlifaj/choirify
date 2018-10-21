@@ -38,6 +38,8 @@ namespace Trlifaj.Choirify.ViewModels.SongViewModels
         [Display(Name = "Typ not")]
         public SheetType? SheetType { get; set; }
 
+        [Display(Name = "Odkazy")]
+        public List<Link> Links { get; set; }
 
         public SongDetailEditViewModel()
         {
@@ -54,6 +56,7 @@ namespace Trlifaj.Choirify.ViewModels.SongViewModels
             Duration = s.Duration;
             SheetsAvailable = s.SheetsAvailable;
             SheetType = s.SheetType;
+            Links = s.Links ?? new List<Link>();
         }
 
         public Song ToSong()
@@ -68,6 +71,7 @@ namespace Trlifaj.Choirify.ViewModels.SongViewModels
                 Duration = Duration,
                 SheetsAvailable = SheetsAvailable,
                 SheetType = SheetType ?? Models.Enums.SheetType.Unified,
+                Links = Links
             };
         }
 

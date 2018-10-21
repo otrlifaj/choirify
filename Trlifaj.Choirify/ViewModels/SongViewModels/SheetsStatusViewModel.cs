@@ -35,6 +35,8 @@ namespace Trlifaj.Choirify.ViewModels.SongViewModels
         public List<SingerInfoViewModel> SingersWhoHaveCopy { get; set; }
         public List<SingerInfoViewModel> SingersWhoDontHaveCopy { get; set; }
         public List<SingerInfoViewModel> SingersWhoOrderedCopy { get; set; }
+        [Display(Name = "Odkazy")]
+        public List<Link> Links { get; set; }
 
         public SheetsStatusViewModel(Song song, List<SingerInfoViewModel> Ordered, List<SingerInfoViewModel> HaveCopy, List<SingerInfoViewModel> NoCopy)
         {
@@ -47,6 +49,7 @@ namespace Trlifaj.Choirify.ViewModels.SongViewModels
             SingersWhoOrderedCopy = Ordered;
             SingersWhoHaveCopy = HaveCopy;
             SingersWhoDontHaveCopy = NoCopy;
+            Links = song.Links;
         }
     }
 

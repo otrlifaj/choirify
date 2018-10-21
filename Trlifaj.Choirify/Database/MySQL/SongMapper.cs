@@ -16,6 +16,11 @@ namespace Trlifaj.Choirify.Database.MySQL
 
         }
 
+        public override Song Find(int id)
+        {
+            return Context.Songs.Include(s => s.Links).FirstOrDefault(s => s.Id == id);
+        }
+
         public override void Delete(Song entity)
         {
             entity.IsDeleted = true;

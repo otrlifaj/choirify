@@ -11,6 +11,7 @@ using Trlifaj.Choirify.Database.Interfaces;
 using Trlifaj.Choirify.Models;
 using Trlifaj.Choirify.Models.Enums;
 using Trlifaj.Choirify.Services;
+using Trlifaj.Choirify.ViewModels;
 using Trlifaj.Choirify.ViewModels.SongViewModels;
 
 namespace Trlifaj.Choirify.Controllers.Internal
@@ -202,7 +203,7 @@ namespace Trlifaj.Choirify.Controllers.Internal
 
             var song = _songMapper.Find(id.Value);
             if (song == null)
-    
+
             {
                 return NotFound();
             }
@@ -228,7 +229,44 @@ namespace Trlifaj.Choirify.Controllers.Internal
             return View(model);
         }
 
+        // POST: Songs/AddLink/5
+        [HttpPost]
+        [Authorize(Roles = Roles.Admins.SongAdmins)]
+        public IActionResult AddLink(int id, [Bind]LinkViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var song = _songMapper.Find(id);
+                if (song == null)
+                {
+                    return NotFound();
+                }
+                var link = new Link { Description = model.Description, Url = model.Url, IsDeleted = false };
+                song.Links = song.Links ?? new List<Link>();
+                song.Links.Add(link);
+                _songMapper.Update(song);
+            }
+            return RedirectToAction(nameof(Edit), new { Id = id });
+        }
 
+        // GET: Songs/RemoveLink/5?linkId=1
+        [Authorize(Roles = Roles.Admins.SongAdmins)]
+        public IActionResult RemoveLink(int id, int linkId)
+        {
+            var song = _songMapper.Find(id);
+            if (song == null)
+            {
+                return NotFound();
+            }
+            song.Links = song.Links ?? new List<Link>();
+            var link = song.Links.FirstOrDefault(l => l.Id == linkId);
+            if (link != null)
+            {
+                link.IsDeleted = true;
+            }
+            _songMapper.Update(song);
+            return RedirectToAction(nameof(Edit), new { Id = id });
+        }
 
         // GET: Songs/Create
         [Authorize(Roles = Roles.Admins.SongAdmins)]
