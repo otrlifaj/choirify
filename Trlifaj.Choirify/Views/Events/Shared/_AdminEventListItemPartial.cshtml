@@ -1,19 +1,52 @@
 ﻿@model AdminEventListViewModel
 <tr>
-    <td class="hidden-xs hidden-sm">
-        @Html.DisplayFor(modelItem => Model.EventTypeString)
+    <td>
+        <div class="row">
+            <div class="col-xs-12" style="max-width: 300px">
+                <strong>
+                    @Html.DisplayFor(modelItem => Model.Name)
+                </strong>
+                &nbsp;(@Html.DisplayFor(modelItem => Model.EventTypeString))
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                @Html.DisplayFor(modelItem => Model.Place)
+            </div>
+        </div>
     </td>
-    <td class="event-name">
-        @Html.DisplayFor(modelItem => Model.Name)
+    <td>
+        <div class="row">
+            <div class="col-xs-1">
+                <strong>
+                    @Html.DisplayNameFor(modelItem => Model.From):
+                </strong>
+            </div>
+            <div class="col-xs-10">
+                @Html.DisplayFor(modelItem => Model.From)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1">
+                <strong>
+                    @Html.DisplayNameFor(modelItem => Model.To):
+                </strong>
+            </div>
+            <div class="col-xs-10">
+                @Html.DisplayFor(modelItem => Model.To)
+            </div>
+        </div>
     </td>
-    <td class="hidden-xs hidden-sm event-place">
-        @Html.DisplayFor(modelItem => Model.Place)
-    </td>
-    <td class="hidden-xs hidden-sm">
-        @Html.DisplayFor(modelItem => Model.From)
-    </td>
-    <td class="hidden-xs hidden-sm">
-        @Html.DisplayFor(modelItem => Model.To)
+    <td>
+        <div>
+            @Html.DisplayNameFor(modelItem => Model.EndOfRegistration):
+        </div>
+        <div class="text-danger">
+            <strong>
+                @Model.EndOfRegistration.ToString("d.M.yyyy H:mm")
+            </strong>
+        </div>
+
     </td>
     <td class="buttons-nowrap">
         <span class="text-success">
@@ -30,10 +63,10 @@
         </span>
     </td>
     <td>
-        <span>
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Upravit</a>
+        <div class="btn-group pull-right" role="group">
             <a asp-action="AdminDetails" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Upravit</a>
             <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Smazat</a>
-        </span>
+        </div>
     </td>
 </tr>

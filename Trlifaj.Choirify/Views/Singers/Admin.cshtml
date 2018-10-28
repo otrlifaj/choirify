@@ -29,7 +29,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            Html.RenderPartialAsync("/Views/Singers/Shared/_AdminSingerListItemPartial.cshtml", item);
+            await Html.RenderPartialAsync("/Views/Singers/Shared/_AdminSingerListItemPartial.cshtml", item);
         }
     </tbody>
 </table>

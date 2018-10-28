@@ -53,7 +53,7 @@ namespace Trlifaj.Choirify.Controllers
         public string StatusMessage { get; set; }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
 
             var userId = _userManager.GetUserId(User);

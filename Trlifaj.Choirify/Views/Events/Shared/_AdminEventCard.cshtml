@@ -1,0 +1,60 @@
+﻿@model AdminEventListViewModel
+
+<div class="row">
+    <div class="col-xs-9 col-sm-9">
+        <div class="row">
+            <div class="col-xs-11">
+                <strong>
+                    @Html.DisplayFor(modelItem => Model.Name)
+                </strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1">
+                Od:
+            </div>
+            <div class="col-xs-10">
+                @Html.DisplayFor(modelItem => Model.From)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1">
+                Do:
+            </div>
+            <div class="col-xs-10">
+                @Html.DisplayFor(modelItem => Model.To)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>
+                    Přihlašování
+                </strong>
+            </div>
+            <div class="col-xs-12">
+                <span class="text-success buttons-nowrap">
+                    @Model.RegistrationsYes
+                    <i class="fas fa-check fa-1x"></i>
+                </span>
+                <span class="text-danger buttons-nowrap">
+                    @Model.RegistrationsNo
+                    <i class="fas fa-times fa-1x"></i>
+                </span>
+                <span class="text-info buttons-nowrap">
+                    @Model.WithoutAnswer
+                    <i class="fas fa-minus fa-1x"></i>
+                </span>
+            </div>
+            <div class="col-xs-12 text-danger">
+                @Model.EndOfRegistration.ToString("d.M.yyyy H:mm")
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-3">
+        <div class="btn-group-vertical pull-right" role="group">
+            <a asp-action="AdminDetails" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Upravit</a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Smazat</a>
+        </div>
+    </div>
+</div>

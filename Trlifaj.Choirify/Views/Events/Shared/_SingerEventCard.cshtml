@@ -1,0 +1,84 @@
+﻿@model SingerEventListViewModel
+
+<div class="row">
+    <div class="col-xs-9 col-sm-9">
+        <div class="row">
+            <div class="col-xs-1">
+                @if (Model.Registration.Id != null)
+                {
+                    if (Model.Registration.Answer == true)
+                    {
+                        <i class="fas fa-calendar-check fa-1x text-success"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-calendar-times fa-1x text-danger"></i>
+                    }
+                }
+                else
+                {
+                    <i class="fas fa-calendar-minus fa-1x text-info"></i>
+                }
+            </div>
+            <div class="col-xs-10">
+                <strong>
+                    @Html.DisplayFor(modelItem => Model.Name)
+                </strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1">
+                Od:
+            </div>
+            <div class="col-xs-10">
+                @Html.DisplayFor(modelItem => Model.From)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1">
+                Do:
+            </div>
+            <div class="col-xs-10">
+                @Html.DisplayFor(modelItem => Model.To)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>
+                    Přihlašování
+                </strong>
+            </div>
+            <div class="col-xs-12">
+                    <span class="text-success buttons-nowrap">
+                        @Model.RegistrationsYes
+                        <i class="fas fa-check fa-1x"></i>
+                    </span>
+                    <span class="text-danger buttons-nowrap">
+                        @Model.RegistrationsNo
+                        <i class="fas fa-times fa-1x"></i>
+                    </span>
+                    <span class="text-info buttons-nowrap">
+                        @Model.WithoutAnswer
+                        <i class="fas fa-minus fa-1x"></i>
+                    </span>
+            </div>
+            <div class="col-xs-12 text-danger">
+                @Model.EndOfRegistration.ToString("d.M.yyyy H:mm")
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-3">
+        <div class="btn-group-vertical pull-right" role="group">
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
+            @if (DateTime.Now < Model.EndOfRegistration)
+            {
+                await Html.RenderPartialAsync("/Views/Events/Shared/Registrations/_RegisterButton.cshtml", Model.Registration);
+                await Html.RenderPartialAsync("/Views/Events/Shared/Registrations/_UnregisterButton.cshtml", Model.Registration);
+            }
+        </div>
+        @if (DateTime.Now < Model.EndOfRegistration)
+        {
+            await Html.RenderPartialAsync("/Views/Events/Shared/Registrations/_RegistrationModals.cshtml", Model.Registration);
+        }
+    </div>
+</div>

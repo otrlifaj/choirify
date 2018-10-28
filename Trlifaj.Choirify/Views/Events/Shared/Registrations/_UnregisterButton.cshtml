@@ -1,0 +1,9 @@
+﻿@model EventRegistrationViewModel
+@{
+    var unregisterModalId = Model.SingerId + Model.EventId + "unregister";
+
+}
+@if (!Model.IsRegistered || (Model.IsRegistered && Model.Answer == true))
+{
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@unregisterModalId">Odhlásit</button>
+}
