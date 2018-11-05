@@ -13,8 +13,21 @@
         <a asp-action="Admin" asp-route-filter="all" class="btn btn-primary">Všechny</a>
     </span>
 </p>
-
-<table class="table">
+<div class="hidden-md hidden-lg">
+    <table class="col-xs-12 table table-striped table-hover">
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @await Html.PartialAsync("/Views/Songs/Shared/_AdminSongCard.cshtml", item)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<table class="table table-striped table-hover hidden-xs hidden-sm">
     <thead>
         <tr>
             <th>
@@ -26,9 +39,6 @@
             <th class="text-center hidden-xs">
                 @Html.DisplayNameFor(model => model.Current)
             </th>
-            @*<th colspan="3" class="text-center">
-                    Skříň / Objednávky / Chybí
-                </th>*@
             <th class="text-center">
                 @Html.DisplayNameFor(model => model.SheetsAvailable)
             </th>

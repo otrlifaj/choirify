@@ -32,11 +32,10 @@
         </strong>
     </td>
     <td>
-        <span>
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Upravit</a>
+        <div class="btn-group pull-right" role="group">
             <a asp-action="AdminDetails" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
-            @*<a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Smazat</a>*@
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Upravit</a>
             <a asp-action="Sheets" asp-route-id="@Model.Id" class="btn btn-warning">Noty</a>
-        </span>
+        </div>
     </td>
 </tr>

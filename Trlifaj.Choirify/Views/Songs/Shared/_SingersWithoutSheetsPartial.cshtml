@@ -1,5 +1,5 @@
 ﻿@model List<SingerInfoViewModel>
-<form>
+<form style="padding-bottom: 50px">
     <div class="form-group pull-right hidden-xs hidden-sm">
         <input formmethod="post" asp-action="DistributeToSingers" asp-controller="Songs" asp-route-songid="@ViewBag.SongId" asp-route-returnurl="Sheets/@ViewBag.SongId" type="submit" value="Dát noty" class="btn btn-success" />
         <input formmethod="post" asp-action="OrderForSingers" asp-controller="Songs" asp-route-songid="@ViewBag.SongId" asp-route-returnurl="Sheets/@ViewBag.SongId" type="submit" value="Objednat" class="btn btn-info" />

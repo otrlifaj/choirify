@@ -1,0 +1,58 @@
+﻿@using Trlifaj.Choirify.Models.Enums
+@model SingerSongListViewModel
+
+@if (Model.SheetInfo == SheetInfoType.NoCopy || Model.SheetInfo == SheetInfoType.Ordered || Model.SheetInfo == null)
+{
+    var modalId = "singer" + Model.SingerId + "song" + Model.Id + "hasmodal";
+    var modalLabelId = modalId + "label";
+    <div class="modal fade" id="@modalId" tabindex="-1" role="dialog" aria-labelledby="@modalLabelId" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="@modalLabelId">
+                        @Model.Name - @Model.Author
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        Pokud potvrdíš, nebudeš si moct tyto noty objednat.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.Current == true && (Model.SheetInfo == SheetInfoType.NoCopy || Model.SheetInfo == null))
+{
+    var modalId = "singer" + Model.SingerId + "song" + Model.Id + "ordermodal";
+    var modalLabelId = modalId + "label";
+    <div class="modal fade" id="@modalId" tabindex="-1" role="dialog" aria-labelledby="@modalLabelId" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="@modalLabelId">
+                        @Model.Name - @Model.Author
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        Potvrď objednávku not.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a asp-action="OrderSheets" asp-controller="SingerActions" asp-route-songId="@Model.Id" asp-route-singerId="@Model.SingerId" asp-route-filter="@ViewData["filter"]" class="btn btn-warning">Objednat noty</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

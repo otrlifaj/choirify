@@ -1,37 +1,37 @@
 ﻿@model List<SingerInfoViewModel>
-<form asp-action="DistributeToSingers" asp-controller="Songs" asp-route-returnurl="Sheets/@ViewBag.SongId" asp-route-songid="@ViewBag.SongId">
+<form asp-action="DistributeToSingers" asp-controller="Songs" asp-route-returnurl="Sheets/@ViewBag.SongId" asp-route-songid="@ViewBag.SongId" style="padding-bottom: 50px">
     <div class="form-group pull-right hidden-xs hidden-sm">
         <input type="submit" value="Dát noty" class="btn btn-success" />
     </div>
     <table class="table table-hover table-bordered">
         <thead>
-            <tr>
-                <th>
-                    <strong class="text-info">
-                        Objednáno
-                    </strong>
-                </th>
-            </tr>
+        <tr>
+            <th>
+                <strong class="text-info">
+                    Objednáno
+                </strong>
+            </th>
+        </tr>
         </thead>
         <tbody>
-            @for (int i = 0; i < Model.Count; i++)
-            {
-                var toggleId = "toggle" + @Model[i].Id;
-                <tr class="bg-info">
-                    <td>
-                        @Model[i].TableFormat
-                        <div class="material-switch pull-right">
-                            <input asp-for="@Model[i].Id" type="hidden" />
-                            <input asp-for="@Model[i].FirstName" type="hidden" />
-                            <input asp-for="@Model[i].Surname" type="hidden" />
-                            <input asp-for="@Model[i].Status" type="hidden" />
-                            <input asp-for="@Model[i].Voice" type="hidden" />
-                            <input asp-for="@Model[i].SelectedForAction" type="checkbox" id="@toggleId" />
-                            <label class="label-info" for="@toggleId"></label>
-                        </div>
-                    </td>
-                </tr>
-            }
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var toggleId = "toggle" + @Model[i].Id;
+            <tr class="bg-info">
+                <td>
+                    @Model[i].TableFormat
+                    <div class="material-switch pull-right">
+                        <input asp-for="@Model[i].Id" type="hidden" />
+                        <input asp-for="@Model[i].FirstName" type="hidden" />
+                        <input asp-for="@Model[i].Surname" type="hidden" />
+                        <input asp-for="@Model[i].Status" type="hidden" />
+                        <input asp-for="@Model[i].Voice" type="hidden" />
+                        <input asp-for="@Model[i].SelectedForAction" type="checkbox" id="@toggleId" />
+                        <label class="label-info" for="@toggleId"></label>
+                    </div>
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
     <div class="form-group pull-right hidden-md hidden-lg">

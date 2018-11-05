@@ -105,6 +105,12 @@
     <Content Update="Views\Songs\AdminDetails.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Songs\Shared\Orders\_HaveButton.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Songs\Shared\Orders\_OrderButton.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Songs\Shared\_SingerSongListItemPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

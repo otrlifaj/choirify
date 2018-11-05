@@ -1,0 +1,8 @@
+﻿@using Trlifaj.Choirify.Models.Enums
+@model SingerSongListViewModel
+@if (Model.Current == true && (Model.SheetInfo == SheetInfoType.NoCopy || Model.SheetInfo == null))
+{
+    <a asp-action="OrderSheets" asp-controller="SingerActions" asp-route-songId="@Model.Id" asp-route-singerId="@Model.SingerId" asp-route-filter="@ViewData["filter"]" class="btn btn-warning">Objednat noty</a>
+    @*var modalId = "singer" + Model.SingerId + "song" + Model.Id + "ordermodal";
+    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#@modalId">Objednat</button>*@
+}

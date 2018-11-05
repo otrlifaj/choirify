@@ -1,101 +1,66 @@
 ﻿@model SingerSongListViewModel
 @using Trlifaj.Choirify.Models.Enums
-@{ 
+@{
     var rowId = "song" + Model.Id;
 }
 
 <tr id="@rowId">
     <td>
-        @Html.DisplayFor(modelItem => Model.Name)
-    </td>
-    <td class="hidden-xs hidden-sm">
-        @Html.DisplayFor(modelItem => Model.Author)
-    </td>
-    <td class="text-center">
-        @if (Model.Current == true)
-        {
-            <i class="fas fa-check fa-1x text-success"></i>
-        }
-        else
-        {
-            <i class="fas fa-times fa-1x text-danger"></i>
-        }
-    </td>
-    <td>
-        @switch (Model.SheetInfo)
-        {
-            case SheetInfoType.HasCopy:
-                <strong class="text-success">Mám noty</strong>
-                break;
-            case SheetInfoType.Ordered:
-                <strong class="text-info">Objednáno</strong>
-                break;
-            case SheetInfoType.NoCopy:
-                <strong class="text-danger">Nemám noty</strong>
-                break;
-            default:
-                <strong class="text-danger">Nemám noty</strong>
-                break;
-        }
-    </td>
-    <td>
-        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
-        @if (Model.SheetInfo == SheetInfoType.NoCopy || Model.SheetInfo == SheetInfoType.Ordered || Model.SheetInfo == null)
-        {
-            var modalId = "singer" + Model.SingerId + "song" + Model.Id + "hasmodal";
-            var modalLabelId = modalId + "label";
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#@modalId">Mám noty</button>
-            <div class="modal fade" id="@modalId" tabindex="-1" role="dialog" aria-labelledby="@modalLabelId" aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="@modalLabelId">
-                                @Model.Name - @Model.Author
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </h3>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                Pokud potvrdíš, nebudeš si moct tyto noty objednat.
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <a asp-action="SingerHasSheets" asp-controller="SingerActions" asp-route-songId="@Model.Id" asp-route-singerId="@Model.SingerId" asp-route-filter="@ViewData["filter"]" class="btn btn-success">Mám noty</a>
-                        </div>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <strong>
+                    @Html.DisplayFor(modelItem => Model.Name)
+                </strong>
             </div>
-        }
+            <div class="col-xs-12 col-md-6">
+                @Html.DisplayFor(modelItem => Model.Author)
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                @Html.DisplayNameFor(modelItem => Model.Current)
+                @if (Model.Current == true)
+                {
+                    <i class="fas fa-check fa-1x text-success"></i>
+                }
+                else
+                {
+                    <i class="fas fa-times fa-1x text-danger"></i>
+                }
+            </div>
+            <div class="col-xs-12 col-md-6">
+                @switch (Model.SheetInfo)
+                {
+                    case SheetInfoType.HasCopy:
+                        <strong class="text-success">Mám noty</strong>
+                        break;
+                    case SheetInfoType.Ordered:
+                        <strong class="text-info">Objednáno</strong>
+                        break;
+                    case SheetInfoType.NoCopy:
+                        <strong class="text-danger">Nemám noty</strong>
+                        break;
+                    default:
+                        <strong class="text-danger">Nemám noty</strong>
+                        break;
+                }
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="btn-group-vertical pull-right hidden-md hidden-lg" role="group">
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
+            @await Html.PartialAsync("/Views/Songs/Shared/Orders/_OrderButton.cshtml", Model)
+            @await Html.PartialAsync("/Views/Songs/Shared/Orders/_HaveButton.cshtml", Model)
+        </div>
+        <div class="btn-group pull-right hidden-xs hidden-sm" role="group">
 
-        @if (Model.Current == true && (Model.SheetInfo == SheetInfoType.NoCopy || Model.SheetInfo == null))
-        {
-            var modalId = "singer" + Model.SingerId + "song" + Model.Id + "ordermodal";
-            var modalLabelId = modalId + "label";
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#@modalId">Objednat</button>
-            <div class="modal fade" id="@modalId" tabindex="-1" role="dialog" aria-labelledby="@modalLabelId" aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="@modalLabelId">
-                                @Model.Name - @Model.Author
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </h3>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                Potvrď objednávku not.
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <a asp-action="OrderSheets" asp-controller="SingerActions" asp-route-songId="@Model.Id" asp-route-singerId="@Model.SingerId" asp-route-filter="@ViewData["filter"]" class="btn btn-warning">Objednat noty</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
+            @await Html.PartialAsync("/Views/Songs/Shared/Orders/_OrderButton.cshtml", Model)
+            @await Html.PartialAsync("/Views/Songs/Shared/Orders/_HaveButton.cshtml", Model)
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
+        </div>
     </td>
+    @*@await Html.PartialAsync("/Views/Songs/Shared/Orders/_OrderModals.cshtml", Model)*@
 </tr>
