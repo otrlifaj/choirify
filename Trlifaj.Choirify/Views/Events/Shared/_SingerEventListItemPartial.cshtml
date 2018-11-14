@@ -90,9 +90,5 @@
             }
             <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">Detail</a>
         </div>
-        @if (DateTime.Now < Model.EndOfRegistration)
-        {
-            await Html.RenderPartialAsync("/Views/Events/Shared/Registrations/_RegistrationModals.cshtml", Model.Registration);
-        }
     </td>
 </tr>

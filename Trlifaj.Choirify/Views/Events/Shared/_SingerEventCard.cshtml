@@ -76,9 +76,5 @@
                 await Html.RenderPartialAsync("/Views/Events/Shared/Registrations/_UnregisterButton.cshtml", Model.Registration);
             }
         </div>
-        @if (DateTime.Now < Model.EndOfRegistration)
-        {
-            await Html.RenderPartialAsync("/Views/Events/Shared/Registrations/_RegistrationModals.cshtml", Model.Registration);
-        }
     </div>
 </div>

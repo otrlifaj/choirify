@@ -37,3 +37,11 @@
         }
     </tbody>
 </table>
+
+@foreach (var item in Model)
+{
+    if (DateTime.Now < item.EndOfRegistration)
+    {
+        await Html.RenderPartialAsync("/Views/Events/Shared/Registrations/_RegistrationModals.cshtml", item.Registration);
+    }
+}
